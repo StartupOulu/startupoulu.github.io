@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include header.html %}
+<body>
+    {% include menu_2.html %}
+    <!-- banner section html start -->
+     <section class="event_banner relative single_service">
+        <div class="r2a_container flex items-center ">
+            <div class="content">
+                <p class="top_title flex gap-10 items-center"><a href="{{ site.baseurl}}/service" class="link_text">SERVICES</a><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 common_icon">
+                    <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+                  </svg>
+                   <a href="#" class="link_text">{{ page.title }}</a></p>
+                <h2 class="common_title">{{ page.service_num }}</h2>
+                <h2 class="common_title">{{ page.title }}</span></h2>
+                <p class="common_pera">{{ page.description }}</p>
+            </div>
+        </div>
+        
+        <div class="banner_image absolute">
+            <img src="{{ site.baseurl }}/assets/images/single_service_banner.png" alt="service banner">
+        </div>
+        <div class="mobile_content absolute">
+            <p class="top_title flex gap-10 items-center"><a href="{{ site.baseurl}}/service" class="link_text">SERVICES</a><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 common_icon">
+                <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+              </svg>
+               <a href="#" class="link_text">{{ page.title }}</a></p>
+            <h2 class="common_title">{{ page.service_num }}</h2>
+            <h2 class="common_title">{{ page.title }}</span></h2>
+            <p class="common_pera">{{ page.description }}</p>
+        </div>
+     </section>
+    <!-- banner section html end -->
+
+    <!-- Founder’s Corner section start -->
+    <section class="founder_section">
+        <div class="r2a_container">
+            <div class="filter_part flex items-center gap-20">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
+                  </svg>
+                <form action="">
+                    <select name="" id="">
+                        <option value="">All</option>
+                        <option value="">Founder’s Corner</option>
+                        <option value="">Founder’s Corner</option>
+                        <option value="">Founder’s Corner</option>
+                    </select>
+                </form>
+            </div>
+            <div class="items">
+                {% include founder_card.html %}
+                {% include founder_card.html %}
+                {% include founder_card.html %}
+                {% include founder_card.html %}
+                {% include founder_card.html %}
+                {% include founder_card.html %}
+                {% include founder_card.html %}
+                {% include founder_card.html %}
+                {% include founder_card.html %}
+            </div>
+        </div>
+        <div class="flex justify-center">
+            <a href="#" class="show_event_btn flex items-center flex-col gap-20">LOAD MORE<div class="underline"></div></a>
+          </div>
+    </section>
+    <!-- Founder’s Corner section ends -->
+
+    <!-- contact section starts -->
+    <section class="contact_section">
+        <div class="r2a_container flex justify-between gap-100">
+            <div class="content">
+                <span class="top_title">CONTACT US</span>
+                <h2 class="common_title">Want to get started?</h2>
+                <p class="common_pera">Got any questions? Got a brilliant business pitch? Contact us and we’ll get you all the knowhow you need to get started!</p>
+            </div>
+            <form class="form">
+                <div class="form_group">
+                    <label for="">Name</label>
+                    <input type="text" class="form_input" placeholder="">
+                </div>
+                <div class="form_group">
+                    <label for="">Email</label>
+                    <input type="email" class="form_input" placeholder="">
+                </div>
+                <div class="form_group">
+                    <label for="">Phone</label>
+                    <input type="number" class="form_input" placeholder="">
+                </div>
+                <div class="form_group">
+                    <label for="">Message</label>
+                    <textarea name="" id="" rows="6"></textarea>
+                </div>
+                <button class="form_btn common_btn">SEND</button>
+            </form>
+        </div>
+    </section>
+    <!-- contact section ends -->
+
+    <!-- newsletter section start -->
+    {% include newsletter.html %}
+    <!-- newsletter section ends -->
+
+    <!-- follow us section start -->
+    {% include follow.html %}
+    <!-- follow us section ends -->
+
+    {% include footer.html %}
+    {% include script.html %}
+</body>
+</html>

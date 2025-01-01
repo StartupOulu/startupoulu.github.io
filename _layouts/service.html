@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include header.html %}
+<body>
+    {% include menu_2.html %}
+    <!-- banner section html start -->
+     <section class="event_banner relative ">
+        <div class="r2a_container flex items-center ">
+            <div class="content">
+                <p class="top_title">SERVICES</p>
+                <h2 class="common_title">No matter where you are on your journey, we have something to help your growth</h2>
+            </div>
+        </div>
+        
+        <div class="banner_image absolute">
+            <img src="{{ site.baseurl }}/assets/images/service_banner.png" alt="service banner">
+        </div>
+        <div class="mobile_content absolute">
+            <p class="top_title">SERVICES</p>
+            <h2 class="common_title">o matter where you are on your journey, we have something to help your growth<div>
+        </div>
+     </section>
+    <!-- banner section html end -->
+
+    <!-- service section start -->
+    <section class="service service_page_service_section">
+        <div class="r2a_container">
+            <div class="services">
+                <div class="common_side_title">START WHERE YOU’RE AT</div>
+                {% include service_cards.html %}
+            </div>
+        </div>
+    </section>
+    <!-- service section ends -->
+
+    <!-- contact section starts -->
+    <section class="contact_section">
+        <div class="r2a_container flex justify-between gap-100">
+            <div class="content">
+                <span class="top_title">CONTACT US</span>
+                <h2 class="common_title">Want to get started?</h2>
+                <p class="common_pera">Got any questions? Got a brilliant business pitch? Contact us and we’ll get you all the knowhow you need to get started!</p>
+            </div>
+            <form class="form">
+                <div class="form_group">
+                    <label for="">Name</label>
+                    <input type="text" class="form_input" placeholder="">
+                </div>
+                <div class="form_group">
+                    <label for="">Email</label>
+                    <input type="email" class="form_input" placeholder="">
+                </div>
+                <div class="form_group">
+                    <label for="">Phone</label>
+                    <input type="number" class="form_input" placeholder="">
+                </div>
+                <div class="form_group">
+                    <label for="">Message</label>
+                    <textarea name="" id="" rows="6"></textarea>
+                </div>
+                <button class="form_btn common_btn">SEND</button>
+            </form>
+        </div>
+    </section>
+    <!-- contact section ends -->
+
+    <!-- newsletter section start -->
+    {% include newsletter.html %}
+    <!-- newsletter section ends -->
+
+    <!-- follow us section start -->
+    {% include follow.html %}
+    <!-- follow us section ends -->
+
+    {% include footer.html %}
+    {% include script.html %}
+</body>
+</html>

@@ -1,0 +1,20 @@
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  display: flex;
+}
+
+.direction_collum {
+  flex-direction: column;
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 10px 30px;
+}
+
+.gap_20 {
+  gap: 20px;
+}/*# sourceMappingURL=common.css.map */

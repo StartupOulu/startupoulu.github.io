@@ -1,0 +1,54 @@
+.service_page_service_section{
+    background: $white-color;
+    .r2a_container{
+        .services{
+            .common_side_title {
+                left: -110px;
+                top: 125px;
+            }
+        }
+    }
+}
+
+
+// contact section css
+
+.contact_section{
+    padding: 120px 0;
+    background: transparent linear-gradient(62deg, #D4FBCD 0%, #E9DEFF 100%) 0% 0% no-repeat padding-box;
+    .r2a_container{
+        .content{
+            width: 50%;
+            padding-right: 260px;
+            .common_title{
+                padding: 30px 0;
+            }
+        }
+        .form{
+            width: 50%;
+            .form_group{
+                margin-bottom: 20px;
+                label{
+                    font-size: 16px;
+                    font-weight: 700;
+                    color: $brand-color;
+                }
+                input{
+                    width: 100%;
+                    padding: 20px;
+                    border: 2px solid $brand-color;
+                    background-color: transparent;
+                    margin-top: 5px;
+                }
+                textarea{
+                    width: 100%;
+                    padding: 20px;
+                    border: 2px solid $brand-color;
+                    background-color: transparent;
+                    margin-top: 5px;
+                }
+            }
+            
+        }
+    }
+}

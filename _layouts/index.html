@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include header.html %}
+<body>
+    <div class="hero">
+        <header class="header">
+          {% include logo.html %}
+          <nav class="nav_bar">
+            {% include nav.html %}
+          </nav>
+          <div class="toggle_btn"><svg class="common_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+            <path fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+          </svg>
+          </div>
+          <nav class="mobile_nav_bar">
+            <div class="r2a_container">
+              <div class="flex justify-between items-center">
+                <div class="logo">
+                  <a href="{{ site.baseurl }}/index.html">
+                    <img src="{{ site.baseurl }}/assets/images/mobile-logo.png" alt="logo">
+                  </a>
+                </div>
+                <div class="close_btn"><svg class="common_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                  <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                </svg>
+                </div>
+            </div>
+          </div>
+            {% include nav.html %}
+          </nav>
+        </header>
+        <section class="banner">
+          <div class="r2a_container flex items-center">
+            <div class="main-banner-center">
+              <h3 class="main-banner-h1-text bg-color-blue">Innovation Starts Hear</h3>
+              <br>
+              <p class="main-banner-h2-text bg-color-blue">
+                join Oulu's startup community and fuel your growth
+              </p>
+            </div>
+          </div>
+        </section>
+        <!-- banner_bottom_section -->
+        <div class="banner_bottom_section">
+          
+          <div class="r2a_container">
+            <div class="bg-color-blue flex">
+              <a href="#" class="flex items-center gap-20">EVERYTHING YOU NEED TO KNOW <div class="common_arrow"></div></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mobile_banner_bottom d_none">
+          <div class="r2a_container ">
+            <div class="bg-color-blue flex items-center justify-between">
+              <a href="#" class="">LINK HERE</a>
+              <div class="common_arrow"></div>
+            </div>
+          </div>
+        </div>
+    </div>
+      <!-- hero ends here -->
+
+      <!-- event title section start -->
+      <section class="event_title_section">
+        <div class="r2a_container bg-color-white">
+          <h2 class="common_title">Meet likeminded people at the events organized by Oulu startup ecosystem partners.</h2>
+        </div>
+      </section>
+      <!-- event title section end -->
+
+      <!--  event section start -->
+      <section class="event_section">
+        <div class="r2a_container">
+          <div class="event_wrapper">
+            {% for post in site.posts %}
+            {% if post.layout == "single-event" %}
+            {% include event_card.html %}
+            {% endif %}
+            {% endfor %}
+            <!-- <div class="card event_card">
+              <div class="card_img">
+               <img src="{{ site.baseurl }}/assets/images/herobg.jpg" alt="">
+               <div class="overlayText flex items-center justify-center">MORE ABOUT THIS EVENT</div>
+               <a class="absolute card_badge bg-color-pink">Today</a>
+              </div>
+              <div class="card_content">
+                  <a href="#" class="card_title">Kaleva 2030 Hackathon</a>
+                  <div class="card_meta flex gap-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 common_icon">
+                      <path d="M12 11.993a.75.75 0 0 0-.75.75v.006c0 .414.336.75.75.75h.006a.75.75 0 0 0 .75-.75v-.006a.75.75 0 0 0-.75-.75H12ZM12 16.494a.75.75 0 0 0-.75.75v.005c0 .414.335.75.75.75h.005a.75.75 0 0 0 .75-.75v-.005a.75.75 0 0 0-.75-.75H12ZM8.999 17.244a.75.75 0 0 1 .75-.75h.006a.75.75 0 0 1 .75.75v.006a.75.75 0 0 1-.75.75h-.006a.75.75 0 0 1-.75-.75v-.006ZM7.499 16.494a.75.75 0 0 0-.75.75v.005c0 .414.336.75.75.75h.005a.75.75 0 0 0 .75-.75v-.005a.75.75 0 0 0-.75-.75H7.5ZM13.499 14.997a.75.75 0 0 1 .75-.75h.006a.75.75 0 0 1 .75.75v.005a.75.75 0 0 1-.75.75h-.006a.75.75 0 0 1-.75-.75v-.005ZM14.25 16.494a.75.75 0 0 0-.75.75v.006c0 .414.335.75.75.75h.005a.75.75 0 0 0 .75-.75v-.006a.75.75 0 0 0-.75-.75h-.005ZM15.75 14.995a.75.75 0 0 1 .75-.75h.005a.75.75 0 0 1 .75.75v.006a.75.75 0 0 1-.75.75H16.5a.75.75 0 0 1-.75-.75v-.006ZM13.498 12.743a.75.75 0 0 1 .75-.75h2.25a.75.75 0 1 1 0 1.5h-2.25a.75.75 0 0 1-.75-.75ZM6.748 14.993a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z" />
+                      <path fill-rule="evenodd" d="M18 2.993a.75.75 0 0 0-1.5 0v1.5h-9V2.994a.75.75 0 1 0-1.5 0v1.497h-.752a3 3 0 0 0-3 3v11.252a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3V7.492a3 3 0 0 0-3-3H18V2.993ZM3.748 18.743v-7.5a1.5 1.5 0 0 1 1.5-1.5h13.5a1.5 1.5 0 0 1 1.5 1.5v7.5a1.5 1.5 0 0 1-1.5 1.5h-13.5a1.5 1.5 0 0 1-1.5-1.5Z" clip-rule="evenodd" />
+                    </svg>
+                    
+                    <div class="card_date">
+                      <a href="#">November 14, 2024 12:00</a>
+                      <br>
+                      <a href="#">November 16, 2024 16:00</a>
+                    </div>
+                  </div>
+                  <p class="common_pera">Kaleva Media celebrates the 125th anniversary of the newspaper Kaleva by organizing a hackathon event for university and college students. Gather a team of 3-6 people, sign up and get ready to create something new. Winning team gets a grand prize of 5000€! Travel, accommodation and food are paid for. Enrollment through your own university.</p>
+              </div>
+            </div> -->
+            <!-- <div class="card event_card">
+              <div class="card_img">
+               <img src="{{ site.baseurl }}/assets/images/herobg.jpg" alt="">
+               <div class="overlayText flex items-center justify-center">MORE ABOUT THIS EVENT</div>
+               <a class="absolute card_badge bg-color-pink">TOMORROW</a>
+              </div>
+              <div class="card_content">
+                  <a href="#" class="card_title">Slush Oulu Community Side Event & Pitching Competition 15.11.2024</a>
+                  <div class="card_meta flex gap-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 common_icon">
+                      <path d="M12 11.993a.75.75 0 0 0-.75.75v.006c0 .414.336.75.75.75h.006a.75.75 0 0 0 .75-.75v-.006a.75.75 0 0 0-.75-.75H12ZM12 16.494a.75.75 0 0 0-.75.75v.005c0 .414.335.75.75.75h.005a.75.75 0 0 0 .75-.75v-.005a.75.75 0 0 0-.75-.75H12ZM8.999 17.244a.75.75 0 0 1 .75-.75h.006a.75.75 0 0 1 .75.75v.006a.75.75 0 0 1-.75.75h-.006a.75.75 0 0 1-.75-.75v-.006ZM7.499 16.494a.75.75 0 0 0-.75.75v.005c0 .414.336.75.75.75h.005a.75.75 0 0 0 .75-.75v-.005a.75.75 0 0 0-.75-.75H7.5ZM13.499 14.997a.75.75 0 0 1 .75-.75h.006a.75.75 0 0 1 .75.75v.005a.75.75 0 0 1-.75.75h-.006a.75.75 0 0 1-.75-.75v-.005ZM14.25 16.494a.75.75 0 0 0-.75.75v.006c0 .414.335.75.75.75h.005a.75.75 0 0 0 .75-.75v-.006a.75.75 0 0 0-.75-.75h-.005ZM15.75 14.995a.75.75 0 0 1 .75-.75h.005a.75.75 0 0 1 .75.75v.006a.75.75 0 0 1-.75.75H16.5a.75.75 0 0 1-.75-.75v-.006ZM13.498 12.743a.75.75 0 0 1 .75-.75h2.25a.75.75 0 1 1 0 1.5h-2.25a.75.75 0 0 1-.75-.75ZM6.748 14.993a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z" />
+                      <path fill-rule="evenodd" d="M18 2.993a.75.75 0 0 0-1.5 0v1.5h-9V2.994a.75.75 0 1 0-1.5 0v1.497h-.752a3 3 0 0 0-3 3v11.252a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3V7.492a3 3 0 0 0-3-3H18V2.993ZM3.748 18.743v-7.5a1.5 1.5 0 0 1 1.5-1.5h13.5a1.5 1.5 0 0 1 1.5 1.5v7.5a1.5 1.5 0 0 1-1.5 1.5h-13.5a1.5 1.5 0 0 1-1.5-1.5Z" clip-rule="evenodd" />
+                    </svg>
+                    
+                    <div class="card_date">
+                      <a href="#">November 15, 2024 14:00</a>
+                      <br>
+                      <a href="#">November 15, 2024 18:00</a>
+                    </div>
+                  </div>
+                  <p class="common_pera">Slush is the world’s leading startup event that takes place in Helsinki every year, bringing together top startups and world-class investors. This year’s…</p>
+              </div>
+            </div> -->
+            <!-- <div class="card event_card">
+              <div class="card_img">
+               <img src="{{ site.baseurl }}/assets/images/herobg.jpg" alt="">
+               <div class="overlayText flex items-center justify-center">MORE ABOUT THIS EVENT</div>
+               <a class="absolute card_badge bg-color-pink">THIS WEEK</a>
+              </div>
+              <div class="card_content">
+                  <a href="#" class="card_title">Kickstart business idea competition finale</a>
+                  <div class="card_meta flex gap-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 common_icon">
+                      <path d="M12 11.993a.75.75 0 0 0-.75.75v.006c0 .414.336.75.75.75h.006a.75.75 0 0 0 .75-.75v-.006a.75.75 0 0 0-.75-.75H12ZM12 16.494a.75.75 0 0 0-.75.75v.005c0 .414.335.75.75.75h.005a.75.75 0 0 0 .75-.75v-.005a.75.75 0 0 0-.75-.75H12ZM8.999 17.244a.75.75 0 0 1 .75-.75h.006a.75.75 0 0 1 .75.75v.006a.75.75 0 0 1-.75.75h-.006a.75.75 0 0 1-.75-.75v-.006ZM7.499 16.494a.75.75 0 0 0-.75.75v.005c0 .414.336.75.75.75h.005a.75.75 0 0 0 .75-.75v-.005a.75.75 0 0 0-.75-.75H7.5ZM13.499 14.997a.75.75 0 0 1 .75-.75h.006a.75.75 0 0 1 .75.75v.005a.75.75 0 0 1-.75.75h-.006a.75.75 0 0 1-.75-.75v-.005ZM14.25 16.494a.75.75 0 0 0-.75.75v.006c0 .414.335.75.75.75h.005a.75.75 0 0 0 .75-.75v-.006a.75.75 0 0 0-.75-.75h-.005ZM15.75 14.995a.75.75 0 0 1 .75-.75h.005a.75.75 0 0 1 .75.75v.006a.75.75 0 0 1-.75.75H16.5a.75.75 0 0 1-.75-.75v-.006ZM13.498 12.743a.75.75 0 0 1 .75-.75h2.25a.75.75 0 1 1 0 1.5h-2.25a.75.75 0 0 1-.75-.75ZM6.748 14.993a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z" />
+                      <path fill-rule="evenodd" d="M18 2.993a.75.75 0 0 0-1.5 0v1.5h-9V2.994a.75.75 0 1 0-1.5 0v1.497h-.752a3 3 0 0 0-3 3v11.252a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3V7.492a3 3 0 0 0-3-3H18V2.993ZM3.748 18.743v-7.5a1.5 1.5 0 0 1 1.5-1.5h13.5a1.5 1.5 0 0 1 1.5 1.5v7.5a1.5 1.5 0 0 1-1.5 1.5h-13.5a1.5 1.5 0 0 1-1.5-1.5Z" clip-rule="evenodd" />
+                    </svg>
+                    
+                    <div class="card_date">
+                      <a href="#">November 27, 2024 12:00</a>
+                      <br>
+                      <a href="#">November 27, 2024 18:00</a>
+                    </div>
+                  </div>
+                  <p class="common_pera">Kickstart business idea competition brings together the students of Oamk, University of Oulu and OSAO. Come and watch the competition finale where the teams compete for cash prizes of 1500€, 1000€ and 500€ by pitching their business idea!</p>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="flex justify-center items-center">
+          <a href="#" class="show_event_btn flex items-center gap-20">SEE ALL EVENTS <div class="common_arrow"></div> </a>
+        </div>
+      </section>
+      <!--  event section end -->
+
+      <!-- service section start -->
+      <section class="service">
+        <div class="r2a_container">
+          <div class="service_title common_title">No matter where you are on your journey, we have something to help your growth</div>
+          <div class="services">
+            <div class="common_side_title">SERVICES</div>
+            {% include service_cards.html %}
+        </div>
+        </div>
+        <!-- service bg image -->
+        <img src="{{ site.baseurl }}/assets/images/service.png" alt="service images" class="service_image">
+      </section>
+      <!-- service section ends -->
+
+      <!-- startup section start -->
+      <section class="startup_section">
+        <div class="r2a_container">
+          <h2 class="startup_title common_title">Take a look at Oulu’s startups</h2>
+          <div class="startups relative">
+            <div class="common_side_title">IN NUMBERS</div>
+            <div class="startups_items flex justify-between gap-100">
+              <!-- startup 1 -->
+              <div class="startups_item">
+                <div class="startups_num counter">421</div>
+                <div class="startups_label">VERIFIED STARTUPS</div>
+              </div>
+              <!-- startup 2 -->
+              <div class="startups_item">
+                <div class="startups_num counter">4</div>
+                <div class="startups_label">VC INVESTORS</div>
+              </div>
+              <!-- startup 3 -->
+              <div class="startups_item">
+                <div class="startups_num counter">250</div>
+                <div class="startups_label">FUNDING ROUNDS</div>
+              </div>
+              <!-- startup 4 -->
+              <div class="startups_item">
+                <div class="startups_num counter">4,876</div>
+                <div class="startups_label">STARTUP EMPLOYEES</div>
+              </div>
+            </div>
+            <div class="flex startup_bottom">
+              <a class="startup_link flex items-center gap-10" href="#">DASHBOARD | THE OULU STARTUP ECOSYSTEM <div class="common_arrow"></div></a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- startup section ends -->
+
+      <!-- newsletter section start -->
+      {% include newsletter.html %}
+      <!-- newsletter section ends -->
+      <!-- follow us section start -->
+      {% include follow.html %}
+      <!-- follow us section ends -->
+      {% include footer.html %}
+    {% include script.html %}
+</body>
+</html>

@@ -1,0 +1,54 @@
+// hero section
+.single_event_hero{
+    padding: 70px 0;
+    .r2a_container{
+        .content{
+            width: 50%;
+            .top_title{
+                a{
+                    font-size: 14px;
+                    font-weight: 400;
+                    letter-spacing: 2.8px;
+                    color: $brand-color;
+                    text-decoration: none;
+                }
+                i{
+                    font-size: 10px;
+                    line-height: 10px;
+                }
+            }
+            .common_title{
+                padding: 30px 0;
+            }
+            .card_meta{
+                .card_icon{
+                    font-size: 16px;
+                    color: $brand-color;
+                    padding-right: 10px;
+                }
+                a{
+                    text-decoration: none;
+                }
+            }
+            .location{
+                padding-top: 20px;
+            }
+            .description{
+                padding: 30px 0;
+            }
+        }
+        .image{
+            width: 50%;
+            img{
+                width: 100%;
+            }
+        }
+    }
+}
+
+// pagination section
+
+.pagination_section{
+    padding: 28px 32px;
+    background-color: #EDF2F5;
+}
