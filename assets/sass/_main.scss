@@ -1,27 +1,27 @@
 
-@import "_variables/variables";
-@import "_components/common";
-@import "_components/event_card";
-@import "_components/menu";
-@import "_pages/home";
-@import "_pages/event";
-@import "_pages/single_event";
-@import "_pages/service";
-@import "_pages/single_service";
-@import "_components/blog_item";
-@import "_pages/single_blog";
-@import "_pages/contact";
+@use "_variables" as *;
+@use "_components/common" as *;
+@use "_components/event_card" as *;
+@use "_components/menu" as *;
+@use "_pages/home" as *;
+@use "_pages/event" as *;
+@use "_pages/single_event" as *;
+@use "_pages/service" as *;
+@use "_pages/single_service" as *;
+@use "_components/blog_item" as *;
+@use "_pages/single_blog" as *;
+@use "_pages/contact" as *;
 
 
 // responsive css like media queries
 
-@import "_responsive/home";
-@import "_responsive/event";
-@import "_responsive/single_event";
-@import "_responsive/service";
-@import "_responsive/single_service";
-@import "_responsive/single_blog";
-@import "_responsive/contact";
+@use "_responsive/home" as *;
+@use "_responsive/event" as *;
+@use "_responsive/single_event" as *;
+@use "_responsive/service" as *;
+@use "_responsive/single_service" as *;
+@use "_responsive/single_blog" as *;
+@use "_responsive/contact" as *;
 
 *,
 *::before,
@@ -69,5 +69,5 @@ body {
 
 
 @media (max-width: $breakpoint) {
-  
+
 };
