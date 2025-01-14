@@ -31,7 +31,10 @@ github_username:  jekyll
 
 sass:
   sass_dir: _sass
-  compressed: true
+  style: compressed
+  load_paths:
+    - _sass
+    - node_modules
 
 collections:
   events:
