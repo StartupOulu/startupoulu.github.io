@@ -1,0 +1,74 @@
+
+
+@use "_variables" as *;
+@use "_components/common" as *;
+@use "_components/event_card" as *;
+@use "_components/menu" as *;
+@use "_pages/home" as *;
+@use "_pages/event" as *;
+@use "_pages/single_event" as *;
+@use "_pages/service" as *;
+@use "_pages/single_service" as *;
+@use "_components/blog_item" as *;
+@use "_pages/single_blog" as *;
+@use "_pages/contact" as *;
+
+
+// responsive css like media queries
+
+@use "_responsive/home" as *;
+@use "_responsive/event" as *;
+@use "_responsive/single_event" as *;
+@use "_responsive/service" as *;
+@use "_responsive/single_service" as *;
+@use "_responsive/single_blog" as *;
+@use "_responsive/contact" as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+a{
+  text-decoration: none;
+}
+html {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-size: $default-font-size;
+  font-family: $default-font-face;
+  display: flex;
+  flex-direction: column;
+}
+h1,h2,h3,h4,h5,h6 {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  font-family: "Hanken Grotesk", sans-serif;
+}
+// .container {
+//   margin-top: 2rem;
+//   margin-bottom: 2rem;
+//   padding: 2rem;
+//   flex: 1;
+//   max-width: $breakpoint;
+// }
+
+
+// Add your custom CSS here
+// background colors
+
+
+
+
+@media (max-width: $breakpoint) {
+
+};

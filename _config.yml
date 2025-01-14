@@ -29,8 +29,15 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jekyll
 
-sass:
-  sass_dir: assets/sass
+
+collections:
+  events:
+    output: true
+    permalink: /events/:title
+  blogs:
+    output: true
+    permalink: /blogs/:title
+
 # Build settings
 plugins:
   - jekyll-feed

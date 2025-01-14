@@ -1,0 +1,8 @@
+{% assign now = 'now' | date: '%s' | plus: 0 %}
+{% assign start = include.start_time | date: '%s' | plus: 0 %}
+{% assign end = include.end_time | date: '%s' | plus: 0 %}
+
+{% if now >= start and now <= end %}
+  <span class="absolute card_badge bg-color-pink">Today</span>
+{% endif %}
+

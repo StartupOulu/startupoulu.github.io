@@ -1,0 +1,22 @@
+{% assign default_image = "/assets/images/event_default_background.png" %}
+
+{% if include.image %}
+  {% assign image_path = include.image %}
+  {% assign file_exists = false %}
+  
+  {% for static_file in site.static_files %}
+    {% if static_file.path == image_path %}
+      {% assign file_exists = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+  
+  {% if file_exists %}
+    <img data-info="bla" src="{{ image_path }}" alt="{{ include.title }}" class="event-image">
+  {% else %}
+    <img data-info="no exist"src="{{ default_image }}" alt="{{ include.title }}" class="event-image">
+  {% endif %}
+{% else %}
+  <img src="{{ default_image }}" alt="{{ include.title }}" class="event-image">
+{% endif %}
+
