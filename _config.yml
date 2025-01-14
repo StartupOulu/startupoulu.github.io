@@ -47,6 +47,7 @@ collections:
 # Build settings
 plugins:
   - jekyll-feed
+  - jekyll-sass-converter
 
 # Exclude from processing.
 # The following items will not be processed, by default.
