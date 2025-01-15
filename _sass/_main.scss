@@ -1,6 +1,6 @@
 
 
-@import "_variables";
+@import "variables";
 @import "_components/common";
 @import "_components/event_card";
 @import "_components/menu";
@@ -69,6 +69,3 @@ body {
 
 
 
-@media (max-width: $breakpoint) {
-
-};

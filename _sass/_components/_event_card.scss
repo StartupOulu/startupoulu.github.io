@@ -1,5 +1,5 @@
 
-@use "_variables" as *;
+@import 'variables';
 
 .card{
     width: 33.33%;
@@ -73,11 +73,15 @@
         }
       }
     }
-    .common_pera{
+    .common_pera {
       margin-top: 0;
       padding: 0 40px;
       display: inline-block;
       padding-bottom: 40px;
+
+      p {
+        margin-top: 0;
+      }
     }
   }
 }

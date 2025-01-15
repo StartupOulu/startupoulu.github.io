@@ -1,11 +1,10 @@
 
-@use "_variables" as *;
-
+@import 'variables';
 
 
 
 // for mobile
-@media (max-width: 767.98px) {
+@media screen and (max-width: 768px) {
 // =================== home page responsive css ===================
     // common css--------   
     .r2a_container{

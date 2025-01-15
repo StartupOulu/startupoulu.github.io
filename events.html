@@ -2,7 +2,7 @@
 layout: events
 title: Events - StartupOulu
 ---
-{% assign sorted_events = site.data.events | sort: 'start_time' %}
+{% assign sorted_events = site.events | sort: 'start_time' %}
 {% assign now = 'now' | date: '%Y-%m-%d %H:%M:%S' %}
 
     <!--  event section start -->
