@@ -20,7 +20,7 @@
         </span>
       </a>
       <a href="/events/{{ event.title | slugify }}">
-        <span class="common_pera">{{ event.description | markdownify }}</span>
+        <span class="common_pera">{{ event.description | truncatewords: 40 }}</span>
       </a>
   </div>
 </div>
