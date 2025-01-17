@@ -4,7 +4,7 @@
 
 <div class="card event_card">
   <a href="{{ site.baseurl }}{{ event.url }}" class="card_img">
-    {% include events/event_image.html image=event.image title=event.title %}
+    {% include events/event_image.html image=event.cover_image title=event.title %}
     {% include events/event_today_badge.html start_time=event.start_time end_time=event.end_time %}
   </a>
   <div class="card_content">

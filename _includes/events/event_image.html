@@ -1,7 +1,7 @@
-{% assign default_image = "/assets/images/event_default_background.png" %}
+{% assign default_image = "/assets/images/events/default-cover-image-960x540.png" %}
 
 {% if include.image %}
-  {% assign image_path = include.image %}
+  {% assign image_path = "/assets/images/events/" | append: include.image %}
   {% assign file_exists = false %}
   
   {% for static_file in site.static_files %}
