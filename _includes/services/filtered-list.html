@@ -1,0 +1,22 @@
+{% assign filter_stage = include.filter_stage | strip %}
+{% if filter_stage != "" %}
+  {% assign filtered_services = "" | split: "" %}
+  {% for service in site.data.services %}
+    {% assign service_stages = service.stage | split: ", " %}
+    {% if service_stages contains filter_stage %}
+      {% assign filtered_services = filtered_services | push: service %}
+    {% endif %}
+  {% endfor %}
+  
+  {% if filtered_services.size == 0 %}
+    <p>No services found for stage: {{ filter_stage }}</p>
+  {% else %}
+    {% for service in filtered_services %}
+      {% include services/card.html service=service %}
+    {% endfor %}
+  {% endif %}
+{% else %}
+  {% for service in site.data.services %}
+    {% include services/card.html service=service %}
+  {% endfor %}
+{% endif %}

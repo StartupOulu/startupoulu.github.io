@@ -1,0 +1,59 @@
+
+@import 'variables';
+
+@media (max-width: 767.98px){
+    .service_page_service_section{
+        .r2a_container{
+            .services{
+                .common_side_title {
+                    left: -110px;
+                    top: 125px;
+                }
+                .services_items{
+                    padding-top: 20px;
+                }
+            }
+        }
+    }
+    .contact_section{
+        padding: 50px 0;
+        .r2a_container{
+            flex-direction: column;
+            gap: 20px;
+            .content {
+                width: 100%;
+                padding-right: 0;
+            }
+            .form {
+                width: 100%;
+                .form_btn{
+                    margin-bottom: 100px;
+                }
+            }
+        }
+    }
+    
+}
+
+
+
+@media (min-width: 768px) and (max-width: 991.98px){
+    .contact_section{
+        .r2a_container{
+            gap: 30px;
+            .content {
+                padding-right: 0;
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px){
+    .contact_section{
+        .r2a_container{
+            .content {
+                padding-right: 0;
+            }
+        }
+    }
+}

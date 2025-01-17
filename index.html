@@ -1,0 +1,29 @@
+---
+title: "StartupOulu"
+layout: frontpage
+---
+      <section class="event_title_section">
+        <div class="r2a_container bg-color-white">
+          <h2 class="common_title">Meet likeminded people at the events organized by Oulu startup ecosystem partners.</h2>
+        </div>
+      </section>
+      <!-- event title section end -->
+
+
+      {% include upcoming_events.html %}
+
+      <!-- service section start -->
+      <section class="service">
+        <div class="r2a_container">
+          <div class="service_title common_title">No matter where you are on your journey, we have something to help your growth</div>
+          <div class="services">
+            <div class="common_side_title">SERVICES</div>
+            {% include service_cards.html %}
+        </div>
+        </div>
+        <!-- service bg image -->
+        <img src="{{ site.baseurl }}/assets/images/service.png" alt="service images" class="service_image">
+      </section>
+      <!-- service section ends -->
+
+      {% include startup_numbers_in_oulu.html %}

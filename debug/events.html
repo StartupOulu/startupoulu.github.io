@@ -1,0 +1,44 @@
+---
+---
+
+<h1>Debug: All Events</h1>
+
+<table style="width: 100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Title</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Start Time</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">End Time</th>
+      <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Filename</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for event in site.events %}
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 8px;">{{ event.title }}</td>
+        <td style="border: 1px solid #ddd; padding: 8px;">
+          {{ event.start_time | date: "%Y-%m-%d %H:%M" }}
+        </td>
+        <td style="border: 1px solid #ddd; padding: 8px;">
+          {{ event.end_time | date: "%Y-%m-%d %H:%M" }}
+        </td>
+        <td style="border: 1px solid #ddd; padding: 8px;">
+          {% assign filename = event.path | split: '/' | last %}
+          {{ filename }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div style="margin-top: 20px;">
+  <h3>Raw Event Data:</h3>
+  {% for event in site.events %}
+    <details style="margin-bottom: 10px;">
+      <summary>{{ event.title }}</summary>
+      <pre style="background: #f5f5f5; padding: 10px; overflow: auto;">
+        {{ event | inspect }}
+      </pre>
+    </details>
+  {% endfor %}
+</div>

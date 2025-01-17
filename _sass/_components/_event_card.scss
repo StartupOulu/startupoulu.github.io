@@ -1,0 +1,88 @@
+
+@import 'variables';
+
+.card{
+    width: 33.33%;
+    min-height: 650px;
+    transition: 0.5s;
+    background: #E9DEFF;
+    text-align: left;
+    &:hover{
+      box-shadow: 8px 8px 1px 0px $brand-color; 
+      
+    }
+    &:hover .overlayText {
+      opacity: 1 !important;
+    }
+  .card_img{
+    position: relative;
+    height: 206px ;
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .overlayText {
+      opacity: 0;
+      color: white;
+      position: absolute;
+      inset: 0;
+      text-align: center;
+      width: 100%;
+      height: 100%;
+      transition: all 0.5s;
+      background: $cart-overlay-bg;
+    }
+    .card_badge {
+      z-index: 10;
+      padding: 0.2rem 1.5rem;
+      color: white;
+      font-size: 16px;
+      bottom: 0;
+      left: 0;
+    }
+    
+  }
+  .card_content{
+    // padding: 40px;
+    .card_title {
+      font-size: 30px;
+      color: $brand-color;
+      font-weight: 900;
+      line-height: 35px;
+      text-align: left;
+      text-decoration: none;
+      padding-top: 20px;
+      display: inline-block;
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+    .card_meta{
+      padding: 20px 40px;
+      .card_date{
+        font-size: 16px;
+        color: $brand-color;
+        font-weight: 400;
+        text-align: left;
+        a{
+          text-decoration: none;
+          font-size: 16px;
+          color: $brand-color;
+          font-weight: 400;
+          text-align: left;
+        }
+      }
+    }
+    .common_pera {
+      margin-top: 0;
+      padding: 0 40px;
+      display: inline-block;
+      padding-bottom: 40px;
+
+      p {
+        margin-top: 0;
+      }
+    }
+  }
+}
+

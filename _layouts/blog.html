@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include header.html %}
+<body>
+    {% include menu.html %}
+    <!-- banner section html start -->
+     <section class="event_banner relative single_blog_banner">
+        <div class="r2a_container flex items-center ">
+            <div class="content">
+                <p class="top_title flex gap-10 items-center"><a href="{{ site.baseurl}}/blog" class="link_text">BLOG</a><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 common_icon">
+                    <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+                  </svg>
+                   <a href="#" class="link_text">{{ page.title | truncate: 30 }}...</a></p>
+                <h2 class="common_title">{{ page.title }}</h2>
+            </div>
+        </div>
+
+        <div class="banner_image absolute">
+            <img src="{{ site.baseurl }}/assets/images/blog_item.png" alt="blog banner">
+        </div>
+        <div class="mobile_content absolute">
+            <p class="top_title flex gap-10 items-center"><a href="{{ site.baseurl}}/blog" class="link_text">BLOG</a><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 common_icon">
+                <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+              </svg>
+               <a href="#" class="link_text">{{ page.title | truncate: 30 }}</a></p>
+            <h2 class="common_title">{{ page.title }}</h2>
+        </div>
+     </section>
+    <!-- banner section html end -->
+
+    <!-- blog content section start -->
+     <section class="blog_content">
+        <div class="r2a_container">
+            <div class="content">
+                {{ content }}
+            </div>
+        </div>
+
+     </section>
+
+    <!-- blog content section ends -->
+
+    <!-- pagination section html start -->
+    <section class="pagination_section">
+    <div class="flex justify-between items-center">
+      <div class="prev_item item">
+        <a href="#" class="flex items-center gap-10 link_text desktop"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 common_icon">
+          <path fill-rule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+        </svg>
+        PREVIOUS Blog</a>
+        <a href="#" class="flex items-center gap-10 link_text d_none"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 common_icon">
+          <path fill-rule="evenodd" d="M11.03 3.97a.75.75 0 0 1 0 1.06l-6.22 6.22H21a.75.75 0 0 1 0 1.5H4.81l6.22 6.22a.75.75 0 1 1-1.06 1.06l-7.5-7.5a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+        </svg>
+         PREVIOUS</a>
+      </div>
+      <div class="all_item item">
+        <a href="#" class="link_text flex flex-col gap-10 items-center">BACK TO ALL Blog <span class="line"></span></a>
+      </div>
+      <div class="next_item item">
+        <a href="#" class="flex items-center gap-10 link_text desktop">NEXT Blog <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 common_icon">
+          <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+        </svg> </a>
+        <a href="#" class="flex items-center gap-10 link_text d_none">NEXT <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 common_icon">
+          <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+        </svg> </a>
+      </div>
+    </div>
+    </section>
+
+    <div class="d_none for_mobile_pagination">
+        <a href="#" class="link_text">BACK TO ALL Blogs</a>
+    </div>
+  <!-- pagination section html end -->
+
+  <!-- all blog to read -->
+    <section class="single_all_blog">
+        <div class="r2a_container">
+            <div class="items">
+                {% for post in site.posts limit:4 %}
+                   {% include blog_item.html %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- newsletter section start -->
+    {% include newsletter.html %}
+    <!-- newsletter section ends -->
+
+    <!-- follow us section start -->
+    {% include social_media.html %}
+    <!-- follow us section ends -->
+
+    {% include footer.html %}
+    {% include script.html %}
+</body>
+</html>

@@ -1,0 +1,27 @@
+
+@import 'variables';
+
+.contact_support{
+    padding: 120px 0;
+    .r2a_container{
+        .contact_support_wrapper{
+            .contact_support_item{
+                margin-top:70px;
+                gap: 70px;
+                .supporter_img{
+                    width: 50%;
+                    img{
+                        width: 100%;
+                    }
+                }
+                .content{
+                    width: 50%;
+                    padding-top: 67px;
+                    .common_pera{
+                        color: $brand-color;
+                    }
+                }
+            }
+        }
+    }
+}

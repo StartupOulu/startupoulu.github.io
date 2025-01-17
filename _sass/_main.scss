@@ -1,0 +1,71 @@
+
+
+@import "variables";
+@import "_components/common";
+@import "_components/event_card";
+@import "_components/menu";
+@import "_pages/home";
+@import "_pages/event";
+@import "_pages/single_event";
+@import "_pages/service";
+@import "_pages/single_service";
+@import "_components/blog_item";
+@import "_pages/single_blog";
+@import "_pages/contact";
+
+
+// responsive css like media queries
+
+@import "_responsive/home";
+@import "_responsive/event";
+@import "_responsive/single_event";
+@import "_responsive/service";
+@import "_responsive/single_service";
+@import "_responsive/single_blog";
+@import "_responsive/contact";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+a{
+  text-decoration: none;
+}
+html {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-size: $default-font-size;
+  font-family: $default-font-face;
+  display: flex;
+  flex-direction: column;
+}
+h1,h2,h3,h4,h5,h6 {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  font-family: "Hanken Grotesk", sans-serif;
+}
+// .container {
+//   margin-top: 2rem;
+//   margin-bottom: 2rem;
+//   padding: 2rem;
+//   flex: 1;
+//   max-width: $breakpoint;
+// }
+
+
+// Add your custom CSS here
+// background colors
+
+
+
+

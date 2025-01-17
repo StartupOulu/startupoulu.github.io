@@ -1,0 +1,39 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+    {% include header.html %}
+<body>
+    {% include menu.html %}
+    <!-- banner section html start -->
+     <section class="event_banner relative ">
+        <div class="r2a_container flex items-center ">
+            <div class="content">
+                <p class="top_title">EVENTS</p>
+                <h2 class="common_title">Meet likeminded people at the events organized by Oulu startup ecosystem partners</h2>
+            </div>
+        </div>
+        
+        <div class="banner_image absolute">
+            <img src="{{ site.baseurl }}/assets/images/event_banner.png" alt="">
+        </div>
+        <div class="mobile_content absolute">
+            <p class="top_title">EVENTS</p>
+            <h2 class="common_title">Meet likeminded people at the events organized by Oulu startup ecosystem partners<div>
+        </div>
+     </section>
+    <!-- banner section html end -->
+
+    {{ content }}
+    <!-- newsletter section start -->
+    {% include newsletter.html %}
+    <!-- newsletter section ends -->
+
+    <!-- follow us section start -->
+    {% include social_media.html %}
+    <!-- follow us section ends -->
+
+    {% include footer.html %}
+    {% include script.html %}
+</body>
+</html>

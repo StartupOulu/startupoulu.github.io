@@ -1,0 +1,22 @@
+---
+layout: events
+title: Events - StartupOulu
+---
+{% assign now = 'now' | date: '%Y-%m-%d %H:%M:%S' %}
+{% assign sorted_events = site.events | sort: 'start_time' %}
+
+
+    <!--  event section start -->
+    <section class="event_section">
+        <div class="r2a_container">
+          <div class="event_wrapper">
+            {% for event in sorted_events %}
+                {% include events/card.html %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <a href="#" class="show_event_btn flex items-center flex-col gap-20">LOAD MORE EVENTS <div class="underline"></div></a>
+        </div>
+    </section>
+

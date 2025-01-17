@@ -1,0 +1,81 @@
+
+
+@import 'variables';
+
+// mobile screen responsive
+@media (max-width: 767.98px){
+    // banner section for event page
+    .event_banner {
+        overflow: visible;
+        background: $white-color;
+        min-height: 670px;
+        padding: 0px 0;
+        .r2a_container{
+            display: none;
+        }
+        .banner_image{
+            width: 100%;
+            height: auto;
+        }
+        .mobile_content{
+            display: block;
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+            background: $brand-color;
+        }
+    }
+
+    // event section
+    .events_grid {
+        grid-template-columns: repeat(1, 1fr);
+        padding: 0 50px;
+        
+        
+    }
+    .event_section{
+        .flex{
+            .show_event_btn {
+                margin-bottom: 100px;
+            }
+        }
+    }
+}
+// tablet screen responsive
+@media (min-width: 768px) and (max-width: 991.98px){
+    .events_grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 50px;
+    }
+    .event_banner {
+        overflow: visible;
+        background: $white-color;
+        min-height: 650px;
+        padding: 0px 0;
+        .r2a_container{
+            display: none;
+        }
+        .banner_image{
+            width: 100%;
+            height: auto;
+        }
+        .mobile_content{
+            display: block;
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+            background: $brand-color;
+        }
+    }
+    .event_section{
+        .show_event_btn {
+            margin-bottom: 0px;
+        }
+    }
+    
+}
+
+// laptop screen responsive
+@media (min-width: 992px) and (max-width: 1199.98px){
+    
+}

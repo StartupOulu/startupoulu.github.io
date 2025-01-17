@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include header.html %}
+<body>
+    {% include menu.html %}
+    <!-- banner section html start -->
+     <section class="event_banner contact_banner relative ">
+        <div class="r2a_container flex items-center">
+            <div class="content">
+                <p class="top_title">CONTACT</p>
+                <h2 class="common_title">Contact us and we’ll get you all the knowhow you need to get started!</h2>
+                <p class="common_pera">Got any questions? <br> Got a brilliant business pitch?</p>
+            </div>
+        </div>
+        
+        <div class="banner_image absolute">
+            <img src="{{ site.baseurl }}/assets/images/contact.png" alt="contact banner">
+        </div>
+        <div class="mobile_content absolute">
+            <p class="top_title">CONTACT</p>
+            <h2 class="common_title">Contact us and we’ll get you all the knowhow you need to get started!<div>
+                <p class="common_pera">Got any questions? <br> Got a brilliant business pitch?</p>
+        </div>
+     </section>
+    <!-- banner section html end -->
+
+    <!-- contact us section html start -->
+     <section class="contact_support">
+        <div class="r2a_container">
+            <h4 class="top_title">YOUR GO-TO PEOPLE</h4>
+            <div class="contact_support_wrapper ">
+                <div class="flex contact_support_item">
+                    <div class="supporter_img">
+                        <img src="{{ site.baseurl }}/assets/images/contacts/anne-sorvari.png" alt="Anne Sorvari">
+                    </div>
+                    <div class="content">
+                        <h3 class="common_title">Anne Sorvari</h3>
+                        <p class="common_pera">Kehittämispäällikkö, <br> Oulun ammattikorkeakoulu, <br>TKI-yksikkö / Liiketoiminnan kehitys</p>
+                        <p class="common_pera">anne.sorvari(a)oamk.fi</p>
+                        <p class="common_pera">+358 50 911 6999</p>
+                    </div>
+                </div>
+                <div class="flex contact_support_item">
+                    <div class="supporter_img">
+                        <img src="{{ site.baseurl }}/assets/images/contacts/viera-karam.png" alt="Viera Karam">
+                    </div>
+                    <div class="content">
+                        <h3 class="common_title">Viera Karam</h3>
+                        <p class="common_pera">Asiantuntija, Startup ohjelmapäällikkö</p>
+                        <p class="common_pera">viera.karam(a)businessoulu.com</p>
+                        <p class="common_pera">+358 40 674 7862</p>
+                    </div>
+                </div>
+                <div class="flex contact_support_item">
+                    <div class="supporter_img">
+                        <img src="{{ site.baseurl }}/assets/images/contacts/hanna-spets.jpg" alt="Hanna Spets">
+                    </div>
+                    <div class="content">
+                        <h3 class="common_title">Hanna Spets</h3>
+
+                        <p class="common_pera">Project manager<br>RDI-unit / Business development<br>Oulu University of Applied Sciences</p>
+                        <p class="common_pera">hanna.spets(a)oamk.fi</p>
+                        <p class="common_pera">+358 50 340 7144</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
+    <!-- contact us section html end -->
+
+    <!-- contact section starts -->
+    <!--
+    <section class="contact_section">
+        <div class="r2a_container flex justify-between gap-100">
+            <div class="content">
+                <span class="top_title">CONTACT US</span>
+                <h2 class="common_title">Want to get started?</h2>
+                <p class="common_pera">Got any questions? Got a brilliant business pitch? Contact us and we’ll get you all the knowhow you need to get started!</p>
+            </div>
+            <form class="form">
+                <div class="form_group">
+                    <label for="">Name</label>
+                    <input type="text" class="form_input" placeholder="">
+                </div>
+                <div class="form_group">
+                    <label for="">Email</label>
+                    <input type="email" class="form_input" placeholder="">
+                </div>
+                <div class="form_group">
+                    <label for="">Phone</label>
+                    <input type="number" class="form_input" placeholder="">
+                </div>
+                <div class="form_group">
+                    <label for="">Message</label>
+                    <textarea name="" id="" rows="6"></textarea>
+                </div>
+                <button class="form_btn common_btn">SEND</button>
+            </form>
+        </div>
+    </section>
+
+    -->
+    <!-- contact section ends -->
+
+    <!-- newsletter section start -->
+    {% include newsletter.html %}
+    <!-- newsletter section ends -->
+
+    <!-- follow us section start -->
+    {% include social_media.html %}
+    <!-- follow us section ends -->
+
+    {% include footer.html %}
+    {% include script.html %}
+</body>
+</html>

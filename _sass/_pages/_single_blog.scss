@@ -1,0 +1,46 @@
+
+@import 'variables';
+
+
+.single_blog_banner{
+    .content{
+        .top_title{
+            color: $white-color;
+        }
+        .link_text{
+            color: $white-color;
+        }
+    }
+    .mobile_content{
+        bottom: 0;
+    }
+}
+
+
+.blog_content{
+    .r2a_container{
+        .content{
+            padding: 80px 0;
+            .content_image{
+                width: 50%;
+                img{
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            .text{
+                width:50%;
+                padding: 20px;
+                .text_title{
+                    font-size: 20px;
+                    line-height: 24px;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+}
+
+.single_all_blog{
+    padding-bottom: 80px;
+}

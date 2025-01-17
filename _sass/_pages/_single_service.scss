@@ -1,0 +1,94 @@
+
+@import 'variables';
+
+// common part
+.items{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 60px;
+}
+
+.single_service{
+    .r2a_container{
+        .content{
+            .top_title{
+                .link_text{
+                    color: $white-color;
+                }
+            }
+            .common_pera{
+                color: $white-color;
+            }
+        }
+        
+    }
+    .mobile_content{
+        .top_title{
+            .link_text{
+                color: $white-color;
+            }
+        }
+        .common_pera{
+            color: $white-color;
+        }
+    }
+}
+
+// founder part
+.founder_section{
+    padding: 70px 0;
+    .r2a_container{
+        .filter_part{
+            svg{
+                width: 20px;
+            }
+            form{
+                select{
+                    background: $white-color;
+                    color: $brand-color;
+                    font-size: 16px;
+                    font-weight: 700;
+                    padding: 10px 20px;
+                    border: 1px solid $brand-color;
+                    border-radius: 5px;
+                }
+            }
+        }
+        
+    }
+    .show_event_btn{
+        .underline{
+            width: 60px;
+        }
+    }
+}
+
+// common founder card
+.founder_card{
+    background: #EDF2F5;
+    padding: 25px;
+    .title_part{
+        h3{
+            font-size: 30px;
+            font-weight: 700;
+            color: $brand-color;
+            font-weight: 900;
+        }
+        a{
+            svg{
+                width: 28px;
+                fill: $brand-color;
+            }
+        }
+    }
+    .common_pera{
+        margin-bottom: 62px;
+    }
+    a{
+        text-decoration: underline;
+        svg{
+            width: 20px;
+        }
+    }
+}

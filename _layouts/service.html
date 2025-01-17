@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include header.html %}
+<body>
+    {% include menu.html %}
+    <!-- banner section html start -->
+     <section class="event_banner relative single_service">
+        <div class="r2a_container flex items-center ">
+            <div class="content">
+                <p class="top_title flex gap-10 items-center"><a href="{{ site.baseurl}}/services" class="link_text">SERVICES</a><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 common_icon">
+                    <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+                  </svg>
+                   <span class="link_text">{{ page.header }}</span>
+                </p>
+                <h2 class="common_title">{{ page.header }}</span></h2>
+                <p class="common_pera">{{ page.subheader }}</p>
+            </div>
+        </div>
+        
+        <div class="banner_image absolute">
+            <img src="{{ site.baseurl }}/assets/images/{{ page.cover_image }}" alt="service banner">
+        </div>
+        <div class="mobile_content absolute">
+            <p class="top_title flex gap-10 items-center"><a href="{{ site.baseurl}}/service" class="link_text">SERVICES</a><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 common_icon">
+                <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+              </svg>
+               <span class="link_text">{{ page.title }}</span>
+            </p>
+            <h2 class="common_title">{{ page.header }}</span></h2>
+            <p class="common_pera">{{ page.subheader }}</p>
+        </div>
+     </section>
+    <!-- banner section html end -->
+
+    {{ content }}
+    
+    <!-- contact section starts -->
+    <section class="contact_section">
+        <div class="r2a_container flex justify-between gap-100">
+            <div class="content">
+                <span class="top_title">CONTACT US</span>
+                <h2 class="common_title">Want to get started?</h2>
+                <p class="common_pera">Got any questions? Got a brilliant business pitch? Contact us and we’ll get you all the knowhow you need to get started!</p>
+            </div>
+            <form class="form">
+                <div class="form_group">
+                    <label for="">Name</label>
+                    <input type="text" class="form_input" placeholder="">
+                </div>
+                <div class="form_group">
+                    <label for="">Email</label>
+                    <input type="email" class="form_input" placeholder="">
+                </div>
+                <div class="form_group">
+                    <label for="">Phone</label>
+                    <input type="number" class="form_input" placeholder="">
+                </div>
+                <div class="form_group">
+                    <label for="">Message</label>
+                    <textarea name="" id="" rows="6"></textarea>
+                </div>
+                <button class="form_btn common_btn">SEND</button>
+            </form>
+        </div>
+    </section>
+    <!-- contact section ends -->
+
+    <!-- newsletter section start -->
+    {% include newsletter.html %}
+    <!-- newsletter section ends -->
+
+    <!-- follow us section start -->
+    {% include social_media.html %}
+    <!-- follow us section ends -->
+
+    {% include footer.html %}
+    {% include script.html %}
+</body>
+</html>

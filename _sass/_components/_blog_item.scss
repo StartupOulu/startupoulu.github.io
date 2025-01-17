@@ -1,0 +1,27 @@
+
+@import "variables";
+
+.blog_item{
+    background: #D4FBCD;
+    width: 100%;
+    .blog_image{
+        width: 100%;
+        img{
+            width: 100%;
+        }
+    }
+    .content{
+        .blog_title_single{
+            font-size: 22px;
+            font-weight: 700;
+            color: $brand-color;
+            margin-bottom: 10px;
+            display: inline-block;
+            padding: 35px 46px 0px 46px;
+        }
+        .common_pera{
+            display: inline-block;
+            padding: 0px 46px 35px 46px;
+        }
+    }
+}

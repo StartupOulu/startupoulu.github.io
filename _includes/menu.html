@@ -1,0 +1,26 @@
+<header class="header">
+    {% include logo.html %}
+    <nav class="nav_bar">
+      {% include nav.html %}
+    </nav>
+    <div class="toggle_btn"><svg class="common_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+    </svg>
+    </div>
+    <nav class="mobile_nav_bar">
+      <div class="r2a_container">
+        <div class="flex justify-between items-center">
+          <div class="logo">
+            <a href="{{ site.baseurl }}/index.html">
+              <img src="{{ site.baseurl }}/assets/images/mobile-logo.png" alt="logo">
+            </a>
+          </div>
+          <div class="close_btn"><svg class="common_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+          </div>
+      </div>
+    </div>
+      {% include nav.html %}
+    </nav>
+</header>

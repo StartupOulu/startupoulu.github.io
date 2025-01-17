@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include header.html %}
+<body>
+    {% include menu.html %}
+    <!-- banner section html start -->
+    <section class="event_banner relative ">
+        <div class="r2a_container flex items-center ">
+            <div class="content">
+                <p class="top_title">BLOG</p>
+                <h2 class="common_title">Here you can read interesting posts about the newest events in Oulu startup ecosystem.</h2>
+            </div>
+        </div>
+        
+        <div class="banner_image absolute">
+            <img src="{{ site.baseurl }}/assets/images/blog_banner.png" alt="service banner">
+        </div>
+        <div class="mobile_content absolute">
+            <p class="top_title">BLOG</p>
+            <h2 class="common_title">Here you can read interesting posts about the newest events in Oulu startup ecosystem.<div>
+        </div>
+     </section>
+    <!-- banner section html end -->
+
+    <!-- Founder’s Corner section start -->
+    <section class="founder_section">
+        <div class="r2a_container">
+            <div class="items">
+                {% for post in site.posts %}
+                    {% include blog_item.html %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="flex justify-center">
+            <a href="#" class="show_event_btn flex items-center flex-col gap-20 mb_100">LOAD MORE BLOGS<div class="underline"></div></a>
+          </div>
+    </section>
+    <!-- Founder’s Corner section ends -->
+
+    <!-- newsletter section start -->
+    {% include newsletter.html %}
+    <!-- newsletter section ends -->
+
+    <!-- follow us section start -->
+    {% include social_media.html %}
+    <!-- follow us section ends -->
+
+    {% include footer.html %}
+    {% include script.html %}
+</body>
+</html>

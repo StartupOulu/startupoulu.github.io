@@ -1,0 +1,66 @@
+
+
+@import 'variables';
+// banner section for event page
+.event_banner{
+    padding: 112px 0;
+    // height: 600px;
+    background-color: $brand-color;
+    overflow: hidden;
+    .r2a_container{
+        height: 100%;
+        .content{
+            width: 497px;
+            // height: 600px;
+            color: $white-color;
+            .top_title{
+                font-size: 14px;
+                font-weight: 300;
+                letter-spacing: 2.8px;
+                margin-bottom: 35px;
+            }
+            .common_pera{
+                color: $white-color;
+                line-height: 30px;
+            }
+        }
+    }
+    
+    .banner_image{
+        width: 50%;
+        height: 100%;
+        top: 0;
+        right: 0;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .mobile_content{
+        display: none;
+        color: $white-color;
+        padding: 50px;
+        width: 90%;
+        .top_title{
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 2.8px;
+        }
+        .common_pera{
+            color: $white-color;
+            line-height: 30px;
+        }
+    }
+}
+
+// event section
+.events_grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    .card{
+        width: 100%;
+    }
+}
