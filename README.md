@@ -22,18 +22,19 @@ The contents of each file is as follows:
 ```
 ---
 layout: event
-title: KoodiKorneri
-start_time: 2025-02-06 00:00:00
-end_time: 2025-04-17 00:00:00
-location: Business Corner, Linnanmaan kampus 
+title: Business Corner Launch Party
+start_time: 2025-01-23 12:00:00
+end_time: 2025-01-23 16:00:00
+location: Business Corner, Linnanmaa campus
+cover_image: business-corner-launch-party-2025.png
+excerpt: |
+  StartupOulu invites you to celebrate the grand opening of Business Corner! Join us for a day filled with keynotes on successful personal branding and funding your business, CV photographing, delicious food, and a few surprises.
 description:  |
-  Haluakkonää oppia koodaamaan webbiä? 
-  
-  Tervetuloa KoodiKorneriin Business Cornerille. Tule tienaamaan ensimmäinen eurosi internetissä ja oppimaan, miten uutta liiketoimintaa kehitetään käytännössä. Autamme sinua kädestä pitäen koodaamaan uuden softatuotteen, jota tietysti alat myymään, luoden ensimmäisen startuppisi. Tärkeintä on innostunut ja motivoitunut asenne, loput opit kyllä ohjelman aikana! 
-  
-  Kurssilla tehdään web-sovellus Ruby on Rails applikaatiolla, joka on tällä hetkellä markkinoiden paras web-kehityksen alusta. 
+  StartupOulu invites you to celebrate the grand opening of Business Corner! Join us for a day filled with keynotes on successful personal branding and funding your business, CV photographing, delicious food, and a few surprises. This event is perfect for anyone eager to dive deeper into the world of entrepreneurship, discover new collaboration opportunities, or simply enjoy networking in an inspiring environment.
 ---
 ```
+
+In event card, an `excerpt` is a brief preview of longer content, like a book blurb or article summary. It gives readers a quick understanding of what the full content contains, rather than just cutting off text at a fixed length. Words beyond the 60-word limit will be truncated. If excerpt is not defined, `description` will be used instead with 60-word limit.
 
 Just copy this piece of text and paste it into your file and change accordingly. The `start_time` and `end_time` has also a specific format: `YYYY-MM-DD HH:MM:SS`.
 
