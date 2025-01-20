@@ -1,19 +1,20 @@
 
 @import 'variables';
 
-.card{
-    width: 33.33%;
-    min-height: 650px;
-    transition: 0.5s;
-    background: #E9DEFF;
-    text-align: left;
-    &:hover{
-      box-shadow: 8px 8px 1px 0px $brand-color; 
-      
-    }
-    &:hover .overlayText {
-      opacity: 1 !important;
-    }
+.card {
+
+  width: 33.33%;
+  min-height: 650px;
+  transition: 0.5s;
+  background: #E9DEFF;
+  text-align: left;
+  &:hover{
+    box-shadow: 8px 8px 1px 0px $brand-color; 
+    
+  }
+  &:hover .overlayText {
+    opacity: 1 !important;
+  }
   .card_img{
     position: relative;
     height: 206px ;
@@ -59,6 +60,7 @@
     }
     .card_meta{
       padding: 20px 40px;
+      align-items: flex-start;
       .card_date{
         font-size: 16px;
         color: $brand-color;
@@ -83,6 +85,14 @@
         margin-top: 0;
       }
     }
+
+    .truncate-text {
+      
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    
   }
 }
 

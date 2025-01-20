@@ -13,7 +13,7 @@ close_btn.addEventListener('click', () => {
 });
 
 // for carousel
-$('.event_wrapper').slick({
+$('.efevent_wrapper').slick({
     dots: true,
     infinite: false,
     speed: 300,
