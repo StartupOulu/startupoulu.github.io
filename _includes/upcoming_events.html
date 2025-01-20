@@ -8,19 +8,23 @@
   {% endif %}
 {% endfor %}
 
-{% assign sorted_future_events = future_events | sort: 'start_time' | limit: 3 %}
 
-<!-- start _includes/upcoming´_events.html -->
+{% assign sorted_events = future_events | sort: 'start_time' %}
+
+<!-- start _includes/upcoming_events.html -->
 <section class="event_section">
   <div class="r2a_container">
-    <div class="event_wrapper">
-      {% for event in sorted_future_events %}
+    <div class="event_wrapper events-grid">
+      {% for event in sorted_events limit:3 %}
         {% include events/card.html %}
       {% endfor %}
     </div>
   </div>
   <div class="flex justify-center items-center">
-    <a href="#" class="show_event_btn flex items-center gap-20">SEE ALL EVENTS <div class="common_arrow"></div> </a>
+    <a href="/events.html" class="show_event_btn flex items-center gap-20">SEE ALL EVENTS <div class="common_arrow"></div> </a>
   </div>
 </section>
-<!-- end _includes/upcoming´_events.html -->
+<!-- end _includes/upcoming_events.html -->
+
+
+

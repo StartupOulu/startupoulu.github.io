@@ -1,15 +1,15 @@
 
-{% assign filename = event.path | split: '/' | last | split: '.' | first %}
+{% assign filename = event.path | split: '/' | last | split: '.' | first | append: '.html' %}
 
 <div class="card event_card">
-  <a href="{{ site.baseurl }}{{ event.url }}" class="card_img">
+  <a href="{{ site.baseurl }}/events/{{ filename }}" class="card_img">
     {% include events/event_image.html image=event.cover_image title=event.title %}
     {% include events/event_today_badge.html start_time=event.start_time end_time=event.end_time %}
   </a>
   <div class="card_content">
-      <a href="/events/{{ filename }}" class="card_title">{{ event.title }}</a>
-      <a href="/events/{{ filename}}">
-      <a href="/events/{{ filename }}" class="card_meta flex gap-10">
+      <a href="{{ site.baseurl }}/events/{{ filename }}" class="card_title">{{ event.title }}</a>
+      <a href="{{ site.baseurl }}/events/{{ filename }}">
+      <a href="{{ site.baseurl }}/events/{{ filename }}" class="card_meta flex gap-10">
 
         <svg class="common_icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
@@ -20,7 +20,7 @@
           {% include events/event_datetime.html start_time=event.start_time end_time=event.end_time %}
         </span>
       </a>
-      <a class="overflow-hidden" href="/events/{{ event.title | slugify }}">
+      <a class="overflow-hidden" href="{{ site.baseurl }}/events/{{ filename }}">
         <span class="common_pera truncate-text">
           {% if event.excerpt != blank and event.excerpt != "" %}
             {{ event.excerpt | truncatewords: 60 }}
