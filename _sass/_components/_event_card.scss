@@ -4,7 +4,7 @@
 .card {
 
   width: 33.33%;
-  min-height: 650px;
+  //min-height: 650px;   <-- when height is not defined, it will set the size by highest grid/card element
   transition: 0.5s;
   background: #E9DEFF;
   text-align: left;
