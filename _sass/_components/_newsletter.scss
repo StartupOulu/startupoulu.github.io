@@ -1,0 +1,79 @@
+// newsletter section css =========
+.newsletter{
+    background-color: $brand-color;
+    padding: 100px 0;
+    .r2a_container{
+        .newsletter_content{
+            width: 50%;
+            .common_pera{
+                color: $white-color;
+                margin: 37px 0;
+            }
+            form{
+                .form_group{
+                    margin-bottom: 20px;
+                    label{
+                        font-size: 16px;
+                        color: $white-color;
+                        font-weight: 400;
+                        letter-spacing: 2.8px;
+                        margin-bottom: 10px;
+                        display: inline-block;
+                    }
+                    input{
+                        width: 100%;
+                        padding: 15px;
+                        border: 2px solid $white-color;
+                        background-color: transparent;
+                        color: $white-color;
+                        font-size: 16px;
+                        font-weight: 400;
+                        &::placeholder{
+                            color: $white-color;
+                        }
+                    }
+                }
+                button{
+                    padding: 15px 30px;
+                    background-color: $white-color;
+                    color: $brand-color;
+                    font-size: 16px;
+                    letter-spacing: 3.6px;
+                    font-weight: 900;
+                    text-align: center;
+                    border: none;
+                    cursor: pointer;
+                }
+            }
+        }
+        .newsletter_image{
+            width: 50%;
+            
+            margin-top: -120px;
+            text-align: right;
+            img {
+                width: 100%;
+                max-width: 500px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 768px) {
+    // newsletter section responsive css--------
+    .newsletter{
+        position: relative;
+        padding: 65px 0;
+        .r2a_container{
+            .newsletter_content{
+                width: 100%;
+            }
+            .newsletter_image {
+                width: 70%;
+                max-width: 300px;
+                position: absolute;
+                right: 0;
+                top: -20px;
+            }
+        }
+    } 
+}
