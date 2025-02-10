@@ -43,11 +43,6 @@
   link_label: More information
   link_url: https://www.oulues.com
   stage: just-exploring, getting-started, ready-to-grow
-- title: Business Corner
-  description: Student startups are built in the Business Corner Coworking space, open for all.
-  link_label: More information
-  link_url: https://oamk.fi/en/development-platforms/business-corner/
-  stage: just-exploring, getting-started, ready-to-grow
 - title: BusinessOulu Funding Services
   description: BusinessOulu helps clarify your financing needs and funding options related to the start-up, development, growth and internationalization of the company.
   link_label: More information
