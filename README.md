@@ -65,6 +65,7 @@ This is an example file that defines two services.
 
 All images must be stored in `assets/images/`-directory. 
 
+- Event cover images are stored in assets/images/events folder. 
 - Optimal image size is 960 x 540 (fileformat png).
 
 
