@@ -23,7 +23,7 @@
   link_label: More information
   link_url: https://www.oulunseudunuusyrityskeskus.fi/en/home/
   stage: getting-started, ready-to-grow
-- title: OYSTER business incubator
+- title: OYSTER Business Oncubator
   description: Supports building new innovations in digital health, health technology, the health and well-being industry, and diagnostics
   link_label: More information
   link_url: https://ouluhealth.fi/oyster/
@@ -33,7 +33,7 @@
   link_label: More information
   link_url: https://oulu.com/en/startup-station/
   stage: just-exploring, getting-started
-- title: Kielo
+- title: Kielo Growth
   description: Support the building of startups by offering office spaces, angel investor funding and a strong community.
   link_label: More information
   link_url: https://kielo.com/
@@ -57,7 +57,7 @@
   description: Pilot plant for the production of new product concepts and prototypes.
   link_label: More information
   link_url: https://www.printocent.net/
-  stage: just-exploring, getting-started, ready-to-grow
+  stage: getting-started, ready-to-grow
 - title: University Innovation Centre
   description: Supports the development of business based on research results and inventions, and offer support for different company needs.
   link_label: More information
