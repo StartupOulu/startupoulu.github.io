@@ -78,3 +78,13 @@
   link_label: More information
   link_url: https://www.osao.fi/hankkeet/small-business-hub/
   stage: just-exploring, getting-started
+- title: FIBAN
+  description: Finnish Business Angels Network
+  link_label: More information
+  link_url: https://fiban.org/
+  stage: ready-to-grow
+- title: Technopolis
+  description: Technopolis offers office spaces for startups in different parts of Oulu.
+  link_label: More information
+  link_url: https://technopolisglobal.com/fi/?gad_source=1&gbraid=0AAAAABpQzOrgK2fgbe7FOMPfWPhBjy5qk&gclid=EAIaIQobChMImr2OrL67jAMVvBBECB1gRRWZEAAYASAAEgIGifD_BwE
+  stage: getting-started, ready-to-grow
