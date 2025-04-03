@@ -23,7 +23,7 @@
   link_label: More information
   link_url: https://www.oulunseudunuusyrityskeskus.fi/en/home/
   stage: getting-started, ready-to-grow
-- title: OYSTER Business Oncubator
+- title: OYSTER Business Incubator
   description: Supports building new innovations in digital health, health technology, the health and well-being industry, and diagnostics
   link_label: More information
   link_url: https://ouluhealth.fi/oyster/
@@ -52,7 +52,7 @@
   description: Co-creation platform for social and healthcare professionals, citizens, companies, and other stakeholders (e.g., third sector)
   link_label: More information
   link_url: https://ouluhealth.fi/services/ouluhealth-labs/
-  stage: just-exploring, getting-started, ready-to-grow
+  stage: getting-started, ready-to-grow
 - title: Printocent
   description: Pilot plant for the production of new product concepts and prototypes.
   link_label: More information
