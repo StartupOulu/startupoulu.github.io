@@ -2,27 +2,27 @@
   description: Build your own online business and make money online.
   link_label: More information
   link_url: https://forms.office.com/e/5LqvNRnB1j
-  stage: just-exploring, getting-started, ready-to-grow
+  stage: just-exploring, getting-started
 - title: KoodiKorneri
   description: Build your own Software-as-a-Service startup with the help of experts
   link_label: More information
   link_url: https://forms.office.com/e/yQu0NFNgpa
-  stage: just-exploring, getting-started, ready-to-grow
+  stage: just-exploring, getting-started
 - title: Yrityshautomo
   description: From business incubator's coaches, you can get help and practical advice for self-employment.
   link_label: More information
   link_url: https://oamk.fi/yrityshautomo/
-  stage: just-exploring, getting-started, ready-to-grow
+  stage: just-exploring, getting-started
 - title: Startup Express
   description: Turn your idea into a startup in 100 days with help of a community
   link_label: More information
   link_url: https://oulu.com/en/startup-express-pre-incubator/
-  stage: just-exploring, getting-started, ready-to-grow
+  stage: just-exploring, getting-started
 - title: Uusyrityskeskus
   description: Helps you evaluate your business idea from various perspectives and start your company.
   link_label: More information
   link_url: https://www.oulunseudunuusyrityskeskus.fi/en/home/
-  stage: just-exploring, getting-started, ready-to-grow
+  stage: getting-started, ready-to-grow
 - title: OYSTER business incubator
   description: Supports building new innovations in digital health, health technology, the health and well-being industry, and diagnostics
   link_label: More information
@@ -32,22 +32,22 @@
   description: Offers inspiration, knowledge and support though experts, events and training programs
   link_label: More information
   link_url: https://oulu.com/en/startup-station/
-  stage: just-exploring, getting-started, ready-to-grow
+  stage: just-exploring, getting-started
 - title: Kielo
   description: Support the building of startups by offering office spaces, angel investor funding and a strong community.
   link_label: More information
   link_url: https://kielo.com/
-  stage: just-exploring, getting-started, ready-to-grow
+  stage: ready-to-grow
 - title: OuluES
   description: Promotes entrepreneurial student community and culture in Oulu.
   link_label: More information
   link_url: https://www.oulues.com
-  stage: just-exploring, getting-started, ready-to-grow
+  stage: just-exploring, getting-started
 - title: BusinessOulu Funding Services
   description: BusinessOulu helps clarify your financing needs and funding options related to the start-up, development, growth and internationalization of the company.
   link_label: More information
   link_url: https://www.businessoulu.com/en/businesses-and-entrepreneurs/business-development/financial-advice/
-  stage: just-exploring, getting-started, ready-to-grow
+  stage: getting-started, ready-to-grow
 - title: OuluHealth Labs
   description: Co-creation platform for social and healthcare professionals, citizens, companies, and other stakeholders (e.g., third sector)
   link_label: More information
