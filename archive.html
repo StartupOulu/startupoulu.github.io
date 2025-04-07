@@ -1,0 +1,40 @@
+---
+layout: events
+---
+
+{% assign events = site.events | sort: 'start_time' %}
+{% assign years = events | group_by_exp: "item", "item.start_time | date: '%Y'" %}
+<section class="event-archive">
+  <h1>All Events</h1>
+
+  {% for year in years %}
+    <section class="year-section">
+      <h2 class="year">{{ year.name }}</h2>
+      
+      {% assign year_events = year.items %}
+      {% assign months = year_events | group_by_exp: "item", "item.start_time | date: '%B'" %}
+      
+      {% for month in months %}
+        <div class="month-section">
+          <h3>{{ month.name }}</h3>
+          
+          <ul class="event-list">
+            {% for event in month.items %}
+              <li class="event-item">
+                <h4 class="event-title">
+                  <time datetime="{{ event.start_time | date_to_xmlschema }}">
+                    {{ event.start_time | date: "%d.%m." }}
+                  </time>
+                  <a href="{{ event.url }}">{{ event.title }}</a>
+                </h4>
+                
+                
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </section>
+  {% endfor %}
+  
+</section>

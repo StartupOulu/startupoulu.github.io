@@ -1,0 +1,29 @@
+.event-archive {
+  margin-top: 3rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  font-weight: normal;
+
+  h1 {
+    font-size: 36px;
+    margin-bottom: 1rem;
+  }
+
+
+  .year-section {
+
+    margin-bottom: 2rem;
+  
+    .year {
+      font-weight: bold;
+      font-size: 24px;
+    }
+  
+  }
+  
+  .month-section {
+    margin-left: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}

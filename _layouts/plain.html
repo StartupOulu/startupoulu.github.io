@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include header.html %}
+<body>
+    <div class="hero">
+        <header class="header">
+          {% include logo.html %}
+          <nav class="nav_bar">
+            {% include nav.html %}
+          </nav>
+          <div class="toggle_btn"><svg class="common_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+            <path fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+          </svg>
+          </div>
+          <nav class="mobile_nav_bar">
+            <div class="r2a_container">
+              <div class="flex justify-between items-center">
+                <div class="logo">
+                  <a href="{{ site.baseurl }}/index.html">
+                    <img src="{{ site.baseurl }}/assets/images/mobile-logo.png" alt="logo">
+                  </a>
+                </div>
+                <div class="close_btn"><svg class="common_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                  <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                </svg>
+                </div>
+            </div>
+          </div>
+            {% include nav.html %}
+          </nav>
+        </header>
+      </div>
+
+
+    {{ content }}
+
+      <!-- newsletter section start -->
+      {% include newsletter.html %}
+      <!-- newsletter section ends -->
+      <!-- follow us section start -->
+      {% include social_media.html %}
+      <!-- follow us section ends -->
+      {% include footer.html %}
+    {% include script.html %}
+</body>
+</html>
