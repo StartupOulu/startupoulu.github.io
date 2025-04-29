@@ -2,7 +2,7 @@
 layout: blog
 title: Oamk vahvistaa Oulun startup-ekosysteemiä – henkilökunnan startup-idea palkittiin parhaana Slush Oulu Communityn pitchauskilpailussa
 description: Kulttuuritalo Valveen tilat täyttyivät 15.11.2024 innokkaista kasvuyrittäjistä, opiskelijoista ja yrityselämän asiantuntijoista, kun Slush Oulu Community Side Event -tapahtuma kokosi yhteen alueen startup-kentän parhaat ideat ja verkostoitumisesta kiinnostuneet osallistujat. Tapahtuma tarjosi inspiroivia puheenvuoroja, käytännön oppia ja unohtumatonta kilpailujännitystä – kaikki kansainvälisen startup-kulttuurin hengessä.
-blog_image: /assets/images/blogs/swoulu.png
+blog_image: /assets/images/blogs/slushoulu.jpg
 ---
 Slush on maailman johtava startup-tapahtuma, joka järjestetään vuosittain Helsingissä. Tapahtuma kokoaa yhteen startup-yrittäjiä, sijoittajia ja teknologian huippuosaajia ympäri maailmaa. Slush toimii alustana uusien liiketoimintamahdollisuuksien luomiselle, verkostoitumiselle ja innovaatioiden kehittämiselle. Tapahtuma on myös keskeinen vaikuttaja globaalissa startup-ekosysteemissä, edistäen yrittäjyyttä ja innovaatioita maailmanlaajuisesti.
 
