@@ -2,7 +2,7 @@
 layout: blog
 title: Rohkeasti unelmia kohti - LiftFix Oy, Eemil Neuvonen
 description: Eemil Neuvonen on ollut kiinnostunut yrittäjyydestä jo pitkään. Yrittämisessä häntä kiehtoo erityisesti mahdollisuus tehdä asiat omalla tavallaan – huolella ja alusta loppuun asti – sekä se, että saa asiakkaat tyytyväisiksi oman työnsä tuloksilla. 
-blog_image: /assets/images/blogs/eemilneuvonen-wide.jpg
+blog_image: /assets/images/blogs/eemilneuvonenwide.jpg
 ---
 Eemil Neuvonen on ollut kiinnostunut yrittäjyydestä jo pitkään. Yrittämisessä häntä kiehtoo erityisesti mahdollisuus tehdä asiat omalla tavallaan – huolella ja alusta loppuun asti – sekä se, että saa asiakkaat tyytyväisiksi oman työnsä tuloksilla. 
 
