@@ -26,7 +26,9 @@ Toisen sijan saavutti Protodev ideallaan käsineestä, joka hillitsee Parkinsoni
 
 Kolmannen sijan nappasi logistiikkapalvelu Bringee, joka yhdistää asiakkaiden kuljetustarpeet matkustamiseen. Tiimi palkittiin Buutti Oy:n lahjoittamalla 300 eurolla.
 
-Taikasatukulma testaa konseptiaan kotimaisilla ja kansainvälisillä markkinoilla Taikasatukulman perustajat Veera Mahlakaarto ja Eemeli Alanne kuvailivat tunnelmiaan kilpailun jälkeen:
+## Taikasatukulma testaa konseptiaan kotimaisilla ja kansainvälisillä markkinoilla 
+
+Taikasatukulman perustajat Veera Mahlakaarto ja Eemeli Alanne kuvailivat tunnelmiaan kilpailun jälkeen:
 
 "Taikasatukulman idea sai alkunsa halustamme luoda lasten oppimista ja mielikuvitusta tukevia tarinallisia ratkaisuja digitaalisin keinoin. Olemme jo saaneet upean vastaanoton vanhemmilta ja varhaiskasvattajilta, ja nyt halusimme myös testata ideaamme tämänkaltaisessa startup-kilpailussa. Oli mahtavaa nähdä, kuinka konseptimme resonoi sekä tuomariston että yleisön kanssa.
 
