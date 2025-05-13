@@ -72,12 +72,15 @@ This is an example file that defines two services.
 
 ### Images
 
-All images must be stored in `assets/images/`-directory. 
+All images must be uploaded under `assets/images/` directory. The subdirectory depends on the type of content, for example, all images which belong to events must be stored in `assets/images/events` directory. Same applies for images used in blogs, they are stored in `assets/images/blogs/` directory.
 
 - Event cover images are stored in assets/images/events folder. 
-- Optimal image size is 960 x 540 (fileformat png).
+- Optimal image size is 960 x 540 pixels
+- Allowed image formats are JPG and PNG
+- The filenames must use only lowercase characters and no whitespace
+  - If there is an event with image `Business Corner Launch.jpg`, it must be stored as `2025-09-business-corner-launch.jpg` in `assets/images/events/` directory
 
-All images must be uploaded under `assets/images/` directory. The subdirectory depends on the type of content, for example, all images which belong to events must be stored in `assets/images/events` directory. Same applies for images used in blogs, they are stored in `assets/images/blogs/` directory.
+#### Directory structure
 
 ```
 + assets/
