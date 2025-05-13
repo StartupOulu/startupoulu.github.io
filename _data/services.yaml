@@ -8,11 +8,6 @@
   link_label: More information
   link_url: https://forms.office.com/e/yQu0NFNgpa
   stage: just-exploring, getting-started
-- title: Yrityshautomo
-  description: From business incubator's coaches, you can get help and practical advice for self-employment.
-  link_label: More information
-  link_url: https://oamk.fi/yrityshautomo/
-  stage: just-exploring, getting-started
 - title: Startup Express
   description: Turn your idea into a startup in 100 days with help of a community
   link_label: More information
@@ -76,7 +71,7 @@
 - title: Bisnesmajakka / Business Lighthouse
   description: OSAO Bisnesmajakka/Business Lighthouse is an inspiring, easy to land pre-incubator on the OSAO Kotkantie campus for those interested in entrepreneurhip. 
   link_label: More information
-  link_url: https://www.osao.fi/hankkeet/small-business-hub/
+  link_url: https://www.osao.fi/opiskelen-osaossa/opiskelu/osao-bisnesmajakka/
   stage: just-exploring, getting-started
 - title: FIBAN
   description: Finnish Business Angels Network
