@@ -77,6 +77,17 @@ All images must be stored in `assets/images/`-directory.
 - Event cover images are stored in assets/images/events folder. 
 - Optimal image size is 960 x 540 (fileformat png).
 
+All images must be uploaded under `assets/images/` directory. The subdirectory depends on the type of content, for example, all images which belong to events must be stored in `assets/images/events` directory. Same applies for images used in blogs, they are stored in `assets/images/blogs/` directory.
+
+```
++ assets/
+|  
++-- images/
+    |
+    +-- events/
+    |
+    +-- blogs/
+```
 
 ## Guides
 
