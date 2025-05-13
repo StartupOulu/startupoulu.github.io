@@ -22,15 +22,19 @@ The contents of each file is as follows:
 ```
 ---
 layout: event
-title: Business Corner Launch Party
-start_time: 2025-01-23 12:00:00
-end_time: 2025-01-23 16:00:00
-location: Business Corner, Linnanmaa campus
-cover_image: business-corner-launch-party-2025.png
-excerpt: |
-  StartupOulu invites you to celebrate the grand opening of Business Corner! Join us for a day filled with keynotes on successful personal branding and funding your business, CV photographing, delicious food, and a few surprises.
+title: Apply to OYSTER Pre-incubator for Health Sector Business Ideas by 6.6.
+start_time: 2025-09-01 15:00:00
+end_time: 2025-11-01 20:00:00
+location: OYSTER Pre-incubator, Kiviharjunlenkki 1a
+cover_image: oyster-apply.png
+cta_title: Register
+cta_link: https://oamk.fi/en/apply-with-your-business-idea-to-the-oyster-pre-incubator/
 description:  |
-  StartupOulu invites you to celebrate the grand opening of Business Corner! Join us for a day filled with keynotes on successful personal branding and funding your business, CV photographing, delicious food, and a few surprises. This event is perfect for anyone eager to dive deeper into the world of entrepreneurship, discover new collaboration opportunities, or simply enjoy networking in an inspiring environment.
+  The application period for the OYSTER pre-incubator has started and will continue until June 6, 2025. 
+  The 100-day free coaching program begins in September. During the pre-incubator program, 
+  participants receive training on key business themes and develop their own business ideas with 
+  the support of coaches from Oamk, the University of Oulu, and BusinessOulu. 
+  The purpose of these activities is to promote the region's startup activities in the health and life sciences sectors. 
 ---
 ```
 
