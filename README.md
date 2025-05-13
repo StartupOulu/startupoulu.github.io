@@ -29,7 +29,12 @@ location: OYSTER Pre-incubator, Kiviharjunlenkki 1a
 cover_image: oyster-apply.png
 cta_title: Register
 cta_link: https://oamk.fi/en/apply-with-your-business-idea-to-the-oyster-pre-incubator/
-description:  |
+excerpt: |
+  The application period for the OYSTER pre-incubator has started and will continue until June 6, 2025. 
+  The 100-day free coaching program begins in September. During the pre-incubator program, 
+  participants receive training on key business themes and develop their own business ideas with 
+  the support of coaches from Oamk, the University of Oulu, and BusinessOulu.
+description: |
   The application period for the OYSTER pre-incubator has started and will continue until June 6, 2025. 
   The 100-day free coaching program begins in September. During the pre-incubator program, 
   participants receive training on key business themes and develop their own business ideas with 
