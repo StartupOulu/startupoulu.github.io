@@ -2,7 +2,7 @@
 layout: blog
 title: Yrittäjyys tiivistää tyyöelämän – Jonos Oy, Mikko Soini
 description: Huhtikuussa Ouluun perustettiin uusi Jonos-startup, joka automatisoi myyntiä ravintola- ja elämysalalla. Yksi sen perustajista on Oamkin yrittäjyyden opiskelija Mikko Soini, joka on aina halunnut tehdä asioita omalla tavallaan. 
-blog_image: /assets/images/blogs/mikko.png
+blog_image: /assets/images/blogs/mikkojonos.png
 ---
 Huhtikuussa Ouluun perustettiin uusi Jonos-startup, joka automatisoi myyntiä ravintola- ja elämysalalla. Yksi sen perustajista on Oamkin yrittäjyyden opiskelija Mikko Soini, joka on aina halunnut tehdä asioita omalla tavallaan. 
 
