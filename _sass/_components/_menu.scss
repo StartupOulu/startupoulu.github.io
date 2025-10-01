@@ -24,12 +24,13 @@
         .nav-item{
           font-size: 23px;
           font-weight: 700;
-          color: $brand-color;
+          color: $white-color;
           text-decoration: none;
           padding: 0.5rem 16px;
           &:hover{
             background-color: #070540;
-            color: #fff;
+            background-color: $white-color;
+            color: $brand-color;
           }
         }
         &:hover ul{
@@ -63,8 +64,8 @@
               padding: 10px 16px;
               display: block;
               &:hover{
-                background-color: $brand-color;
                 color: $white-color;
+                background-color: $brand-color;
               }
             }
           }
@@ -166,8 +167,11 @@
   .toggle_btn{
     display: none;
     font-size: 30px;
-    color: $brand-color;
+    color: $white-color;
     cursor: pointer;
+  }
+  .toggle_btn svg {
+    color: $white-color;
   }
 }
 
