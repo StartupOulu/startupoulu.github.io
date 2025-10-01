@@ -24,13 +24,12 @@
         .nav-item{
           font-size: 23px;
           font-weight: 700;
-          color: $white-color;
+          color: $brand-color;
           text-decoration: none;
           padding: 0.5rem 16px;
           &:hover{
-            background-color: #070540;
-            background-color: $white-color;
-            color: $brand-color;
+            background-color: $brand-color;
+            color: $white-color;
           }
         }
         &:hover ul{
@@ -183,4 +182,18 @@
     height: 85px;
     vertical-align: middle;
   }
+}
+
+
+.frontpage {
+  .nav-item {
+      color: $white-color !important;
+      background-color: $brand-color !important;
+    
+    &:hover {
+      color: $brand-color !important;
+      background-color: $white-color !important;
+    }
+  }
+
 }
