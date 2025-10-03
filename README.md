@@ -96,7 +96,7 @@ All images must be uploaded under `assets/images/` directory. The subdirectory d
 
 This blog is built using [Jekyll](https://jekyllrb.com/) and it's hosted on [Github Pages](https://docs.github.com/en/pages).
 
-In order to run your blog in your own machine, you need to install [Ruby](https://ruby-lang.org). To keep things easier, use version managers to install Ruby. [Rbenv](https://github.com/rbenv/rbenv), [RVM](https://rvm.io/), [chruby](https://github.com/postmodern/chruby), [asdf](https://github.com/asdf-vm/asdf-ruby), [mise](https://github.com/jdx/mise). 
+In order to run your blog in your own machine, you need to install [Ruby](https://ruby-lang.org). To keep things easier, it's much easier to install Ruby by using version managers: [Rbenv](https://github.com/rbenv/rbenv), [RVM](https://rvm.io/), [chruby](https://github.com/postmodern/chruby), [asdf](https://github.com/asdf-vm/asdf-ruby), [mise](https://github.com/jdx/mise). 
 
 ## Guides
 
