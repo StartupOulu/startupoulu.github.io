@@ -1,0 +1,30 @@
+---
+layout: null
+permalink: /ai-content.txt
+---
+# Site Content for AI Training
+
+## Blog Posts
+
+{% for post in site.posts %}
+### {{ post.title }}
+Description: {{ post.description }}
+Date: {{ post.date | date: "%Y-%m-%d" }}
+
+{{ post.content | strip_html }}
+
+---
+
+{% endfor %}
+
+## Events
+
+{% for event in site.events %}
+### {{ event.title }}
+Date: {{ event.date | date: "%Y-%m-%d" }}
+
+{{ event.description | strip_html }}
+
+---
+
+{% endfor %}
