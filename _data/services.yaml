@@ -93,3 +93,8 @@
   link_label: More information
   link_url: https://www.korpunsiemen.fi/en/
   stage: ready-to-grow
+- title: FabLab
+  description: FabLab’s high technology is available to all, free of charge. At BusinessAsema FabLab, you can learn, use and utilise modern digital methods of manufacturing in innovation, application and showcasing your expertise.
+  link_label: More information
+  link_url: https://businessasema.com/en/fablab/
+  stage: just-exploring, getting-started, ready-to-grow
