@@ -84,7 +84,12 @@
   link_url: https://butterfly.vc/about-us/
   stage: ready-to-grow
 - title: Nordic Option
-  description: Nordic Option on pääomasijoitusrahasto, joka kohdistaa sijoituksensa kasvuvaiheen yrityksiin ensisijaisesti Pohjois-Suomen alueella.
+  description: Nordic Option is a venture capital fund focusing on and investing in growth phase companies in Northern Finland.
   link_label: More information
   link_url: https://nordicoption.fi/
+  stage: ready-to-grow
+- title: Korpunsiemen
+  description: Korpun Siemen’s first investment in the target company is 50.000-100.000€ and it can make further investments in subsequent rounds up to a total investment of 200.000€.
+  link_label: More information
+  link_url: https://www.korpunsiemen.fi/en/
   stage: ready-to-grow
