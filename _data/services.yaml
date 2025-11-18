@@ -78,3 +78,13 @@
   link_label: More information
   link_url: https://technopolisglobal.com/fi/?gad_source=1&gbraid=0AAAAABpQzOrgK2fgbe7FOMPfWPhBjy5qk&gclid=EAIaIQobChMImr2OrL67jAMVvBBECB1gRRWZEAAYASAAEgIGifD_BwE
   stage: getting-started, ready-to-grow
+- title: Butterfly Ventures
+  description: Butterfly Ventures is the leading seed entry deep tech VC in the Nordics.
+  link_label: More information
+  link_url: https://butterfly.vc/about-us/
+  stage: ready-to-grow
+  - title: Nordic Option
+  description: Nordic Option on pääomasijoitusrahasto, joka kohdistaa sijoituksensa kasvuvaiheen yrityksiin ensisijaisesti Pohjois-Suomen alueella.
+  link_label: More information
+  link_url: https://nordicoption.fi/
+  stage: ready-to-grow
