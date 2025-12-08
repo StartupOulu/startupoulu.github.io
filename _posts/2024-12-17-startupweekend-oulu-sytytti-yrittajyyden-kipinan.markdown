@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: Startup Weekend Oulu sytytti yrittäjyyden kipinän
-description: Oulun ammattikorkeakoulun (Oamk) Business Cornerilla järjestetty Startup Weekend Oulu keräsi jälleen yhteen yrittäjähenkisiä ja startupin rakentamisesta kiinnostuneita tulevaisuuden tekijöitä 11.–13.10.2024. Kolmipäiväinen tapahtuma tarjosi osallistujille mahdollisuuden kehittää tiimeissä skaalautuvia liikeideoita mentoreiden ja asiantuntijoiden tukemana. Viikonloppu houkutteli osallistujia eri puolilta Suomea ja jopa Norjasta asti, ja mukaan mahtui monenlaisia osaajia eri taustoista.
+description: Oulun ammattikorkeakoulun (Oamk) Business Cornerilla järjestetty Startup Weekend Oulu keräsi jälleen yhteen yrittäjähenkisiä ja startupin rakentamisesta kiinnostuneita tulevaisuuden tekijöitä 11.–13.10.2024. Kolmipäiväinen tapahtuma tarjosi osallistujille mahdollisuuden kehittää tiimeissä skaalautuvia liikeideoita mentoreiden ja asiantuntijoiden tukemana. Viikonloppu houkutteli osallistujia eri puolilta Suomea ja jopa Norjasta asti, ja mukaan mahtui monenlaisia osaajia eri taustoista. Julkaistu 17.12.2024.
 blog_image: /assets/images/blogs/swoulu.png
 ---
 Startup Weekend Oulu käynnistyi perjantai-iltana 11.10., kun tapahtuman 43 osallistujaa kerääntyivät Oamkin Business Cornerille. Jokaiselle halukkaalle tarjottiin mahdollisuus pitchata oma liikeidea, mikäli sellainen oli mielessä. Osallistujat valitsivat pitchatuista ideoista 11 jatkokehitettäväksi viikonlopun aikana, ja muodostivat tiimit näiden ideoiden ympärille. Viikonlopun aikana tiimit simuloivat startupin perustamisen keskeisiä vaiheita, kuten nopeaa testausta, prototyypin suunnittelua ja pitchaamista.
