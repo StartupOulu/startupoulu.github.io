@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: Tekoäly muutti koodarien pelikentän ja nyt tarvitaan uusia väyliä työelämään
-description: Tekoäly on muuttanut ohjelmistokehityksen pelisäännöt: senior-kehittäjät pystyvät AI-työkalujen avulla tuottamaan enemmän kuin koskaan, kun taas juniorien asema työmarkkinoilla heikkenee. Yritykset suosivat kokeneita osaajia tai konsulttitaloja, mikä kaventaa alalle pyrkivien vastavalmistuneiden mahdollisuuksia. Julkaistu 8.12.2025.
+description: Senior-kehittäjät pystyvät AI-työkalujen avulla tuottamaan enemmän kuin koskaan, kun taas juniorien asema työmarkkinoilla heikkenee. Yritykset suosivat kokeneita osaajia tai konsulttitaloja, mikä kaventaa alalle pyrkivien vastavalmistuneiden mahdollisuuksia. Julkaistu 8.12.2025.
 blog_image: assets/images/blogs/2025-12-AI-blog-image.jpg
 ---
 *Teksti julkaistu myös [Oamkin Journalissa.](https://oamkjournal.oamk.fi/2025/tekoaly-muutti-koodarien-pelikentan-ja-nyt-tarvitaan-uusia-vaylia-tyoelamaan//)*
