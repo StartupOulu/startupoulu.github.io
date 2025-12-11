@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: Oulun startupekosysteemi kehittyy huimaa vauhtia
-description: Oulun startup-ekosysteemi kasvaa vauhdilla. Vuonna 2023 perustettiin yli 20 uutta startupia, ja aktiivisia yrityksiä on jo noin 120.
+description: Oulun startup-ekosysteemi kasvaa vauhdilla. Vuonna 2023 perustettiin yli 20 uutta startupia, ja aktiivisia yrityksiä on jo noin 120. Julkaistu 25.9.2025.
 blog_image: /assets/images/blogs/team-photo-from-behind.jpg
 ---
 *Alkuperäinen uutinen oulu.com-sivustolla: [oulu.com/oia/ajankohtaista/oulun-startupekosysteemi-kehittyy-huimaa-vauhtia](https://oulu.com/oia/ajankohtaista/oulun-startupekosysteemi-kehittyy-huimaa-vauhtia/)*
