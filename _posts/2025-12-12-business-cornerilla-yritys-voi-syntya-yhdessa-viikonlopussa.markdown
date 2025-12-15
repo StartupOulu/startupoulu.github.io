@@ -2,7 +2,7 @@
 layout: blog
 title: Oamkin Business Cornerilla yritys voi syntyä jo yhdessä viikonlopussa
 description: Business Corner on oppimis- ja yhteisötila, jossa opiskelijat voivat kehittää startup-ideoita käytännössä. Sen ydinajatus on, että yrittäjyyttä opitaan tekemällä. Julkaistu 12.12.2025.
-blog_image: assets/images/blogs/Business-corner-blogi.png
+blog_image: assets/images/blogs/Business-corner-blogi_2025.png
 ---
 *Blogi on julkaistu myös [Oamkin Journalissa](https://oamkjournal.oamk.fi/2025/oamkin-business-cornerilla-yritys-voi-syntya-jo-yhdessa-viikonlopussa/)*
 
@@ -28,7 +28,7 @@ Tapahtuma on vuosien varrella vetänyt mukaansa opiskelijoita, työelämän edus
 
 ”Me uskomme siihen, että kukaan meistä ei voi yksin päättää, onko liikeidea hyvä vai huono. Sen päätöksen tekevät markkinat. Liikeidean validointi ja kysynnän testaaminen on yksi tärkeimmistä taidoista, joita Startup Weekendissä harjoitellaan”, kommentoi projektipäällikkö Hanna Spets Oamkin TKI-yksiköstä.
 
-Työskentely huipentuu sunnuntai-illan finaaliin, jossa osallistujat pitchaasivat liikeideansa tuomaristolle. Tuomaristo valitsi kolme parasta tiimiä palkintosijoille. Arvokkainta viikonlopussa on kuitenkin käytännön oppimiskokemus ja uudet verkostot. Lisää kokemuksia Startup Weekendistä jakavat Susanne Korva ja Hanna Spets (2024) blogikirjoituksessaan ”Startup Weekend Oulu sytytti yrittäjyyden kipinän”.
+Työskentely huipentuu sunnuntai-illan finaaliin, jossa osallistujat pitchaasivat liikeideansa tuomaristolle. Tuomaristo valitsi kolme parasta tiimiä palkintosijoille. Arvokkainta viikonlopussa on kuitenkin käytännön oppimiskokemus ja uudet verkostot. Lisää kokemuksia Startup Weekendistä jakavat Susanne Korva ja Hanna Spets (2024) blogikirjoituksessaan [”Startup Weekend Oulu sytytti yrittäjyyden kipinän”](https://www.startupoulu.com/2024/12/17/startupweekend-oulu-sytytti-yrittajyyden-kipinan.html/).
 
 Moni Startup Weekendissä muodostunut tiimi on jatkanut idean kehittämistä tapahtuman jälkeen yrityksen perustamiseen saakka.
 
