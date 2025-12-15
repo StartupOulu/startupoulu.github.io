@@ -32,9 +32,9 @@ Työskentely huipentuu sunnuntai-illan finaaliin, jossa osallistujat pitchaasiva
 
 Moni Startup Weekendissä muodostunut tiimi on jatkanut idean kehittämistä tapahtuman jälkeen yrityksen perustamiseen saakka.
 
-Mikko Soini kertoo opiskelijatarinassaan, kuinka hän halusi Startup Weekendissa ratkaista tiiminsä kanssa arkisen ongelman eli pitkät jonot baareissa ja tapahtumissa. Näin syntyi Jonos.io, digitaalinen palvelu, jonka avulla asiakas voi tilata ja maksaa juomat jonottamatta. Nykyään Jonos on käytössä jo useammassa oululaisessa baarissa.
+[Mikko Soini kertoo opiskelijatarinassaan](https://www.startupoulu.com/2025/08/11/yrittajyys-tiivistaa-tyoelaman.html/), kuinka hän halusi Startup Weekendissa ratkaista tiiminsä kanssa arkisen ongelman eli pitkät jonot baareissa ja tapahtumissa. Näin syntyi Jonos.io, digitaalinen palvelu, jonka avulla asiakas voi tilata ja maksaa juomat jonottamatta. Nykyään Jonos on käytössä jo useammassa oululaisessa baarissa.
 
-Petra Puolakanaho jakaa opiskelijatarinassaan, kuinka hänen liikeideansa sai alkunsa omista tarpeista löytää paikallisia tapahtumia. Petra päätti osallistua ideallaan Startup Weekendiin, ja tapahtumasta ponnistanut Menox Events Oy on tällä hetkellä lanseeraamassa tapahtumamarkkinoinnin alustaa loppuvuodesta 2025.
+Myös Petra Puolakanaho jakaa omassa [opiskelijatarinassaan](https://oamk.fi/koulutus/oamkin-opiskelijatarinat/menox-kehittyi-ideasta-yritykseksi-yhden-viikonlopun-aikana/), kuinka hänen liikeideansa sai alkunsa omista tarpeista löytää paikallisia tapahtumia. Petra päätti osallistua ideallaan Startup Weekendiin, ja tapahtumasta ponnistanut Menox Events Oy on tällä hetkellä lanseeraamassa tapahtumamarkkinoinnin alustaa loppuvuodesta 2025.
 
 ## Cofounder Corner on kohtaamispaikka tuleville yhtiökumppaneille
 
@@ -59,7 +59,7 @@ Strukturoidussa ja intensiivisessä aikataulussa voi saada aikaan asioita, joide
 ## Business Corner on StartupOulun toimintakeskus
 
 Business Cornerin arki on täynnä toimintaa. Kokeneet startup-mentorit päivystävät tilassa keskiviikkoaamuisin klo 9.30–11.30 ja ovat valmiita auttamaan liikeidean sparrailussa.
-Lisäksi tilassa järjestetään syksyisin ja keväisin yrittäjyysohjelma Founder’s Corner, jossa osallistujat oppivat digitaalisen liiketoiminnan ja skaalautuvan yrittäjyyden keskeisiä taitoja.
+Lisäksi tilassa järjestetään syksyisin ja keväisin yrittäjyysohjelma [Founder’s Corner](https://link.webropolsurveys.com/EventParticipation/EventPublic/45c4eb50-00dc-4bfe-b865-44d09fc502ad?displayId=Fin3535461/), jossa osallistujat oppivat digitaalisen liiketoiminnan ja skaalautuvan yrittäjyyden keskeisiä taitoja.
 
 Business Cornerin toimintojen moottorina on ajatus: yrittäjyys on opittavissa – ja parhaat ideat syntyvät yhteistyössä. Olitpa sitten opiskelija, tutkija, asiantuntija tai unelmoiva tekijä, Business Corner tarjoaa alustan käytännön kokeiluille ja kasvulle.
 
