@@ -48,7 +48,7 @@ Moni nuori kehittäjä pohtii tulevaisuuttaan työmarkkinoilla, eikä syyttä. T
 
 Oamkin koordinoimat startup-ohjelmat pyrkivät vastaamaan haasteeseen tarjoamalla opiskelijoille erilaisia mahdollisuuksia kehittää omia yrittäjyystaitojaan. Oman osaamisen kaupallistaminen voi olla yksi ratkaisu haasteellisessa työmarkkinatilanteessa. Mitä jos ensimmäinen työpaikka olisikin omassa yrityksessä?
 
-Tämän periaatteen mukaisesti oman ohjelmistotuotteen rakentamista ja myymistä pääsee harjoittelemaan marraskuun lopussa käynnistyneessä KoodiKorneri-työpajasarjassa (kuva 2). KoodiKornerin idea on yksinkertainen: oppiminen tapahtuu tekemällä. 
+Tämän periaatteen mukaisesti oman ohjelmistotuotteen rakentamista ja myymistä pääsee harjoittelemaan marraskuun lopussa käynnistyneessä KoodiKorneri-työpajasarjassa. KoodiKornerin idea on yksinkertainen: oppiminen tapahtuu tekemällä. 
 Työpajoissa osallistujat suunnittelevat ja luovat alusta alkaen oman SaaS (software-as-a-service) -tuotteen, hyödyntävät moderneja koodaamisen työkaluja ja ennen kaikkea kokoavat konkreettista näyttöä osaamisestaan potentiaalisille työnantajille ja asiakkaille. Valmis tuote syntyy tekoälyavusteisesti tunneissa, ei kuukausien koodaamisella.
 
 Omien sivu- tai harrasteprojektien kehittäminen on erittäin suositeltavaa, sillä niiden kautta saa arvokasta kokemusta ja konkreettista näyttöä omasta osaamisesta, jotka voivat merkittävästi helpottaa ensimmäisen työpaikan saamista, kommentoi projektiasiantuntija ja KoodiKornerin vetäjä Tuomas Jomppanen StartupOulusta.
