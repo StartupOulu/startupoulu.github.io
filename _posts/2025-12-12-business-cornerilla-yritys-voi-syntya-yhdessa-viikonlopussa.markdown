@@ -2,7 +2,7 @@
 layout: blog
 title: Oamkin Business Cornerilla yritys voi syntyä jo yhdessä viikonlopussa
 description: Business Corner on oppimis- ja yhteisötila, jossa opiskelijat voivat kehittää startup-ideoita käytännössä. Sen ydinajatus on, että yrittäjyyttä opitaan tekemällä. Julkaistu 12.12.2025.
-blog_image: assets/images/blogs/Business-corner-blogi_2025.png
+blog_image: /assets/images/blogs/Business-corner-blogi_2025.png
 ---
 *Blogi on julkaistu myös [Oamkin Journalissa](https://oamkjournal.oamk.fi/2025/oamkin-business-cornerilla-yritys-voi-syntya-jo-yhdessa-viikonlopussa/)*
 
