@@ -42,10 +42,7 @@ collections:
   blogs:
     output: true
 
-# Build settings
-plugins:
-  - jekyll-feed
-  - jekyll-sass-converter
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -72,3 +69,11 @@ exclude:
   - Gemfile
   - Gemfile.lock
 
+gems:
+  - jekyll-redirect-from
+whitelist:
+  - jekyll-redirect-from
+plugins:
+  - jekyll-redirect-from
+  - jekyll-feed
+  - jekyll-sass-converter
