@@ -3,7 +3,7 @@
 - [How to add an event?](#how-to-add-an-event)
 - [How to add a blog post?](#how-to-add-a-blog-post)
 - [How to add a service?](#how-to-add-a-service)
-- [Public Analytics page](https://plausible.io/share/startupoulu.com?auth=EGvvedQd9yAzpwIIp5-_g)
+- [Public Analytics page](https://cloud.umami.is/analytics/eu/share/TRXfirUynZGCZDPq)
 
 ## Troubleshooting
 
