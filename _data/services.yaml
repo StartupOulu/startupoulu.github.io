@@ -18,6 +18,11 @@
   link_label: More information
   link_url: https://ouluhealth.fi/oyster/
   stage: just-exploring, getting-started, ready-to-grow
+- title: AI-Incubator
+  description: A 9-month, cohort-based program that helps early-stage AI founders validate their ideas, build solutions, and work toward their first customer with structured support, mentorship and ecosystem connections.
+  link_label: More information
+  link_url: https://www.startupoulu.com/ai-incubator/
+  stage: getting-started, ready-to-grow
 - title: Startup Station
   description: Offers inspiration, knowledge and support though experts, events and training programs
   link_label: More information
