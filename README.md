@@ -261,10 +261,17 @@ You can add content using either method:
 ![Navigate to the _events folder and click Add file button](assets/images/readme/github-add-file.png)
 
 3. Click "Add file" > "Create new file"
-4. Name your file following the conventions above
-5. Paste your content
+4. Name your file following the conventions above 
 
 ![Enter filename and paste the event content](assets/images/readme/github-create-file.png)
+
+![Enter filename and paste the event content](assets/images/readme/github-commit-button.png)
+
+6. Paste your content
+
+![Enter filename and paste the event content](assets/images/readme/github-create-file.png)
+
+![Enter filename and paste the event content](assets/images/readme/github-commit-dialog.png)
 
 6. Scroll down and click "Commit changes"
 
