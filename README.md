@@ -265,15 +265,15 @@ You can add content using either method:
 
 ![Enter filename and paste the event content](assets/images/readme/github-create-file.png)
 
+5. Paste your content
+
+6. Commit the changes
+
 ![Enter filename and paste the event content](assets/images/readme/github-commit-button.png)
-
-6. Paste your content
-
-![Enter filename and paste the event content](assets/images/readme/github-create-file.png)
 
 ![Enter filename and paste the event content](assets/images/readme/github-commit-dialog.png)
 
-6. Scroll down and click "Commit changes"
+7. Scroll down and click "Commit changes"
 
 For images, use "Add file" > "Upload files" in the `assets/images/` folder.
 
