@@ -24,7 +24,7 @@
   link_url: https://www.startupoulu.com/ai-incubator/
   stage: getting-started, ready-to-grow
 - title: Startup Station
-  description: Offers inspiration, knowledge and support though experts, events and training programs
+  description: Offers inspiration, knowledge and support though experts, events and training programs.
   link_label: More information
   link_url: https://oulu.com/en/startup-station/
   stage: just-exploring, getting-started
@@ -54,12 +54,12 @@
   link_url: https://www.printocent.net/
   stage: getting-started, ready-to-grow
 - title: University Innovation Centre
-  description: Supports the development of business based on research results and inventions, and offer support for different company needs.
+  description: Offers support for research commercialization and funding for new innovations. 
   link_label: More information
   link_url: https://www.oulu.fi/en/cooperation/innovation-and-entrepreneurship
   stage: just-exploring, getting-started, ready-to-grow
 - title: Business Corner
-  description: Entrepreneurial hub in Linnanmaa campus, where we build founders and startups through Founder's Corner, KoodiKorneri and mentorship. Meeting place for all entrepreneurial people. 
+  description: Entrepreneurial hub in Linnanmaa campus, where we build founders and startups through mentoring, different programs and our member community. Walk-in startup mentoring available every Wednesday morning. 
   link_label: More information
   link_url: https://oamk.fi/en/development-platforms/business-corner/
   stage: just-exploring, getting-started, ready-to-grow
@@ -102,4 +102,9 @@
   description: FabLab’s high technology is available to all, free of charge. At BusinessAsema FabLab, you can learn, use and utilise modern digital methods of manufacturing in innovation, application and showcasing your expertise.
   link_label: More information
   link_url: https://businessasema.com/en/fablab/
+  stage: just-exploring, getting-started, ready-to-grow
+- title: StartupOulu's mentoring sessions
+  description: Get mentoring from experienced startup experts! We offer walk-in mentoring for your business case every Wednesday from 9:30–11:30 at the Business Corner (Yliopistokatu 9, Linnanmaa campus), and every Thursday from 9:30–11:30 at StartupStation (Technopolis City Centre, Sepänkatu 20). You can also book mentoring sessions at other times with StartupOulu’s Development Manager, Ilkka Immonen, by clicking "More information" below.
+  link_label: More information
+  link_url: https://outlook.office.com/bookwithme/user/8f2d5301926347ceb3875850dcae5dac@oamk.fi/meetingtype/6CyXbjj1eECPRhYTHWxASA2?anonymous&ep=mcard
   stage: just-exploring, getting-started, ready-to-grow
