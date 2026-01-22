@@ -108,3 +108,23 @@
   link_label: More information
   link_url: https://outlook.office.com/bookwithme/user/8f2d5301926347ceb3875850dcae5dac@oamk.fi/meetingtype/6CyXbjj1eECPRhYTHWxASA2?anonymous&ep=mcard
   stage: just-exploring, getting-started, ready-to-grow
+- title: Tuima Capital
+  description: Tuima Capital's business angels invest in early-stage startups in multiple sectors. 
+  link_label: More information
+  link_url: https://tuimacapital.com/
+  stage: ready-to-grow
+- title: SijoittajaPRO
+  description: SijoittajaPRO Corporate Finance helps growth companies to find funding and investors. 
+  link_label: More information
+  link_url: https://sijoittajapro.fi/yrityksille/
+  stage: ready-to-grow
+- title: VTT
+  description: VTT is a visionary research, development and innovation partner for companies and the society, and one of the leading research organisations in Europe. Increase your competitiveness, create new business and speed up R&D&I with the help of our expertise.  
+  link_label: More information
+  link_url: https://www.vttresearch.com/en
+  stage: just-exploring, ready-to-grow
+- title: Oulu Innovation Sparks funding
+  description: With Sparks funding, a company operating in the Oulu region can receive €5,000–30,000 in funding to pilot new solutions in the health and wellbeing sector and/or applications of printed intelligence. Funding is granted to products or services that have international business growth potential and a suitable piloting target in the Oulu region or outside the region. The funding is provided by Oulu Innovation Oy.  
+  link_label: More information
+  link_url: https://ouluinnovation.com/sparks-rahoitus/
+  stage: ready-to-grow
