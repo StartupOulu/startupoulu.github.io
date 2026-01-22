@@ -1,0 +1,51 @@
+---
+layout: null
+permalink: /feed.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>{{ site.title | xml_escape }}</title>
+    <link>{{ site.url }}</link>
+    <description>{{ site.description | xml_escape }}</description>
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+
+    {% assign events = site.events | sort: "start_time" %}
+
+    {% assign now = site.time | date: "%s" %}
+    {% assign upcoming = "" | split: "" %}
+
+    {% for event in site.events %}
+        {% assign end_ts = event.end_time | date: "%s" %}
+
+        {% if end_ts >= now %}
+            {% assign upcoming = upcoming | push: event %}
+        {% endif %}
+    {% endfor %}
+
+    {% for event in upcoming %}
+      <item>
+        <title>{{ event.title | xml_escape }}</title>
+        <link>{{ site.url }}{{ event.url | xml_escape }}</link>
+        <guid>{{ site.url }}{{ event.url | xml_escape }}</guid>
+        {% if event.start_time %}
+            <pubDate>{{ event.start_time | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
+        {% else %}
+            <pubDate>{{ site.time | date: "%a, %d %b %Y %H:%M:%S %z" }} </pubDate>
+        {% endif %}        
+
+        <description><![CDATA[
+          <p><strong>When:</strong> {{ event.start_time | date: "%a, %d %b %Y %H:%M:%S %z" | xml_escape }} → {{ event.end_time | date: "%a, %d %b %Y %H:%M:%S %z" | xml_escape }}</p>
+          <p><strong>Location:</strong> {{ event.location | xml_escape }}</p>
+          <p>{{ event.description | xml_escape }}</p>
+          {% if event.cover_image %}
+            <p><img src="{{ site.url }}/assets/images/{{ event.cover_image | xml_escape }}" /></p>
+          {% endif %}
+          {% if event.cta_link %}
+            <p><a href="{{ event.cta_link | xml_escape }}">{{ event.cta_title | xml_escape }}</a></p>
+          {% endif %}
+        ]]></description>
+      </item>
+    {% endfor %}
+  </channel>
+</rss>
