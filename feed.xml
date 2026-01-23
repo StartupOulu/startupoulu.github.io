@@ -34,17 +34,7 @@ permalink: /feed.xml
             <pubDate>{{ site.time | date: "%a, %d %b %Y %H:%M:%S %z" }} </pubDate>
         {% endif %}        
 
-        <description><![CDATA[
-          <p><strong>When:</strong> {{ event.start_time | date: "%a, %d %b %Y %H:%M:%S %z" | xml_escape }} → {{ event.end_time | date: "%a, %d %b %Y %H:%M:%S %z" | xml_escape }}</p>
-          <p><strong>Location:</strong> {{ event.location | xml_escape }}</p>
-          <p>{{ event.description | xml_escape }}</p>
-          {% if event.cover_image %}
-            <p><img src="{{ site.url }}/assets/images/{{ event.cover_image | xml_escape }}" /></p>
-          {% endif %}
-          {% if event.cta_link %}
-            <p><a href="{{ event.cta_link | xml_escape }}">{{ event.cta_title | xml_escape }}</a></p>
-          {% endif %}
-        ]]></description>
+        <description>{{ event.description | xml_escape }}</description>
       </item>
     {% endfor %}
   </channel>
