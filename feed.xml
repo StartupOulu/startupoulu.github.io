@@ -40,7 +40,12 @@ permalink: /feed.xml
             {% if event.location %}
               Location: {{ event.location }}
             {% endif %}
-          ]]></description>
+            {% if event.start_time and event.end_time %}
+              {{ event.start_time | date: "%d %b %Y" }} - {{ event.end_time | date: "%d %b %Y" }}
+            {% elsif event.start_time %}
+              Starting at {{ event.start_time | date: "%d %b %Y" }}
+            {% endif %}
+            ]]></description>         
       </item>
     {% endfor %}
 
