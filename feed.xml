@@ -11,6 +11,7 @@ permalink: /feed.xml
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
 
     {% assign events = site.events | sort: "start_time" %}
+    {% assign posts = site.posts | sort: "date" %}
 
     {% assign now = site.time | date: "%s" %}
     {% assign upcoming = "" | split: "" %}
@@ -28,6 +29,7 @@ permalink: /feed.xml
         <title>{{ event.title | xml_escape }}</title>
         <link>{{ site.url }}{{ event.url | xml_escape }}</link>
         <guid>{{ site.url }}{{ event.url | xml_escape }}</guid>
+        <category>event</category>
         {% if event.start_time %}
             <pubDate>{{ event.start_time | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
         {% else %}
@@ -37,5 +39,18 @@ permalink: /feed.xml
         <description><![CDATA[{{ event.description | xml_escape }}]]></description>
       </item>
     {% endfor %}
+
+  {% for post in posts %}
+   <item>
+      <title>{{ post.title | xml_escape }}</title>
+      <link>{{ site.url }}{{ post.url | xml_escape }}</link>
+      <guid>{{ site.url }}{{ post.url | xml_escape }}</guid>
+      <category>post</category>
+      <pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>        
+      <description><![CDATA[{{ post.description | xml_escape }}]]></description>
+    </item>
+  
+  {% endfor %}
+
   </channel>
 </rss>
