@@ -51,7 +51,7 @@ permalink: /feed.xml
 
     {% for post in posts %}
      <item>
-        <title>{{ post.title | xml_escape }}</title>
+        <title><![CDATA[{{ post.title | xml_escape }}]]></title>
         <link>{{ site.url }}{{ post.url | xml_escape }}</link>
         <guid>{{ site.url }}{{ post.url | xml_escape }}</guid>
         <category>post</category>
