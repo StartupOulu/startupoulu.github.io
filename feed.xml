@@ -26,7 +26,7 @@ permalink: /feed.xml
 
     {% for event in upcoming %}
       <item>
-        <title>{{ event.title | xml_escape }}</title>
+        <title><![CDATA[{{ event.title | xml_escape }}]]></title>
         <link>{{ site.url }}{{ event.url | xml_escape }}</link>
         <guid>{{ site.url }}{{ event.url | xml_escape }}</guid>
         <category>event</category>
