@@ -1,29 +1,38 @@
+.page {
+  display: grid;
+  grid-template-columns: 30rem 1fr;
+}
+
 .event-archive {
-  margin-top: 3rem;
-  margin-left: 30rem;
-  margin-right: 3rem;
+  margin: 3rem auto;
+  max-width: 680px;
+  padding-inline: 1rem;
   font-weight: normal;
 
   h1 {
-    font-size: 36px;
+    font-size: clamp(2rem, 6vw, 2.6rem);
     margin-bottom: 1rem;
+    text-align: center;
   }
-
 
   .year-section {
-
     margin-bottom: 2rem;
-  
+
     .year {
       font-weight: bold;
-      font-size: 24px;
+      font-size: 1.5rem;
     }
-  
   }
-  
+
   .month-section {
-    margin-left: 1rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
+  }
+
+  @media (min-width: 681px) {
+    padding-inline: 0;
+
+    .month-section {
+      margin-left: 1rem;
+    }
   }
 }
