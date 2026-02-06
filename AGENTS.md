@@ -76,6 +76,23 @@ These files require explicit user approval before any modification:
 
 Do not modify these files without asking the user first.
 
+## File Naming Rules
+
+All filenames in this project follow these rules:
+
+- **All lowercase** — `startup-pitch.html`, not `Startup-Pitch.html`
+- **Dashes instead of spaces or underscores** — `my-event.html`, not `my event.html` or `my_event.html`
+- **Only one dot** — the dot goes before the file extension. `2026-03-my-event.html`, not `2026-03-my.event.html`
+- **No special characters** — only letters (a–z), numbers (0–9), and dashes
+- **Start with a date** — events use `YYYY-MM-slug.html`, blog posts use `YYYY-MM-DD-slug.markdown`
+
+| Content type | Format | Example |
+|---|---|---|
+| Event | `YYYY-MM-slug.html` | `2026-03-startup-pitch.html` |
+| Blog post | `YYYY-MM-DD-slug.markdown` | `2026-03-15-building-bridges.markdown` |
+| Event image | `descriptive-name.ext` | `2026-03-startup-pitch.jpg` |
+| Blog image | `descriptive-name.ext` | `2026-03-building-bridges.png` |
+
 ## Content Types and Front Matter
 
 ### Events
@@ -102,10 +119,11 @@ description: |                      # Full event description (required)
 ```
 
 Notes:
-- `cover_image` is just the filename; the path `assets/images/events/` is prepended automatically
+- `cover_image` is just the filename; the path `assets/images/events/` is prepended automatically. Do NOT use `image_url` — that is a deprecated field name that won't work
 - If `excerpt` is omitted, `description` is used for previews (truncated at 60 words)
-- `start_time` and `end_time` can be left empty if dates are unknown
+- `start_time` and `end_time` must use the exact format `YYYY-MM-DD HH:MM:SS` (e.g., `2026-02-15 18:00:00`). Omitting the time component or using non-zero-padded months (e.g., `2026-4-22`) causes YAML to parse the value as an array instead of a date, which breaks sorting
 - Event images go in `assets/images/events/` (recommended: 960x540px, 16:9 ratio)
+- To hide an event without deleting the file, add `published: false` to the front matter
 
 ### Blog Posts
 
@@ -128,6 +146,7 @@ Notes:
 - `blog_image` requires the full path starting with `/assets/images/blogs/`
 - The publication date is derived from the filename
 - Blog images go in `assets/images/blogs/` (recommended: 960x540px, 16:9 ratio)
+- To hide a blog post without deleting the file, add `published: false` to the front matter
 
 ### Services
 
@@ -145,6 +164,13 @@ Notes:
 ```
 
 A service can belong to one or more stages.
+
+## YAML Front Matter Gotchas
+
+- **Quote values containing colons** — a title like `Experience the Avanto: Dive In` will break YAML parsing. Wrap it in quotes: `title: "Experience the Avanto: Dive In"`
+- **Use `|` pipe syntax for multi-line text** — `description` and `excerpt` fields must use `|` followed by indented text on the next lines
+- **`start_time` must include the time** — `2026-04-22 09:00:00` works, but `2026-4-22` gets parsed as a YAML array `[2026, 4, 22]` and breaks the site
+- **Use `cover_image`, not `image_url`** — older events may use `image_url` but the current layouts expect `cover_image`
 
 ## Content Guidelines
 
