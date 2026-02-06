@@ -124,6 +124,45 @@ jobs:
 
           echo "All blog post files are valid."
 
+      - name: Validate image filenames
+        run: |
+          warnings=0
+
+          find assets/images -type f \
+            -not -name '.DS_Store' \
+            -not -name '*.scss' \
+            -not -name '*.css' \
+            | while read -r file; do
+            filename=$(basename "$file")
+
+            # Check for uppercase letters
+            if echo "$filename" | grep -qE '[A-Z]'; then
+              echo "::warning file=$file::Filename has uppercase letters — should be all lowercase (e.g., '$(echo "$filename" | tr '[:upper:]' '[:lower:]')')"
+              warnings=$((warnings + 1))
+            fi
+
+            # Check for spaces
+            if echo "$filename" | grep -qE ' '; then
+              echo "::warning file=$file::Filename has spaces — use dashes instead (e.g., '$(echo "$filename" | tr ' ' '-')')"
+              warnings=$((warnings + 1))
+            fi
+
+            # Check for underscores
+            if echo "$filename" | grep -qE '_'; then
+              echo "::warning file=$file::Filename has underscores — use dashes instead (e.g., '$(echo "$filename" | tr '_' '-')')"
+              warnings=$((warnings + 1))
+            fi
+
+            # Check for multiple dots (more than one dot = multiple extensions or dots in name)
+            dot_count=$(echo "$filename" | tr -cd '.' | wc -c | tr -d ' ')
+            if [ "$dot_count" -gt 1 ]; then
+              echo "::warning file=$file::Filename has multiple dots — use only one dot before the file extension"
+              warnings=$((warnings + 1))
+            fi
+          done
+
+          echo "Image filename check complete."
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
