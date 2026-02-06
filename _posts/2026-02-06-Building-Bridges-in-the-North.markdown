@@ -9,7 +9,7 @@ Imagine you are about to step into a hole in the ice to pitch your business idea
 This moment probably feels very familiar to anyone interested in building a company. It demands courage to recognize opportunity even on the iciest stage, clarity to shape your message, and creativity to make your pitch memorable. But above all, it requires the ability to move forward despite uncertainty.
 
 ## Arctic Entrepreneurship – More Than Just Cold Calling
-ra
+
 An entrepreneur in the Nordic Arctic knows uncertainty well, and adapting to shifting circumstances is simply part of the job. In the northernmost regions of Finland, Norway, and Sweden, entrepreneurship is shaped by conditions few others face: talent drain, limited infstructure, long distances, connectivity issues, and scarce resources.
 Here, darkness, distance, and delays are not unexpected challenges — they’re part of the operating manual.
 
