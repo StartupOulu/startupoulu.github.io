@@ -235,3 +235,40 @@ title: Content Status - StartupOulu
     </tbody>
   </table>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.debug-table tbody tr').forEach(function (row) {
+    var codeEl = row.querySelector('td code');
+    if (!codeEl) return;
+    var filename = codeEl.textContent.trim();
+    var issues = [];
+
+    if (/[A-Z]/.test(filename)) issues.push('Has uppercase letters — should be all lowercase');
+    if (/ /.test(filename)) issues.push('Has spaces — use dashes instead');
+    if (/_/.test(filename)) issues.push('Has underscores — use dashes instead');
+    if ((filename.match(/\./g) || []).length > 1) issues.push('Has multiple dots — use only one dot before the extension');
+
+    if (issues.length === 0) return;
+
+    var issuesTd = row.querySelector('td:last-child');
+    var ul = issuesTd.querySelector('ul.issue-list');
+    if (!ul) {
+      ul = document.createElement('ul');
+      ul.className = 'issue-list';
+      issuesTd.appendChild(ul);
+    }
+    issues.forEach(function (msg) {
+      var li = document.createElement('li');
+      li.textContent = msg;
+      ul.appendChild(li);
+    });
+
+    var badge = row.querySelector('.badge');
+    if (badge && badge.classList.contains('badge-ok')) {
+      badge.textContent = 'Warning';
+      badge.className = 'badge badge-warn';
+    }
+  });
+});
+</script>
