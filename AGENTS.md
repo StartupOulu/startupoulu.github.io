@@ -10,7 +10,7 @@ StartupOulu is a Jekyll-based static website for the startup and entrepreneurshi
 - **Hosting:** GitHub Pages (auto-deploys on push to `main`)
 - **Domain:** startupoulu.com (configured via `CNAME` file)
 - **Languages:** Bilingual content (English and Finnish)
-- **Analytics:** Plausible and Umami (privacy-focused, configured in `_includes/header.html`)
+- **Analytics:** Umami (privacy-focused, configured in `_includes/header.html`), Plausible is deprecated
 
 ## Directory Structure
 
@@ -325,7 +325,6 @@ Before finalizing changes:
 - Blog post dates come from the filename, not front matter
 - Services are filtered by stage on dedicated pages under `/services/`
 - The site generates an iCal feed (`events.ics`) and an AI content feed (`ai-content.txt`)
-- The `mentoring/` section is a standalone page, not a Jekyll collection
 
 ## Questions?
 
