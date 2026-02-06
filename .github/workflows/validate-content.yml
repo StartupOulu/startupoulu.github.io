@@ -1,0 +1,134 @@
+name: Validate Content
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate event files
+        run: |
+          errors=0
+
+          for file in _events/*.html; do
+            [ -f "$file" ] || continue
+            filename=$(basename "$file")
+
+            # Check filename format: YYYY-MM-slug.html
+            if ! echo "$filename" | grep -qE '^[0-9]{4}-[0-9]{2}-[a-z0-9-]+\.html$'; then
+              echo "::error file=$file::Filename '$filename' does not match required format YYYY-MM-slug.html (lowercase, dashes only)"
+              errors=$((errors + 1))
+            fi
+
+            # Extract front matter (between first pair of ---)
+            front_matter=$(sed -n '/^---$/,/^---$/p' "$file" | sed '1d;$d')
+
+            if [ -z "$front_matter" ]; then
+              echo "::error file=$file::No YAML front matter found. File must start with --- and end with ---"
+              errors=$((errors + 1))
+              continue
+            fi
+
+            # Check required fields
+            for field in layout title start_time description; do
+              if ! echo "$front_matter" | grep -qE "^${field}:"; then
+                echo "::error file=$file::Missing required field '$field'"
+                errors=$((errors + 1))
+              fi
+            done
+
+            # Check layout value
+            layout_value=$(echo "$front_matter" | grep -E '^layout:' | sed 's/^layout:[[:space:]]*//')
+            if [ -n "$layout_value" ] && [ "$layout_value" != "event" ]; then
+              echo "::warning file=$file::Layout is '$layout_value' — expected 'event'"
+            fi
+
+            # Check cover_image exists if specified
+            cover_image=$(echo "$front_matter" | grep -E '^cover_image:' | sed 's/^cover_image:[[:space:]]*//')
+            if [ -n "$cover_image" ]; then
+              if [ ! -f "assets/images/events/$cover_image" ]; then
+                echo "::warning file=$file::Cover image 'assets/images/events/$cover_image' not found"
+              fi
+            fi
+          done
+
+          if [ $errors -gt 0 ]; then
+            echo ""
+            echo "Found $errors error(s) in event files."
+            echo "See https://github.com/${{ github.repository }}/blob/main/README.md for event formatting guide."
+            exit 1
+          fi
+
+          echo "All event files are valid."
+
+      - name: Validate blog post files
+        run: |
+          errors=0
+
+          for file in _posts/*.markdown; do
+            [ -f "$file" ] || continue
+            filename=$(basename "$file")
+
+            # Check filename format: YYYY-MM-DD-slug.markdown
+            if ! echo "$filename" | grep -qE '^[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-zA-Z0-9-]+\.markdown$'; then
+              echo "::error file=$file::Filename '$filename' does not match required format YYYY-MM-DD-slug.markdown"
+              errors=$((errors + 1))
+            fi
+
+            # Extract front matter
+            front_matter=$(sed -n '/^---$/,/^---$/p' "$file" | sed '1d;$d')
+
+            if [ -z "$front_matter" ]; then
+              echo "::error file=$file::No YAML front matter found. File must start with --- and end with ---"
+              errors=$((errors + 1))
+              continue
+            fi
+
+            # Check required fields
+            for field in layout title description blog_image; do
+              if ! echo "$front_matter" | grep -qE "^${field}:"; then
+                echo "::error file=$file::Missing required field '$field'"
+                errors=$((errors + 1))
+              fi
+            done
+
+            # Check layout value
+            layout_value=$(echo "$front_matter" | grep -E '^layout:' | sed 's/^layout:[[:space:]]*//')
+            if [ -n "$layout_value" ] && [ "$layout_value" != "blog" ]; then
+              echo "::warning file=$file::Layout is '$layout_value' — expected 'blog'"
+            fi
+
+            # Check blog_image file exists
+            blog_image=$(echo "$front_matter" | grep -E '^blog_image:' | sed 's/^blog_image:[[:space:]]*//')
+            if [ -n "$blog_image" ]; then
+              # Remove leading slash for file path check
+              image_path=$(echo "$blog_image" | sed 's|^/||')
+              if [ ! -f "$image_path" ]; then
+                echo "::warning file=$file::Blog image '$blog_image' not found"
+              fi
+            fi
+          done
+
+          if [ $errors -gt 0 ]; then
+            echo ""
+            echo "Found $errors error(s) in blog post files."
+            echo "See https://github.com/${{ github.repository }}/blob/main/README.md for blog post formatting guide."
+            exit 1
+          fi
+
+          echo "All blog post files are valid."
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Build Jekyll site
+        run: bundle exec jekyll build

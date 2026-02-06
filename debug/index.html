@@ -1,12 +1,237 @@
-<h1>Debug Page</h1>
+---
+layout: plain
+title: Content Status - StartupOulu
+---
 
-<ul>
-  <li>
-  	<a href="/debug/events.html">Event debugging</a>
-  </li>
-  <li>
-  	<a href="/debug/blogs.html">Blog debugging</a>
-  </li>
-</ul>
+<style>
+  .debug-container { max-width: 960px; margin: 0 auto; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .debug-container h1 { margin-bottom: 8px; }
+  .debug-container .subtitle { color: #666; margin-bottom: 30px; }
+  .summary-cards { display: flex; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
+  .summary-card { flex: 1; min-width: 200px; padding: 16px; border-radius: 8px; border: 1px solid #ddd; }
+  .summary-card .count { font-size: 32px; font-weight: bold; }
+  .summary-card .label { color: #666; font-size: 14px; }
+  .card-ok { border-left: 4px solid #22c55e; }
+  .card-warn { border-left: 4px solid #f59e0b; }
+  .card-error { border-left: 4px solid #ef4444; }
+  .debug-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; font-size: 14px; }
+  .debug-table th { background: #f8f8f8; border: 1px solid #ddd; padding: 10px; text-align: left; }
+  .debug-table td { border: 1px solid #ddd; padding: 10px; vertical-align: top; }
+  .debug-table tr:hover { background: #fafafa; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+  .badge-ok { background: #dcfce7; color: #166534; }
+  .badge-warn { background: #fef9c3; color: #854d0e; }
+  .badge-error { background: #fee2e2; color: #991b1b; }
+  .issue-list { margin: 4px 0 0 0; padding: 0; list-style: none; }
+  .issue-list li { font-size: 13px; padding: 2px 0; }
+  .issue-list li::before { content: "⚠ "; }
+  .section-header { display: flex; justify-content: space-between; align-items: baseline; }
+  .section-header .count-label { color: #666; font-size: 14px; }
+</style>
 
+{% assign now = 'now' | date: '%s' | plus: 0 %}
 
+{% comment %} Count events and issues {% endcomment %}
+{% assign total_events = site.events | size %}
+{% assign events_missing_start = 0 %}
+{% assign events_missing_desc = 0 %}
+{% assign events_with_issues = 0 %}
+{% assign future_events_count = 0 %}
+
+{% for event in site.events %}
+  {% assign has_issue = false %}
+
+  {% if event.start_time == nil or event.start_time == "" %}
+    {% assign events_missing_start = events_missing_start | plus: 1 %}
+    {% assign has_issue = true %}
+  {% else %}
+    {% assign event_time = event.start_time | date: '%s' | plus: 0 %}
+    {% if event_time >= now %}
+      {% assign future_events_count = future_events_count | plus: 1 %}
+    {% endif %}
+  {% endif %}
+
+  {% if event.description == nil or event.description == "" %}
+    {% assign events_missing_desc = events_missing_desc | plus: 1 %}
+    {% assign has_issue = true %}
+  {% endif %}
+
+  {% if has_issue %}
+    {% assign events_with_issues = events_with_issues | plus: 1 %}
+  {% endif %}
+{% endfor %}
+
+{% comment %} Count blog posts and issues {% endcomment %}
+{% assign total_posts = site.posts | size %}
+{% assign posts_missing_desc = 0 %}
+{% assign posts_missing_image = 0 %}
+{% assign posts_with_issues = 0 %}
+
+{% for post in site.posts %}
+  {% assign has_issue = false %}
+
+  {% if post.description == nil or post.description == "" %}
+    {% assign posts_missing_desc = posts_missing_desc | plus: 1 %}
+    {% assign has_issue = true %}
+  {% endif %}
+
+  {% if post.blog_image == nil or post.blog_image == "" %}
+    {% assign posts_missing_image = posts_missing_image | plus: 1 %}
+    {% assign has_issue = true %}
+  {% endif %}
+
+  {% if has_issue %}
+    {% assign posts_with_issues = posts_with_issues | plus: 1 %}
+  {% endif %}
+{% endfor %}
+
+{% assign total_issues = events_with_issues | plus: posts_with_issues %}
+
+<div class="debug-container">
+  <h1>Content Status</h1>
+  <p class="subtitle">Check if your events and blog posts are set up correctly. Items with warnings may not display properly on the site.</p>
+
+  <div class="summary-cards">
+    <div class="summary-card {% if events_with_issues > 0 %}card-warn{% else %}card-ok{% endif %}">
+      <div class="count">{{ total_events }}</div>
+      <div class="label">Events ({{ future_events_count }} upcoming)</div>
+    </div>
+    <div class="summary-card {% if posts_with_issues > 0 %}card-warn{% else %}card-ok{% endif %}">
+      <div class="count">{{ total_posts }}</div>
+      <div class="label">Blog posts</div>
+    </div>
+    <div class="summary-card {% if total_issues > 0 %}card-error{% else %}card-ok{% endif %}">
+      <div class="count">{{ total_issues }}</div>
+      <div class="label">Items with issues</div>
+    </div>
+  </div>
+
+  <!-- EVENTS -->
+  <div class="section-header">
+    <h2>Events</h2>
+    <span class="count-label">{{ total_events }} total, {{ future_events_count }} upcoming</span>
+  </div>
+
+  <table class="debug-table">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Title</th>
+        <th>Start Time</th>
+        <th>Filename</th>
+        <th>Issues</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in site.events %}
+        {% assign issues = "" %}
+
+        {% if event.start_time == nil or event.start_time == "" %}
+          {% assign issues = issues | append: "Missing start time — this event will not appear on the events page||" %}
+        {% endif %}
+        {% if event.description == nil or event.description == "" %}
+          {% assign issues = issues | append: "Missing description — the event page will have no content||" %}
+        {% endif %}
+        {% if event.title == nil or event.title == "" %}
+          {% assign issues = issues | append: "Missing title||" %}
+        {% endif %}
+        {% if event.cover_image == nil or event.cover_image == "" %}
+          {% assign issues = issues | append: "No cover image — a placeholder will be shown||" %}
+        {% endif %}
+
+        {% assign filename = event.path | split: '/' | last %}
+
+        <tr>
+          <td>
+            {% if issues == "" %}
+              <span class="badge badge-ok">OK</span>
+            {% else %}
+              <span class="badge badge-error">Issues</span>
+            {% endif %}
+          </td>
+          <td>{{ event.title | default: "(no title)" }}</td>
+          <td>
+            {% if event.start_time %}
+              {{ event.start_time | date: "%Y-%m-%d %H:%M" }}
+            {% else %}
+              <span style="color: #ef4444;">—</span>
+            {% endif %}
+          </td>
+          <td><code style="font-size: 12px;">{{ filename }}</code></td>
+          <td>
+            {% if issues != "" %}
+              {% assign issue_items = issues | split: "||" %}
+              <ul class="issue-list">
+                {% for issue in issue_items %}
+                  {% if issue != "" %}
+                    <li>{{ issue }}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- BLOG POSTS -->
+  <div class="section-header">
+    <h2>Blog Posts</h2>
+    <span class="count-label">{{ total_posts }} total</span>
+  </div>
+
+  <table class="debug-table">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Filename</th>
+        <th>Issues</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in site.posts %}
+        {% assign issues = "" %}
+
+        {% if post.description == nil or post.description == "" %}
+          {% assign issues = issues | append: "Missing description — search engines and social media previews will not show a summary||" %}
+        {% endif %}
+        {% if post.blog_image == nil or post.blog_image == "" %}
+          {% assign issues = issues | append: "Missing blog image||" %}
+        {% endif %}
+        {% if post.title == nil or post.title == "" %}
+          {% assign issues = issues | append: "Missing title||" %}
+        {% endif %}
+
+        {% assign filename = post.path | split: '/' | last %}
+
+        <tr>
+          <td>
+            {% if issues == "" %}
+              <span class="badge badge-ok">OK</span>
+            {% else %}
+              <span class="badge badge-warn">Warning</span>
+            {% endif %}
+          </td>
+          <td>{{ post.title | default: "(no title)" }}</td>
+          <td>{{ post.date | date: "%Y-%m-%d" }}</td>
+          <td><code style="font-size: 12px;">{{ filename }}</code></td>
+          <td>
+            {% if issues != "" %}
+              {% assign issue_items = issues | split: "||" %}
+              <ul class="issue-list">
+                {% for issue in issue_items %}
+                  {% if issue != "" %}
+                    <li>{{ issue }}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

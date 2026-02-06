@@ -15,6 +15,9 @@ StartupOulu is a Jekyll-based static website for the startup and entrepreneurshi
 ## Directory Structure
 
 ```
+.github/
+  workflows/
+    validate-content.yml # CI: validates content and builds site on push/PR
 _config.yml              # Jekyll configuration (PROTECTED)
 _data/
   services.yaml          # Ecosystem services/partners data
@@ -210,6 +213,17 @@ Filenames must be lowercase with dashes (no spaces). Example: `2026-02-startup-p
 bundle install              # Install Ruby dependencies
 bundle exec jekyll serve    # Start local server at http://localhost:4000
 ```
+
+### CI Validation
+
+A GitHub Actions workflow (`.github/workflows/validate-content.yml`) runs on every push to `main` and on pull requests. It validates:
+
+- YAML front matter syntax and required fields
+- File naming conventions (`YYYY-MM-slug.html` for events, `YYYY-MM-DD-slug.markdown` for posts)
+- Referenced image files exist
+- Full Jekyll build succeeds
+
+Errors appear as annotations in the Actions tab and on the commit/PR page.
 
 ### Build Verification
 

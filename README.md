@@ -9,7 +9,18 @@ A guide for collaborators on how to add content to the StartupOulu website.
 
 ## Troubleshooting
 
-If something went wrong during an update, you can check [/debug/](debug)-page that shows the status of blog posts and events.
+Every push to `main` and every pull request is **automatically validated**. The validation checks:
+
+- YAML front matter syntax
+- Required fields (`layout`, `title`, `start_time`, `description` for events; `layout`, `title`, `description`, `blog_image` for posts)
+- File naming conventions
+- Whether referenced images exist
+- That the full Jekyll site builds without errors
+
+**If something goes wrong after a push:**
+
+1. Go to the [Actions tab](../../actions) in the repository — it shows a clear summary of any errors
+2. Check the [/debug/](debug) page for an overview of all events and blog posts with their parsed data
 
 For questions or help, contact information can be found at [startupoulu.com](https://www.startupoulu.com).
 
