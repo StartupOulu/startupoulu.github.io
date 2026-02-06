@@ -4,112 +4,214 @@ This document provides guidelines for AI agents working on the StartupOulu websi
 
 ## Project Overview
 
-StartupOulu is a Jekyll-based static website for an entrepreneurial community hub in Oulu, Finland. The site serves as a central resource for entrepreneurs, featuring events, blog posts, ecosystem services, and incubator programs.
+StartupOulu is a Jekyll-based static website for the startup and entrepreneurship ecosystem in Oulu, Finland. The site aggregates events, blog posts, ecosystem services, incubator programs, and mentoring resources for entrepreneurs at various stages.
 
 - **Framework:** Jekyll (Ruby-based static site generator)
-- **Hosting:** GitHub Pages
-- **Domain:** www.startupoulu.com
-- **Languages:** Bilingual (English and Finnish)
+- **Hosting:** GitHub Pages (auto-deploys on push to `main`)
+- **Domain:** startupoulu.com (configured via `CNAME` file)
+- **Languages:** Bilingual content (English and Finnish)
+- **Analytics:** Plausible and Umami (privacy-focused, configured in `_includes/header.html`)
 
 ## Directory Structure
 
 ```
-_config.yml          # Site configuration (PROTECTED)
-_data/services.yaml  # Ecosystem services data
-_events/             # Event files (YYYY-MM-slug.html)
-_posts/              # Blog posts (YYYY-MM-DD-slug.markdown)
-_layouts/            # HTML templates
-_includes/           # Reusable components (header.html contains analytics - PROTECTED)
-_sass/               # SCSS stylesheets
-assets/              # CSS, JS, and images
-services/            # Service pages by stage
-incubator/           # Incubator program pages
+_config.yml              # Jekyll configuration (PROTECTED)
+_data/
+  services.yaml          # Ecosystem services/partners data
+_events/                 # Event files (YYYY-MM-slug.html)
+_posts/                  # Blog posts (YYYY-MM-DD-slug.markdown)
+_layouts/                # Page templates
+_includes/               # Reusable HTML components
+  events/                # Event-specific components (card, datetime, image, badge)
+  services/              # Service-specific components (card, filtered-list)
+  header.html            # Head tag with analytics (PROTECTED)
+  footer.html            # Site footer with sponsors and social links
+  menu.html              # Navigation structure
+  nav.html               # Navigation links
+  meta_tags.html         # SEO meta tags
+  newsletter.html        # Newsletter signup
+_sass/                   # SCSS stylesheets
+  _variables.scss        # Colors, typography, breakpoints
+  _main.scss             # Main import file
+  _components/           # Component styles (event_card, menu, newsletter, etc.)
+  _pages/                # Page-specific styles (home, event, service, blog, etc.)
+  _responsive/           # Mobile/responsive overrides
+_scripts/
+  events.rb              # Utility: convert events CSV to HTML
+assets/
+  css/styles.scss        # SCSS entry point
+  main.js                # Site JavaScript
+  images/
+    events/              # Event cover images
+    blogs/               # Blog post images
+    contacts/            # Team member photos
+    mentors/             # Mentor profile images
+    logos/               # Logo files (SVG, PNG)
+services/                # Service pages by entrepreneurship stage
+ai-incubator/            # AI incubator program pages
+incubator/               # Incubator program pages
+mentoring/               # Mentoring program pages
+oulu-startup-database/   # Startup database section
+debug/                   # Debug/troubleshooting pages
+index.html               # Homepage (layout: frontpage)
+events.html              # Events listing page
+blogs.html               # Blog listing page
+archive.html             # Blog archive
+contact.html             # Contact page
+debug.html               # Debug page showing all events data
+ai-content.txt           # AI-readable content feed (all posts/events as plain text)
+events.ics               # iCal feed of events
+404.html                 # Custom 404 page
 ```
 
 ## Protected Files
 
-The following files require explicit user approval before modification:
+These files require explicit user approval before any modification:
 
-- `_config.yml` - Site-wide Jekyll configuration
-- `_includes/header.html` - Contains analytics tracking codes (Plausible, Umami)
+- **`_config.yml`** - Site-wide Jekyll configuration affecting the entire build
+- **`_includes/header.html`** - Contains Plausible and Umami analytics tracking codes
 
 Do not modify these files without asking the user first.
+
+## Content Types and Front Matter
+
+### Events
+
+**Location:** `_events/`
+**Naming:** `YYYY-MM-slug.html` (e.g., `2026-02-polar-bear-pitching.html`)
+**Layout:** `event`
+
+```yaml
+---
+layout: event
+title: Event Title
+start_time: 2026-02-15 18:00:00    # Format: YYYY-MM-DD HH:MM:SS
+end_time: 2026-02-15 21:00:00      # Format: YYYY-MM-DD HH:MM:SS
+location: Venue Name, Address
+cover_image: event-image.jpg        # Filename only (path added automatically)
+cta_title: Register                 # Button text (optional)
+cta_link: https://example.com       # Button URL (optional)
+excerpt: |                          # Short description, max 60 words (optional)
+  Brief event description for cards and previews.
+description: |                      # Full event description (required)
+  Complete event description with all details.
+---
+```
+
+Notes:
+- `cover_image` is just the filename; the path `assets/images/events/` is prepended automatically
+- If `excerpt` is omitted, `description` is used for previews (truncated at 60 words)
+- `start_time` and `end_time` can be left empty if dates are unknown
+- Event images go in `assets/images/events/` (recommended: 960x540px, 16:9 ratio)
+
+### Blog Posts
+
+**Location:** `_posts/`
+**Naming:** `YYYY-MM-DD-slug.markdown` (e.g., `2026-02-06-building-bridges.markdown`)
+**Layout:** `blog`
+
+```yaml
+---
+layout: blog
+title: Blog Post Title
+description: Meta description for SEO and social sharing (1-2 sentences)
+blog_image: /assets/images/blogs/image.jpg    # Full path required
+---
+
+Post content in Markdown format...
+```
+
+Notes:
+- `blog_image` requires the full path starting with `/assets/images/blogs/`
+- The publication date is derived from the filename
+- Blog images go in `assets/images/blogs/` (recommended: 960x540px, 16:9 ratio)
+
+### Services
+
+**Location:** `_data/services.yaml`
+
+```yaml
+- title: Service Name
+  description: Brief description of the service
+  link_label: Learn More
+  link_url: https://service-url.com
+  stage:
+    - just-exploring       # For people exploring entrepreneurship
+    - getting-started      # For early-stage startups
+    - ready-to-grow        # For growth-stage companies
+```
+
+A service can belong to one or more stages.
 
 ## Content Guidelines
 
 ### Language
 
-Content can be written in either English or Finnish depending on context. Match the language of surrounding content or ask the user if unclear.
+Content can be in English or Finnish. Match the language of surrounding content or ask the user if unclear.
 
 ### Creating New Content
 
-**Always ask before creating new files.** This includes:
+**Always ask the user before creating new content files.** This includes:
 - New events in `_events/`
 - New blog posts in `_posts/`
 - New pages or layouts
 
-### Event Files
+### Image Requirements
 
-Location: `_events/`
-Naming: `YYYY-MM-slug.html` (e.g., `2026-02-startup-pitch-night.html`)
+| Content Type | Directory | Recommended Size | Formats |
+|---|---|---|---|
+| Event covers | `assets/images/events/` | 960x540px (16:9) | JPG, PNG |
+| Blog images | `assets/images/blogs/` | 960x540px (16:9) | JPG, PNG |
+| Contact photos | `assets/images/contacts/` | As needed | JPG, PNG |
+| Mentor photos | `assets/images/mentors/` | As needed | JPG, PNG |
 
-Required front matter:
-```yaml
----
-layout: event
-title: Event Title
-start_time: 2026-02-15 18:00:00
-end_time: 2026-02-15 21:00:00
-location: Venue Name
-cover_image: event-image.jpg
-cta_title: Register Now
-cta_link: https://registration-link.com
-excerpt: Brief description (max 60 words)
----
+Filenames must be lowercase with dashes (no spaces). Example: `2026-02-startup-pitch.jpg`
 
-Full event description in HTML...
-```
+## Layouts
 
-Images go in `assets/images/events/`.
+| Layout | Purpose |
+|---|---|
+| `default.html` | Minimal wrapper (header only) |
+| `frontpage.html` | Homepage with hero, nav, footer |
+| `event.html` | Single event detail page |
+| `events.html` | Events listing page |
+| `blog.html` | Single blog post page |
+| `blogs.html` | Blog listing page |
+| `service.html` | Single service page |
+| `services.html` | Services listing page |
+| `contact.html` | Contact page |
+| `plain.html` | Minimal layout for standalone pages |
+| `post.html` | Simple post wrapper |
+| `about.html` | About page |
 
-### Blog Posts
+## Technology Stack
 
-Location: `_posts/`
-Naming: `YYYY-MM-DD-slug.markdown` (e.g., `2026-01-15-startup-ecosystem-update.markdown`)
+- **Jekyll** with GitHub Pages gem
+- **SCSS** (compressed output, modular architecture)
+- **jQuery 1.12.4** for DOM manipulation
+- **Slick.js** for carousels
+- **Font Awesome 6.7.1** (CDN) for icons
+- **Google Fonts** (Hanken Grotesk typeface)
+- **Plugins:** `jekyll-redirect-from`, `jekyll-feed`, `jekyll-sass-converter`
 
-Required front matter:
-```yaml
----
-layout: blog
-title: Post Title
-description: Meta description for SEO
-blog_image: /assets/images/blogs/image.jpg
----
+### Brand Colors (from `_sass/_variables.scss`)
 
-Post content in Markdown...
-```
-
-### Services Data
-
-Location: `_data/services.yaml`
-
-Structure:
-```yaml
-- title: Service Name
-  description: Brief description
-  link_label: Learn More
-  link_url: https://service-url.com
-  stage:
-    - just-exploring
-    - getting-started
-    - ready-to-grow
-```
-
-Stages correspond to entrepreneur journey phases.
+- Brand (dark navy): `#070540`
+- Orange: `#FF4600`
+- Pink: `#FF3198`
+- Gray: `#EAEAEA`
+- Responsive breakpoint: `800px`
 
 ## Development Workflow
 
-### Building the Site
+### Local Development
+
+```bash
+bundle install              # Install Ruby dependencies
+bundle exec jekyll serve    # Start local server at http://localhost:4000
+```
+
+### Build Verification
 
 Before committing changes, verify the build succeeds:
 
@@ -117,102 +219,78 @@ Before committing changes, verify the build succeeds:
 bundle exec jekyll build
 ```
 
-This ensures no Liquid syntax errors or broken templates.
+This catches Liquid syntax errors, invalid YAML front matter, and broken templates.
 
-### Local Development (Optional)
+### Debugging
 
-For live preview during development:
+Visit `/debug/` on the live site (or `debug.html` locally) to see a table of all events with their parsed data. This helps verify that event front matter is correctly formatted.
+
+### Utility Scripts
 
 ```bash
-bundle install
-bundle exec jekyll serve
+ruby _scripts/events.rb     # Convert events CSV to HTML format
 ```
-
-Site will be available at `http://localhost:4000`.
 
 ## Code Style
 
 ### SCSS
 
-- Styles are modularized in `_sass/`
-- Component styles: `_sass/_components/`
-- Page-specific styles: `_sass/_pages/`
-- Responsive styles: `_sass/_responsive/`
-- Variables defined in `_sass/_variables.scss`
+- Styles are modularized under `_sass/`
+- Component styles in `_sass/_components/` (e.g., `_event_card.scss`, `_menu.scss`)
+- Page-specific styles in `_sass/_pages/` (e.g., `_home.scss`, `_single_event.scss`)
+- Responsive overrides in `_sass/_responsive/` (mirror page style files)
+- Variables in `_sass/_variables.scss`
+- Main entry point: `_sass/_main.scss` (imports all partials)
 
 ### JavaScript
 
-- Main JS in `assets/main.js`
-- Uses jQuery 1.12.4
-- Slick.js for carousels
+- Main file: `assets/main.js`
 - Keep scripts minimal and focused
+- Uses jQuery for DOM manipulation
 
 ### Liquid Templates
 
-- Use existing patterns from `_layouts/` and `_includes/`
-- Follow Jekyll best practices for template inheritance
+- Follow existing patterns in `_layouts/` and `_includes/`
+- Event components are in `_includes/events/` (card, datetime, image, badge)
+- Service components are in `_includes/services/` (card, filtered-list)
 
 ## Commit Messages
 
-Use short, descriptive commit messages without prefixes:
+Use short, descriptive commit messages without conventional commit prefixes:
 
 ```
 add new startup pitch event
 update services page layout
 fix mobile navigation toggle
+remove outdated event
 ```
 
-Match the existing commit style in the repository.
-
-## Image Guidelines
-
-Image requirements vary by use case. When adding images:
-- Check existing images in the same category for reference
-- Use descriptive, lowercase filenames with dashes
-- Optimize images for web (compress appropriately)
-- Ask the user about specific size requirements if needed
-
-Common locations:
-- Event images: `assets/images/events/`
-- Blog images: `assets/images/blogs/`
-- General images: `assets/images/`
+Match the existing commit style in the repository history.
 
 ## Testing Checklist
 
 Before finalizing changes:
 
 1. Run `bundle exec jekyll build` - must complete without errors
-2. Verify Liquid syntax is correct
-3. Check that front matter YAML is valid
-4. Ensure image paths are correct
-5. Test responsive behavior if modifying layouts
+2. Verify YAML front matter syntax is valid
+3. Check that image paths are correct and images exist
+4. Ensure Liquid template syntax is correct
+5. Test responsive behavior if modifying layouts or styles
 
-## External Integrations
+## Key Considerations
 
-- **Plausible Analytics** - Privacy-focused analytics
-- **Umami Analytics** - Self-hosted analytics
-- **GitHub Pages** - Automatic deployment on push to main
-
-## Useful Commands
-
-```bash
-# Install dependencies
-bundle install
-
-# Build site (required before commits)
-bundle exec jekyll build
-
-# Local development server
-bundle exec jekyll serve
-
-# Convert events CSV to HTML (utility script)
-ruby _scripts/events.rb
-```
+- The homepage shows only future events (filtered by `start_time`)
+- Events display a "Today" badge when `start_time` matches the current date
+- The `excerpt` field on events is truncated at 60 words on cards
+- Blog post dates come from the filename, not front matter
+- Services are filtered by stage on dedicated pages under `/services/`
+- The site generates an iCal feed (`events.ics`) and an AI content feed (`ai-content.txt`)
+- The `mentoring/` section is a standalone page, not a Jekyll collection
 
 ## Questions?
 
 If uncertain about any changes, ask the user before proceeding. This is especially important for:
 - Creating new content files
-- Modifying protected files
-- Changes affecting site-wide behavior
+- Modifying protected files (`_config.yml`, `_includes/header.html`)
+- Changes affecting site-wide behavior or layout
 - Architectural or structural changes
