@@ -30,15 +30,24 @@ Upload the image to `assets/images/events/` folder.
 
 **Step 2: Create the event file**
 
-Create a new file in the `_events/` folder. The filename must follow this format:
+Create a new file in the `_events/` folder. The filename **must** follow this format:
 
 ```
 YYYY-MM-slug.html
 ```
 
+- Use the event's year and month (zero-padded), followed by a short slug
+- Slug must be **lowercase**, use **dashes** instead of spaces, and **no special characters**
+- The filename determines the event's URL: `startupoulu.com/events/YYYY-MM-slug.html`
+
 Examples:
 - `2025-02-koodikorneri.html`
 - `2025-03-polar-bear-pitching.html`
+- `2026-02-pbp-express.html`
+
+Bad examples:
+- `2025-3-My Event.html` (uppercase, spaces, month not zero-padded)
+- `PBP_express.html` (missing date prefix, uses underscores)
 
 **Step 3: Add the event content**
 
@@ -48,8 +57,8 @@ Copy this template and fill in your event details:
 ---
 layout: event
 title: Your Event Title
-start_time: 2025-03-15 18:00:00
-end_time: 2025-03-15 21:00:00
+start_time: 2026-03-15 18:00:00
+end_time: 2026-03-15 21:00:00
 location: Venue Name, Address
 cover_image: your-image-filename.jpg
 cta_title: Register
@@ -58,16 +67,20 @@ excerpt: |
   A brief description of the event (max 60 words). This appears
   on event cards and in previews. Keep it concise and engaging.
 description: |
-  The full event description. This can be longer and include
-  all relevant details about the event.
+  The full event description. This is displayed on the event page
+  as the main content. Use the pipe character (|) followed by
+  indented text for multi-line descriptions.
 ---
 ```
 
 **Important notes:**
+- `description` is **required** — without it the event page will have no content
+- `description` must use the `|` (pipe) syntax for multi-line text — indent the text with two spaces below it
+- `start_time` is **required** — events without it will not appear on the events page or homepage
 - `start_time` and `end_time` format: `YYYY-MM-DD HH:MM:SS`
-- `cover_image` is just the filename (the path is added automatically)
-- `excerpt` is truncated at 60 words - if not provided, `description` is used instead
-- `cta_title` is the button text (e.g., "Register", "Learn More", "Sign Up")
+- `cover_image` is just the filename (the path is added automatically). If omitted, a default placeholder image is shown
+- `excerpt` is truncated at 60 words — if not provided, `description` is used instead
+- `cta_title` and `cta_link` are optional — if omitted, no button is shown on the event page
 
 ---
 
