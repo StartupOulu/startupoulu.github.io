@@ -1,11 +1,9 @@
 ---
 layout: blog
 title: Building Bridges in the North – Why Collaboration Is the Lifeline of Arctic Entrepreneurship
-description: What does it feel like to step forward and present your idea in the middle of freezing uncertainty? In the Nordic Arctic, entrepreneurship demands courage, resilience, and above all collaboration, as long distances, scarce resources, and constant change are part of everyday reality. 
-This blog explores why collaboration is the lifeline of Arctic entrepreneurship and how the ELSA project is building a sustainable future rooted in northern realities. February 6, 2026.
+description: Entrepreneurship in the Nordic Arctic means stepping forward in uncertainty, where courage, resilience, and collaboration are essential in the face of long distances, scarce resources, and constant change.This blog explores why collaboration is the lifeline of Arctic entrepreneurship and how the ELSA project is shaping a sustainable future grounded in northern realities. Published on February 6, 2026.
 blog_image: assets/images/blogs/2026-02-elsaproject.png
 ---
-
 Imagine you are about to step into a hole in the ice to pitch your business idea to a global audience. You close your eyes for a moment to brace yourself, and your mind starts racing: What if I lose my words when the freezing water hits me? How do I move forward when every part of me wants to stay put?
 
 This moment probably feels very familiar to anyone interested in building a company. It demands courage to recognize opportunity even on the iciest stage, clarity to shape your message, and creativity to make your pitch memorable. But above all, it requires the ability to move forward despite uncertainty.
