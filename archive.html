@@ -2,8 +2,10 @@
 layout: events
 ---
 
-{% assign events = site.events | sort: 'start_time' %}
-{% assign years = events | group_by_exp: "item", "item.start_time | date: '%Y'" %}
+{% assign events = site.events | sort: 'start_time' | reverse %}
+{% assign categorized_events = events | where_exp: "item", "item.start_time" %}
+{% assign uncategorized_events = events | where_exp: "item", "item.start_time == nil" %}
+{% assign years = categorized_events | group_by_exp: "item", "item.start_time | date: '%Y'" %}
 <section class="event-archive">
   <h1>All Events</h1>
 
@@ -36,5 +38,21 @@ layout: events
       {% endfor %}
     </section>
   {% endfor %}
+
+  {% if uncategorized_events.size > 0 %}
+    <section class="year-section">
+      <h2 class="year">Uncategorized</h2>
+      
+      <ul class="event-list">
+        {% for event in uncategorized_events %}
+          <li class="event-item">
+            <h4 class="event-title">
+              <a href="{{ event.url }}">{{ event.title }}</a>
+            </h4>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
   
 </section>
