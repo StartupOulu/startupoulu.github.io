@@ -49,4 +49,3 @@ So take one small step. Then the next. That’s how Arctic entrepreneurs move fo
 - Anna Alapeteri
 
 *ELSA project (2025-2028) is funded by Interreg Aurora, The Norwegian Barents Secretariat, Troms fylkeskommune, and The Regional Council of Lapland. Project partners: Oulu University of Applied Sciences, University of Lapland, UiT The Arctic University of Norway and Sor-Varanger Utvikling through Ost-Finnmark Kunnskapssenter.*
-
