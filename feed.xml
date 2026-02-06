@@ -1,0 +1,64 @@
+---
+layout: null
+permalink: /feed.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>{{ site.title | xml_escape }}</title>
+    <link>{{ site.url }}</link>
+    <description>{{ site.description | xml_escape }}</description>
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+
+    {% assign events = site.events | sort: "start_time" %}
+    {% assign posts = site.posts | sort: "date" %}
+
+    {% assign now = site.time | date: "%s" %}
+    {% assign upcoming = "" | split: "" %}
+
+    {% for event in site.events %}
+        {% assign end_ts = event.end_time | date: "%s" %}
+
+        {% if end_ts >= now %}
+            {% assign upcoming = upcoming | push: event %}
+        {% endif %}
+    {% endfor %}
+
+    {% for event in upcoming %}
+      <item>
+        <title><![CDATA[{{ event.title | xml_escape }}]]></title>
+        <link>{{ site.url }}{{ event.url | xml_escape }}</link>
+        <guid>{{ site.url }}{{ event.url | xml_escape }}</guid>
+        <category>event</category>
+        {% if event.start_time %}
+            <pubDate>{{ event.start_time | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
+        {% else %}
+            <pubDate>{{ site.time | date: "%a, %d %b %Y %H:%M:%S %z" }} </pubDate>
+        {% endif %}        
+
+        <description><![CDATA[{{ event.description | xml_escape }}
+            {% if event.location %}
+              Location: {{ event.location }}
+            {% endif %}
+            {% if event.start_time and event.end_time %}
+              {{ event.start_time | date: "%d %b %Y" }} - {{ event.end_time | date: "%d %b %Y" }}
+            {% elsif event.start_time %}
+              Starting at {{ event.start_time | date: "%d %b %Y" }}
+            {% endif %}
+            ]]></description>         
+      </item>
+    {% endfor %}
+
+    {% for post in posts %}
+     <item>
+        <title><![CDATA[{{ post.title | xml_escape }}]]></title>
+        <link>{{ site.url }}{{ post.url | xml_escape }}</link>
+        <guid>{{ site.url }}{{ post.url | xml_escape }}</guid>
+        <category>post</category>
+        <pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>        
+        <description><![CDATA[{{ post.description | xml_escape }}]]></description>
+      </item>
+    {% endfor %}
+    
+  </channel>
+</rss>
