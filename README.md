@@ -114,6 +114,7 @@ description: |
 - `cover_image` is just the filename (the path is added automatically). If omitted, a default placeholder image is shown
 - `excerpt` is truncated at 60 words — if not provided, `description` is used instead
 - `cta_title` and `cta_link` are optional — if omitted, no button is shown on the event page
+- To hide an event from the website without deleting the file, add `published: false` to the front matter. The event will be excluded from the build entirely
 
 ---
 
@@ -168,6 +169,7 @@ You can also include [links](https://example.com) and *italic text*.
 - `description` is used for SEO and social media previews
 - Content is written in Markdown format
 - The publication date comes from the filename
+- To hide a blog post from the website without deleting the file, add `published: false` to the front matter. The post will be excluded from the build entirely
 
 ---
 
