@@ -75,9 +75,9 @@ jobs:
             [ -f "$file" ] || continue
             filename=$(basename "$file")
 
-            # Check filename format: YYYY-MM-DD-slug.markdown
-            if ! echo "$filename" | grep -qE '^[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-zA-Z0-9-]+\.markdown$'; then
-              echo "::error file=$file::Filename '$filename' does not match required format YYYY-MM-DD-slug.markdown"
+            # Check filename format: YYYY-MM-DD-slug.markdown or YYYY-MM-slug.markdown
+            if ! echo "$filename" | grep -qE '^[0-9]{4}-[0-9]{2}-([0-9]{2}-)?[a-zA-Z0-9-]+\.markdown$'; then
+              echo "::error file=$file::Filename '$filename' does not match required format YYYY-MM-DD-slug.markdown or YYYY-MM-slug.markdown"
               errors=$((errors + 1))
             fi
 
