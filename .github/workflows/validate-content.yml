@@ -22,30 +22,30 @@ jobs:
 
             # Check filename format: YYYY-MM-slug.html
             if ! echo "$filename" | grep -qE '^[0-9]{4}-[0-9]{2}-[a-z0-9-]+\.html$'; then
-              echo "::error file=$file::Filename '$filename' does not match required format YYYY-MM-slug.html (lowercase, dashes only)"
+              echo "::error file=$file::Bad filename '$filename'. Expected format: YYYY-MM-slug.html (e.g. 2026-04-my-event.html). Use only lowercase letters, numbers, and dashes."
               errors=$((errors + 1))
             fi
 
             # Check front matter has opening and closing ---
             first_line=$(head -1 "$file")
             if [ "$first_line" != "---" ]; then
-              echo "::error file=$file::File must start with --- (front matter opening)"
+              echo "::error file=$file::File does not start with '---'. Add a line containing only --- as the very first line of the file to begin the front matter block."
               errors=$((errors + 1))
               continue
             fi
 
-            closing_count=$(tail -n +2 "$file" | grep -c '^---$')
+            closing_count=$(tail -n +2 "$file" | grep -c '^---[[:space:]]*$')
             if [ "$closing_count" -eq 0 ]; then
-              echo "::error file=$file::Missing closing --- in front matter"
+              echo "::error file=$file::Missing closing '---' in front matter. Add a line containing only --- after your last front matter field. Without it, Jekyll cannot parse the file and the event will not appear on the site."
               errors=$((errors + 1))
               continue
             fi
 
             # Extract front matter (between first pair of ---)
-            front_matter=$(sed -n '/^---$/,/^---$/p' "$file" | sed '1d;$d')
+            front_matter=$(sed -n '/^---[[:space:]]*$/,/^---[[:space:]]*$/p' "$file" | sed '1d;$d')
 
             if [ -z "$front_matter" ]; then
-              echo "::error file=$file::No YAML front matter found. File must start with --- and end with ---"
+              echo "::error file=$file::Front matter is empty. Add required fields (layout, title, start_time, description) between the --- markers."
               errors=$((errors + 1))
               continue
             fi
@@ -53,7 +53,12 @@ jobs:
             # Check required fields
             for field in layout title start_time description; do
               if ! echo "$front_matter" | grep -qE "^${field}:"; then
-                echo "::error file=$file::Missing required field '$field'"
+                case "$field" in
+                  layout)     echo "::error file=$file::Missing 'layout' field. Add 'layout: event' to the front matter." ;;
+                  title)      echo "::error file=$file::Missing 'title' field. Add 'title: Your Event Name' to the front matter." ;;
+                  start_time) echo "::error file=$file::Missing 'start_time' field. Add 'start_time: YYYY-MM-DD HH:MM:SS' (e.g. start_time: 2026-04-22 18:00:00) to the front matter." ;;
+                  description) echo "::error file=$file::Missing 'description' field. Add a description using the pipe syntax, e.g. description: |" ;;
+                esac
                 errors=$((errors + 1))
               fi
             done
@@ -61,22 +66,21 @@ jobs:
             # Check layout value
             layout_value=$(echo "$front_matter" | grep -E '^layout:' | sed 's/^layout:[[:space:]]*//')
             if [ -n "$layout_value" ] && [ "$layout_value" != "event" ]; then
-              echo "::warning file=$file::Layout is '$layout_value' — expected 'event'"
+              echo "::warning file=$file::Layout is '$layout_value' but expected 'event'. Change to 'layout: event' unless you intentionally use a custom layout."
             fi
 
             # Check cover_image exists if specified
             cover_image=$(echo "$front_matter" | grep -E '^cover_image:' | sed 's/^cover_image:[[:space:]]*//')
             if [ -n "$cover_image" ]; then
               if [ ! -f "assets/images/events/$cover_image" ]; then
-                echo "::warning file=$file::Cover image 'assets/images/events/$cover_image' not found"
+                echo "::warning file=$file::Cover image 'assets/images/events/$cover_image' not found. Make sure the image file exists in assets/images/events/ and the filename matches exactly (case-sensitive)."
               fi
             fi
           done
 
           if [ $errors -gt 0 ]; then
             echo ""
-            echo "Found $errors error(s) in event files."
-            echo "See https://github.com/${{ github.repository }}/blob/main/README.md for event formatting guide."
+            echo "Found $errors error(s) in event files. See errors above for how to fix each one."
             exit 1
           fi
 
@@ -92,30 +96,30 @@ jobs:
 
             # Check filename format: YYYY-MM-DD-slug.markdown or YYYY-MM-slug.markdown
             if ! echo "$filename" | grep -qE '^[0-9]{4}-[0-9]{2}-([0-9]{2}-)?[a-zA-Z0-9-]+\.markdown$'; then
-              echo "::error file=$file::Filename '$filename' does not match required format YYYY-MM-DD-slug.markdown or YYYY-MM-slug.markdown"
+              echo "::error file=$file::Bad filename '$filename'. Expected format: YYYY-MM-DD-slug.markdown (e.g. 2026-03-15-my-blog-post.markdown). Use only letters, numbers, and dashes."
               errors=$((errors + 1))
             fi
 
             # Check front matter has opening and closing ---
             first_line=$(head -1 "$file")
             if [ "$first_line" != "---" ]; then
-              echo "::error file=$file::File must start with --- (front matter opening)"
+              echo "::error file=$file::File does not start with '---'. Add a line containing only --- as the very first line of the file to begin the front matter block."
               errors=$((errors + 1))
               continue
             fi
 
-            closing_count=$(tail -n +2 "$file" | grep -c '^---$')
+            closing_count=$(tail -n +2 "$file" | grep -c '^---[[:space:]]*$')
             if [ "$closing_count" -eq 0 ]; then
-              echo "::error file=$file::Missing closing --- in front matter"
+              echo "::error file=$file::Missing closing '---' in front matter. Add a line containing only --- after your last front matter field. Without it, Jekyll cannot parse the file and the post will not appear on the site."
               errors=$((errors + 1))
               continue
             fi
 
             # Extract front matter
-            front_matter=$(sed -n '/^---$/,/^---$/p' "$file" | sed '1d;$d')
+            front_matter=$(sed -n '/^---[[:space:]]*$/,/^---[[:space:]]*$/p' "$file" | sed '1d;$d')
 
             if [ -z "$front_matter" ]; then
-              echo "::error file=$file::No YAML front matter found. File must start with --- and end with ---"
+              echo "::error file=$file::Front matter is empty. Add required fields (layout, title, description, blog_image) between the --- markers."
               errors=$((errors + 1))
               continue
             fi
@@ -123,7 +127,12 @@ jobs:
             # Check required fields
             for field in layout title description blog_image; do
               if ! echo "$front_matter" | grep -qE "^${field}:"; then
-                echo "::error file=$file::Missing required field '$field'"
+                case "$field" in
+                  layout)     echo "::error file=$file::Missing 'layout' field. Add 'layout: blog' to the front matter." ;;
+                  title)      echo "::error file=$file::Missing 'title' field. Add 'title: Your Post Title' to the front matter." ;;
+                  description) echo "::error file=$file::Missing 'description' field. Add 'description: A short summary for SEO and social sharing.' to the front matter." ;;
+                  blog_image) echo "::error file=$file::Missing 'blog_image' field. Add 'blog_image: /assets/images/blogs/your-image.jpg' to the front matter (full path required)." ;;
+                esac
                 errors=$((errors + 1))
               fi
             done
@@ -131,7 +140,7 @@ jobs:
             # Check layout value
             layout_value=$(echo "$front_matter" | grep -E '^layout:' | sed 's/^layout:[[:space:]]*//')
             if [ -n "$layout_value" ] && [ "$layout_value" != "blog" ]; then
-              echo "::warning file=$file::Layout is '$layout_value' — expected 'blog'"
+              echo "::warning file=$file::Layout is '$layout_value' but expected 'blog'. Change to 'layout: blog' unless you intentionally use a custom layout."
             fi
 
             # Check blog_image file exists
@@ -140,15 +149,14 @@ jobs:
               # Remove leading slash for file path check
               image_path=$(echo "$blog_image" | sed 's|^/||')
               if [ ! -f "$image_path" ]; then
-                echo "::warning file=$file::Blog image '$blog_image' not found"
+                echo "::warning file=$file::Blog image '$blog_image' not found. Make sure the image file exists at that path and the filename matches exactly (case-sensitive)."
               fi
             fi
           done
 
           if [ $errors -gt 0 ]; then
             echo ""
-            echo "Found $errors error(s) in blog post files."
-            echo "See https://github.com/${{ github.repository }}/blob/main/README.md for blog post formatting guide."
+            echo "Found $errors error(s) in blog post files. See errors above for how to fix each one."
             exit 1
           fi
 
