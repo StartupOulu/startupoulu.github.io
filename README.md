@@ -2,6 +2,7 @@
 
 This is the source code for [startupoulu.com](https://www.startupoulu.com). The website is built automatically from the files in this repository. To add or edit content (events, blog posts, services), you edit files here on GitHub. All changes go through a **pull request** — a simple review step where the system checks your changes for errors before they are published to the live site. No coding experience is needed; just follow the guides below.
 
+- [Something not working? How to find and fix errors](#something-not-working-how-to-find-and-fix-errors)
 - [File naming rules](#file-naming-rules)
 - [How to add an event?](#how-to-add-an-event)
 - [How to add a blog post?](#how-to-add-a-blog-post)
@@ -9,21 +10,37 @@ This is the source code for [startupoulu.com](https://www.startupoulu.com). The 
 - [How to make changes (step-by-step)](#how-to-make-changes)
 - [Public Analytics page](https://cloud.umami.is/analytics/eu/share/TRXfirUynZGCZDPq)
 
-## Troubleshooting
+## Something not working? How to find and fix errors
 
-Every pull request is **automatically validated** before it can be merged. The validation checks:
+Every time you save changes (through a pull request), the system automatically checks your files for common mistakes. If something is wrong, it will tell you exactly what the problem is and how to fix it.
 
-- YAML front matter syntax
-- Required fields (`layout`, `title`, `start_time`, `description` for events; `layout`, `title`, `description`, `blog_image` for posts)
-- File naming conventions
-- Whether referenced images exist
-- That the full Jekyll site builds without errors
+You can always check the status of these checks on the **Actions** page:
 
-**If the validation fails on your pull request:**
+### How to check for errors
 
-1. Click **"Details"** next to the failed check on the pull request page — it shows a clear description of the error
-2. Fix the issue by editing the file in your pull request (see [How to Make Changes](#how-to-make-changes) for step-by-step instructions)
-3. After merging, check the [/debug/](debug) page for an overview of all events and blog posts with their parsed data
+1. Go to the repository on GitHub
+2. Click the **"Actions"** tab at the top of the page (between "Pull requests" and "Projects")
+3. You will see a list of recent checks. Each one has a status icon:
+   - **Green checkmark** — everything is fine, no errors
+   - **Red X** — something went wrong, click on it to see what
+4. Click on the failed check (the one with the red X) to open it
+5. Click on **"validate"** in the left sidebar
+6. Look for the **red error messages** — each one tells you what is wrong and suggests how to fix it
+
+For example, you might see messages like:
+- *"Missing closing '---' in front matter. Add a line containing only --- after your last field."*
+- *"Missing 'start_time' field. Add 'start_time: 2026-04-22 18:00:00' to the front matter."*
+- *"Cover image 'MyImage.png' has uppercase letters. Filenames must be all lowercase."*
+
+### How to fix errors
+
+1. Read the error message carefully — it tells you which file has the problem and what to change
+2. Go back to your pull request and click the **"Files changed"** tab
+3. Click the **pencil icon** on the file that needs fixing
+4. Make the correction based on the error message
+5. Click **"Commit changes"** to save — the checks will run again automatically
+
+If you're not sure what went wrong, you can also check the [/debug/](debug) page for an overview of all events and blog posts.
 
 For questions or help, contact information can be found at [startupoulu.com](https://www.startupoulu.com).
 
@@ -385,16 +402,7 @@ Your changes are now live! The website will update within a few minutes.
 
 #### If the check fails (red X)
 
-Don't worry — nothing has been published, and you can fix the error right from GitHub:
-
-1. On the pull request page, click **"Details"** next to the failed check
-2. Look for the error message — it will tell you exactly what's wrong (e.g., "Missing required field 'start_time'")
-3. Go back to the pull request page and click the **"Files changed"** tab
-4. Click the **pencil icon** (edit) on the file you need to fix
-5. Make the correction and click **"Commit changes"** (this time it will automatically commit to your pull request branch)
-6. The checks will run again automatically
-
-You can also check the [/debug/](debug) page after merging for a visual overview of all events and posts.
+Don't worry — nothing has been published, and you can fix the error right from GitHub. See [Something not working? How to find and fix errors](#something-not-working-how-to-find-and-fix-errors) for detailed step-by-step instructions on how to find and fix the problem.
 
 ### Option 2: Local Development
 

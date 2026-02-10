@@ -69,11 +69,17 @@ jobs:
               echo "::warning file=$file::Layout is '$layout_value' but expected 'event'. Change to 'layout: event' unless you intentionally use a custom layout."
             fi
 
-            # Check cover_image exists if specified
+            # Check cover_image exists and follows naming conventions
             cover_image=$(echo "$front_matter" | grep -E '^cover_image:' | sed 's/^cover_image:[[:space:]]*//')
             if [ -n "$cover_image" ]; then
+              if echo "$cover_image" | grep -qE '[A-Z]'; then
+                echo "::warning file=$file::Cover image '$cover_image' has uppercase letters. Filenames must be all lowercase (e.g. '$(echo "$cover_image" | tr '[:upper:]' '[:lower:]')').  Rename the image file and update cover_image to match."
+              fi
+              if echo "$cover_image" | grep -qE '[_ ]'; then
+                echo "::warning file=$file::Cover image '$cover_image' has spaces or underscores. Use dashes instead (e.g. '$(echo "$cover_image" | tr '_ ' '--')').  Rename the image file and update cover_image to match."
+              fi
               if [ ! -f "assets/images/events/$cover_image" ]; then
-                echo "::warning file=$file::Cover image 'assets/images/events/$cover_image' not found. Make sure the image file exists in assets/images/events/ and the filename matches exactly (case-sensitive)."
+                echo "::warning file=$file::Cover image 'assets/images/events/$cover_image' not found. Make sure the image file exists in assets/images/events/ and the filename matches exactly (case-sensitive). Filenames must be all lowercase with dashes, no spaces or underscores (e.g. 2026-04-my-event.jpg)."
               fi
             fi
           done
@@ -143,13 +149,20 @@ jobs:
               echo "::warning file=$file::Layout is '$layout_value' but expected 'blog'. Change to 'layout: blog' unless you intentionally use a custom layout."
             fi
 
-            # Check blog_image file exists
+            # Check blog_image exists and follows naming conventions
             blog_image=$(echo "$front_matter" | grep -E '^blog_image:' | sed 's/^blog_image:[[:space:]]*//')
             if [ -n "$blog_image" ]; then
+              blog_image_basename=$(basename "$blog_image")
+              if echo "$blog_image_basename" | grep -qE '[A-Z]'; then
+                echo "::warning file=$file::Blog image '$blog_image_basename' has uppercase letters. Filenames must be all lowercase (e.g. '$(echo "$blog_image_basename" | tr '[:upper:]' '[:lower:]')').  Rename the image file and update blog_image to match."
+              fi
+              if echo "$blog_image_basename" | grep -qE '[_ ]'; then
+                echo "::warning file=$file::Blog image '$blog_image_basename' has spaces or underscores. Use dashes instead (e.g. '$(echo "$blog_image_basename" | tr '_ ' '--')').  Rename the image file and update blog_image to match."
+              fi
               # Remove leading slash for file path check
               image_path=$(echo "$blog_image" | sed 's|^/||')
               if [ ! -f "$image_path" ]; then
-                echo "::warning file=$file::Blog image '$blog_image' not found. Make sure the image file exists at that path and the filename matches exactly (case-sensitive)."
+                echo "::warning file=$file::Blog image '$blog_image' not found. Make sure the image file exists at that path and the filename matches exactly (case-sensitive). Filenames must be all lowercase with dashes, no spaces or underscores (e.g. 2026-03-my-post.jpg)."
               fi
             fi
           done
