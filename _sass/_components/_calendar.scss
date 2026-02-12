@@ -53,10 +53,10 @@
    Navigation Buttons
 --------------------------------------------- */
 .fc .fc-button {
-    background: $white-color;
-    color: $brand-color;
-    border: 2px solid $brand-color;
-    padding: 8px 14px;
+    background: $brand-color;
+    color: $white-color;
+    border: 3px solid $brand-color;
+    padding: 12px 12px;
     font-size: $font-size-medium;
     font-weight: 600;
     box-shadow: none;
@@ -68,11 +68,20 @@
         outline: none;
         box-shadow: none;
     }
+
+    .fc-icon {
+        font-size: 1.2em;
+        line-height: 0.9;
+    }
+}
+
+.fc-today-buttonn {
+    line-height: 1.6px;
 }
 
 .fc .fc-button:hover:not(:disabled) {
-    background: $brand-color;
-    color: $white-color;
+    background: $white-color;
+    color: $brand-color;
 }
 
 .fc .fc-button:disabled {
@@ -127,7 +136,7 @@
     border: 1px solid transparent;
     /* prevents hover jump */
     border-radius: 4px;
-    padding: 4px 6px;
+    padding: 4px 4px;
     font-size: $font-size-normal;
     font-weight: 500;
     cursor: pointer;
@@ -147,10 +156,6 @@
 --------------------------------------------- */
 .fc-daygrid-event-dot {
     display: none;
-}
-
-.fc-daygrid-dot-event {
-    padding-left: 0;
 }
 
 /* Allow wrapping */
@@ -184,7 +189,7 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: 4px 6px;
+    padding: 0px 0px;
     margin: 0;
     line-height: 1.2;
     box-sizing: border-box;
@@ -213,7 +218,7 @@
         gap: 10px;
     }
 
-    .fc .fc-button {
-        padding: 6px 10px;
-    }
+    // .fc .fc-button {
+    //     padding: 6px 10px;
+    // }
 }
