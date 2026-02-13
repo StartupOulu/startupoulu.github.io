@@ -84,12 +84,13 @@ All filenames in this project follow these rules:
 - **Dashes instead of spaces or underscores** — `my-event.html`, not `my event.html` or `my_event.html`
 - **Only one dot** — the dot goes before the file extension. `2026-03-my-event.html`, not `2026-03-my.event.html`
 - **No special characters** — only letters (a–z), numbers (0–9), and dashes
-- **Start with a date** — events use `YYYY-MM-slug.html`, blog posts use `YYYY-MM-DD-slug.markdown`
+- **Start with a date** — events use `YYYY-MM-slug.html`, blog posts use `YYYY-MM-DD-slug.markdown` or `YYYY-MM-slug.markdown`
 
 | Content type | Format | Example |
 |---|---|---|
 | Event | `YYYY-MM-slug.html` | `2026-03-startup-pitch.html` |
 | Blog post | `YYYY-MM-DD-slug.markdown` | `2026-03-15-building-bridges.markdown` |
+| Blog post (alt) | `YYYY-MM-slug.markdown` | `2026-03-building-bridges.markdown` |
 | Event image | `descriptive-name.ext` | `2026-03-startup-pitch.jpg` |
 | Blog image | `descriptive-name.ext` | `2026-03-building-bridges.png` |
 
@@ -245,7 +246,7 @@ bundle exec jekyll serve    # Start local server at http://localhost:4000
 A GitHub Actions workflow (`.github/workflows/validate-content.yml`) runs on every push to `main` and on pull requests. It validates:
 
 - YAML front matter syntax and required fields
-- File naming conventions (`YYYY-MM-slug.html` for events, `YYYY-MM-DD-slug.markdown` for posts)
+- File naming conventions (`YYYY-MM-slug.html` for events, `YYYY-MM-DD-slug.markdown` or `YYYY-MM-slug.markdown` for posts)
 - Referenced image files exist
 - Full Jekyll build succeeds
 
