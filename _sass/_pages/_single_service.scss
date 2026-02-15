@@ -92,3 +92,46 @@
         }
     }
 }
+
+// for mobile
+@media (max-width: 767.98px){
+
+    // common part
+    .items{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .single_service{
+        min-height: 820px;
+        .mobile_content{
+            padding: 40px;
+        }
+    }
+    .founder_section{
+        .r2a_container{
+            
+        }
+    }
+}
+
+// for tablet
+
+@media (min-width: 768px) and (max-width: 991.98px){
+    // common part
+    .items{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .single_service{
+        min-height: 1000px;
+        .mobile_content{
+            padding: 40px;
+        }
+    }
+    .founder_section{
+        .r2a_container{
+            
+        }
+    }
+}
+
+// for laptop
+@media (min-width: 992px) and (max-width: 1199.98px){}
