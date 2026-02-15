@@ -55,15 +55,7 @@
     }
 }
 
-// event section
-.events_grid{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    .card{
-        width: 100%;
-    }
-}
+
 // mobile screen responsive
 @media (max-width: 767.98px){
     // banner section for event page
@@ -89,12 +81,6 @@
     }
 
     // event section
-    .events_grid {
-        grid-template-columns: repeat(1, 1fr);
-        padding: 0 50px;
-        
-        
-    }
     .event_section{
         .flex{
             .show_event_btn {
@@ -105,11 +91,7 @@
 }
 // tablet screen responsive
 @media (min-width: 768px) and (max-width: 991.98px){
-    .events_grid {
-        grid-template-columns: repeat(2, 1fr);
-        padding: 0 50px;
-    }
-    .event_banner {
+      .event_banner {
         overflow: visible;
         background: $white-color;
         min-height: 650px;
