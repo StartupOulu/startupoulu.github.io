@@ -8,6 +8,7 @@
 .hero {
     background: url('/assets/images/herobg1.jpg') no-repeat center center;
     background-size: cover;
+    position: relative;
     // filter: sepia(0.4) hue-rotate(300deg) saturate(2.5) brightness(1.1) contrast(0.9);
     .banner{
         height: 80vh;
