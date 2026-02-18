@@ -1,10 +1,40 @@
 @import "variables";
 
+/* Toggle button (list/calendar switch) */
+.calendar-toggle-wrapper {
+    display: flex;
+    justify-content: flex-start;
+
+    @media (max-width: 768px){
+        justify-content: center;
+    }
+}
+
+.calendar-toggle-btn {
+    background: $brand-color;
+    color: $white-color;
+    padding: 10px 20px;
+    font-size: $font-size-medium;
+    font-weight: 600;
+    border: 2px solid $brand-color;
+    cursor: pointer;
+
+    &:hover {
+        background: $white-color;
+        color: $brand-color;
+    }
+}
+
 /* ---------------------------------------------
    Calendar Container
 --------------------------------------------- */
 #calendar-view {
     margin: 0;
+}
+
+//if calendar is active, reduce padding from 6rem 0rem 6rem 0rem
+.event_section.calendar-active {
+    padding: 2rem 0rem 6rem 0rem;
 }
 
 .fc {
@@ -29,22 +59,6 @@
     .fc-toolbar-title {
         font-size: 32px;
         font-weight: 700;
-        color: $brand-color;
-    }
-}
-
-/* Toggle button (list/calendar switch) */
-.calendar-toggle-btn {
-    background: $brand-color;
-    color: $white-color;
-    padding: 10px 20px;
-    font-size: $font-size-medium;
-    font-weight: 600;
-    border: 2px solid $brand-color;
-    cursor: pointer;
-
-    &:hover {
-        background: $white-color;
         color: $brand-color;
     }
 }
@@ -213,12 +227,40 @@
    Responsive
 --------------------------------------------- */
 @media (max-width: 768px) {
-    .fc-toolbar {
-        flex-direction: column;
-        gap: 10px;
+    .fc {
+        padding: 4px;
+        font-size: 14px;
     }
 
-    // .fc .fc-button {
-    //     padding: 6px 10px;
-    // }
+    .fc-toolbar-title {
+        font-size: 18px;
+    }
+
+    .fc .fc-button {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+
+    .fc-daygrid-day {
+        height: 55px;
+    }
+
+    .fc-daygrid-day-number {
+        font-size: 14px;
+    }
+
+    .fc-daygrid-event .fc-event-title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .fc-event {
+        font-size: 12px;
+        padding: 2px 4px;
+    }
+
+    .fc-col-header-cell-cushion {
+        font-size: 14px;
+    }
 }

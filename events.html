@@ -15,7 +15,7 @@ title: Events - StartupOulu
 {% assign sorted_future_events = future_events | sort: 'start_time' %}
 
     <div class="r2a_container">
-        <div class="flex justify-end mb-6">
+        <div class="calendar-toggle-wrapper">
             <button id="toggle-view" class="calendar-toggle-btn"> 
                 Switch to Calendar View 
             </button>
@@ -71,10 +71,12 @@ title: Events - StartupOulu
             calendarView.style.display = 'block'
             toggleBtn.textContent = "Switch to List View"
 
+            document.querySelector('.event_section').classList.add('calendar-active');
 
             if (!calendarInitialized) {
                 const calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
                     initialView: 'dayGridMonth',
+                    contentHeight: 'auto',
                     titleFormat: { year: 'numeric', month: 'long' },
                     timeZone: 'Europe/Helsinki',
                     firstDay: 1,
@@ -111,6 +113,9 @@ title: Events - StartupOulu
         calendarView.style.display = 'none'
         listView.style.display = 'block'
         toggleBtn.textContent = "Switch to Calendar View"
+
+        document.querySelector('.event_section').classList.remove('calendar-active');
+
         } 
     }
 </script>
