@@ -2,7 +2,7 @@
 layout: blog
 title: "ScaleHack AI invited all tech wizards and AI enthusiasts to solve problems for a 1000€ prize!"
 description: "ScaleHack AI was a 48 hour hackathon in Oulu that brought together all creative and curious people from different domains of technology, business, design and more! The goal of the event was to solve real-world problems…"
-blog_image: /assets/images/blog_item.png
+blog_image: /assets/images/blog-item.png
 ---
 <div class="common_pera">
 <h3>ScaleHack AI was a 48 hour hackathon in Oulu that brought together all creative and curious people from different domains of technology, business, design and more!</h3>
@@ -13,7 +13,7 @@ blog_image: /assets/images/blog_item.png
 <!-- under the single blog items 1 -->
 <div class="flex mt_40 gap-60">
     <div class="content_image">
-        <img src="{{ site.baseurl }}/assets/images/blog_item.png" alt="blog_item">
+        <img src="{{ site.baseurl }}/assets/images/blog-item.png" alt="blog_item">
     </div>
     <div class="text">
         <h3 class="text_title">1st place 1000 € – Lilja by Arctic Donkeys</h3>
@@ -23,7 +23,7 @@ blog_image: /assets/images/blog_item.png
 <!-- under the single blog items 2 -->
 <div class="flex mt_40 gap-60">
     <div class="content_image">
-        <img src="{{ site.baseurl }}/assets/images/blog_item_2.png" alt="blog_item">
+        <img src="{{ site.baseurl }}/assets/images/blog-item-2.png" alt="blog_item">
     </div>
     <div class="text">
         <h3 class="text_title">2nd place 300€ – We are (VR) Blocker </h3>
@@ -33,7 +33,7 @@ blog_image: /assets/images/blog_item.png
 <!-- under the single blog items 3 -->
 <div class="flex mt_40 gap-60">
     <div class="content_image">
-        <img src="{{ site.baseurl }}/assets/images/blog_item_2.png" alt="blog_item">
+        <img src="{{ site.baseurl }}/assets/images/blog-item-2.png" alt="blog_item">
     </div>
     <div class="text">
         <h3 class="text_title">3rd place 200€ – FLASH </h3>

@@ -1,0 +1,224 @@
+name: Validate Content
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate event files
+        run: |
+          errors=0
+
+          for file in _events/*.html; do
+            [ -f "$file" ] || continue
+            filename=$(basename "$file")
+
+            # Check filename format: YYYY-MM-slug.html
+            if ! echo "$filename" | grep -qE '^[0-9]{4}-[0-9]{2}-[a-z0-9-]+\.html$'; then
+              echo "::error file=$file::Bad filename '$filename'. Expected format: YYYY-MM-slug.html (e.g. 2026-04-my-event.html). Use only lowercase letters, numbers, and dashes."
+              errors=$((errors + 1))
+            fi
+
+            # Check front matter has opening and closing ---
+            first_line=$(head -1 "$file")
+            if [ "$first_line" != "---" ]; then
+              echo "::error file=$file::File does not start with '---'. Add a line containing only --- as the very first line of the file to begin the front matter block."
+              errors=$((errors + 1))
+              continue
+            fi
+
+            closing_count=$(tail -n +2 "$file" | grep -c '^---[[:space:]]*$')
+            if [ "$closing_count" -eq 0 ]; then
+              echo "::error file=$file::Missing closing '---' in front matter. Add a line containing only --- after your last front matter field. Without it, Jekyll cannot parse the file and the event will not appear on the site."
+              errors=$((errors + 1))
+              continue
+            fi
+
+            # Extract front matter (between first pair of ---)
+            front_matter=$(sed -n '/^---[[:space:]]*$/,/^---[[:space:]]*$/p' "$file" | sed '1d;$d')
+
+            if [ -z "$front_matter" ]; then
+              echo "::error file=$file::Front matter is empty. Add required fields (layout, title, start_time, description) between the --- markers."
+              errors=$((errors + 1))
+              continue
+            fi
+
+            # Check required fields
+            for field in layout title start_time description; do
+              if ! echo "$front_matter" | grep -qE "^${field}:"; then
+                case "$field" in
+                  layout)     echo "::error file=$file::Missing 'layout' field. Add 'layout: event' to the front matter." ;;
+                  title)      echo "::error file=$file::Missing 'title' field. Add 'title: Your Event Name' to the front matter." ;;
+                  start_time) echo "::error file=$file::Missing 'start_time' field. Add 'start_time: YYYY-MM-DD HH:MM:SS' (e.g. start_time: 2026-04-22 18:00:00) to the front matter." ;;
+                  description) echo "::error file=$file::Missing 'description' field. Add a description using the pipe syntax, e.g. description: |" ;;
+                esac
+                errors=$((errors + 1))
+              fi
+            done
+
+            # Check layout value
+            layout_value=$(echo "$front_matter" | grep -E '^layout:' | sed 's/^layout:[[:space:]]*//')
+            if [ -n "$layout_value" ] && [ "$layout_value" != "event" ]; then
+              echo "::warning file=$file::Layout is '$layout_value' but expected 'event'. Change to 'layout: event' unless you intentionally use a custom layout."
+            fi
+
+            # Check cover_image exists and follows naming conventions
+            cover_image=$(echo "$front_matter" | grep -E '^cover_image:' | sed 's/^cover_image:[[:space:]]*//')
+            if [ -n "$cover_image" ]; then
+              if echo "$cover_image" | grep -qE '[A-Z]'; then
+                echo "::warning file=$file::Cover image '$cover_image' has uppercase letters. Filenames must be all lowercase (e.g. '$(echo "$cover_image" | tr '[:upper:]' '[:lower:]')').  Rename the image file and update cover_image to match."
+              fi
+              if echo "$cover_image" | grep -qE '[_ ]'; then
+                echo "::warning file=$file::Cover image '$cover_image' has spaces or underscores. Use dashes instead (e.g. '$(echo "$cover_image" | tr '_ ' '--')').  Rename the image file and update cover_image to match."
+              fi
+              if [ ! -f "assets/images/events/$cover_image" ]; then
+                echo "::warning file=$file::Cover image 'assets/images/events/$cover_image' not found. Make sure the image file exists in assets/images/events/ and the filename matches exactly (case-sensitive). Filenames must be all lowercase with dashes, no spaces or underscores (e.g. 2026-04-my-event.jpg)."
+              fi
+            fi
+          done
+
+          if [ $errors -gt 0 ]; then
+            echo ""
+            echo "Found $errors error(s) in event files. See errors above for how to fix each one."
+            exit 1
+          fi
+
+          echo "All event files are valid."
+
+      - name: Validate blog post files
+        run: |
+          errors=0
+
+          for file in _posts/*.markdown; do
+            [ -f "$file" ] || continue
+            filename=$(basename "$file")
+
+            # Check filename format: YYYY-MM-DD-slug.markdown or YYYY-MM-slug.markdown
+            if ! echo "$filename" | grep -qE '^[0-9]{4}-[0-9]{2}-([0-9]{2}-)?[a-zA-Z0-9-]+\.markdown$'; then
+              echo "::error file=$file::Bad filename '$filename'. Expected format: YYYY-MM-DD-slug.markdown (e.g. 2026-03-15-my-blog-post.markdown). Use only letters, numbers, and dashes."
+              errors=$((errors + 1))
+            fi
+
+            # Check front matter has opening and closing ---
+            first_line=$(head -1 "$file")
+            if [ "$first_line" != "---" ]; then
+              echo "::error file=$file::File does not start with '---'. Add a line containing only --- as the very first line of the file to begin the front matter block."
+              errors=$((errors + 1))
+              continue
+            fi
+
+            closing_count=$(tail -n +2 "$file" | grep -c '^---[[:space:]]*$')
+            if [ "$closing_count" -eq 0 ]; then
+              echo "::error file=$file::Missing closing '---' in front matter. Add a line containing only --- after your last front matter field. Without it, Jekyll cannot parse the file and the post will not appear on the site."
+              errors=$((errors + 1))
+              continue
+            fi
+
+            # Extract front matter
+            front_matter=$(sed -n '/^---[[:space:]]*$/,/^---[[:space:]]*$/p' "$file" | sed '1d;$d')
+
+            if [ -z "$front_matter" ]; then
+              echo "::error file=$file::Front matter is empty. Add required fields (layout, title, description, blog_image) between the --- markers."
+              errors=$((errors + 1))
+              continue
+            fi
+
+            # Check required fields
+            for field in layout title description blog_image; do
+              if ! echo "$front_matter" | grep -qE "^${field}:"; then
+                case "$field" in
+                  layout)     echo "::error file=$file::Missing 'layout' field. Add 'layout: blog' to the front matter." ;;
+                  title)      echo "::error file=$file::Missing 'title' field. Add 'title: Your Post Title' to the front matter." ;;
+                  description) echo "::error file=$file::Missing 'description' field. Add 'description: A short summary for SEO and social sharing.' to the front matter." ;;
+                  blog_image) echo "::error file=$file::Missing 'blog_image' field. Add 'blog_image: /assets/images/blogs/your-image.jpg' to the front matter (full path required)." ;;
+                esac
+                errors=$((errors + 1))
+              fi
+            done
+
+            # Check layout value
+            layout_value=$(echo "$front_matter" | grep -E '^layout:' | sed 's/^layout:[[:space:]]*//')
+            if [ -n "$layout_value" ] && [ "$layout_value" != "blog" ]; then
+              echo "::warning file=$file::Layout is '$layout_value' but expected 'blog'. Change to 'layout: blog' unless you intentionally use a custom layout."
+            fi
+
+            # Check blog_image exists and follows naming conventions
+            blog_image=$(echo "$front_matter" | grep -E '^blog_image:' | sed 's/^blog_image:[[:space:]]*//')
+            if [ -n "$blog_image" ]; then
+              blog_image_basename=$(basename "$blog_image")
+              if echo "$blog_image_basename" | grep -qE '[A-Z]'; then
+                echo "::warning file=$file::Blog image '$blog_image_basename' has uppercase letters. Filenames must be all lowercase (e.g. '$(echo "$blog_image_basename" | tr '[:upper:]' '[:lower:]')').  Rename the image file and update blog_image to match."
+              fi
+              if echo "$blog_image_basename" | grep -qE '[_ ]'; then
+                echo "::warning file=$file::Blog image '$blog_image_basename' has spaces or underscores. Use dashes instead (e.g. '$(echo "$blog_image_basename" | tr '_ ' '--')').  Rename the image file and update blog_image to match."
+              fi
+              # Remove leading slash for file path check
+              image_path=$(echo "$blog_image" | sed 's|^/||')
+              if [ ! -f "$image_path" ]; then
+                echo "::warning file=$file::Blog image '$blog_image' not found. Make sure the image file exists at that path and the filename matches exactly (case-sensitive). Filenames must be all lowercase with dashes, no spaces or underscores (e.g. 2026-03-my-post.jpg)."
+              fi
+            fi
+          done
+
+          if [ $errors -gt 0 ]; then
+            echo ""
+            echo "Found $errors error(s) in blog post files. See errors above for how to fix each one."
+            exit 1
+          fi
+
+          echo "All blog post files are valid."
+
+      - name: Validate image filenames
+        run: |
+          warnings=0
+
+          find assets/images -type f \
+            -not -name '.DS_Store' \
+            -not -name '*.scss' \
+            -not -name '*.css' \
+            | while read -r file; do
+            filename=$(basename "$file")
+
+            # Check for uppercase letters
+            if echo "$filename" | grep -qE '[A-Z]'; then
+              echo "::warning file=$file::Filename has uppercase letters — should be all lowercase (e.g., '$(echo "$filename" | tr '[:upper:]' '[:lower:]')')"
+              warnings=$((warnings + 1))
+            fi
+
+            # Check for spaces
+            if echo "$filename" | grep -qE ' '; then
+              echo "::warning file=$file::Filename has spaces — use dashes instead (e.g., '$(echo "$filename" | tr ' ' '-')')"
+              warnings=$((warnings + 1))
+            fi
+
+            # Check for underscores
+            if echo "$filename" | grep -qE '_'; then
+              echo "::warning file=$file::Filename has underscores — use dashes instead (e.g., '$(echo "$filename" | tr '_' '-')')"
+              warnings=$((warnings + 1))
+            fi
+
+            # Check for multiple dots (more than one dot = multiple extensions or dots in name)
+            dot_count=$(echo "$filename" | tr -cd '.' | wc -c | tr -d ' ')
+            if [ "$dot_count" -gt 1 ]; then
+              echo "::warning file=$file::Filename has multiple dots — use only one dot before the file extension"
+              warnings=$((warnings + 1))
+            fi
+          done
+
+          echo "Image filename check complete."
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Build Jekyll site
+        run: bundle exec jekyll build
