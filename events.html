@@ -14,16 +14,33 @@ title: Events - StartupOulu
 
 {% assign sorted_future_events = future_events | sort: 'start_time' %}
 
-
+    <!-- toggle calendar -->
+    <div class="r2a_container">
+        <div class="calendar-toggle-wrapper">
+            <button id="toggle-view" class="calendar-toggle-btn"> 
+                Switch to Calendar View 
+            </button>
+        </div>
+    </div>
 
     <!--  event section start -->
     <section class="event_section">
-        <div class="r2a_container">
-          <div class="event_wrapper events-grid">
-            {% for event in sorted_future_events %}
-                {% include events/card.html %}
-            {% endfor %}
-          </div>
+
+        <div id="list-view">
+            <div class="r2a_container">
+                <div class="event_wrapper events-grid">
+                  {% for event in sorted_future_events %}
+                      {% include events/card.html %}
+                  {% endfor %}
+                </div>
+            </div>      
+        </div>
+
+        <!-- calendar -->
+        <div id="calendar-view" style="display:none;">
+            <div class="r2a_container">
+                <div id="calendar"></div>
+            </div>
         </div>
         
         <div class="flex justify-center">
@@ -35,3 +52,29 @@ title: Events - StartupOulu
         
     </section>
 
+<!-- full calendar -->
+{% assign all_events = site.events | sort: 'start_time' %}
+<script id="events-data" type="application/json">
+[
+    {% for event in all_events %}
+    {% assign start_ts = event.start_time | date: "%s" %}
+    {% assign end_ts   = event.end_time   | date: "%s" %}
+    {% assign duration_seconds = end_ts | minus: start_ts %}
+    {% assign duration_days = duration_seconds | divided_by: 86400 %}
+    {
+        "title": {{ event.title | jsonify}},
+        "start": "{{ event.start_time | date: '%Y-%m-%dT%H:%M:%S' }}",
+
+        {% if duration_days < 7 %}
+            "end": "{{ event.end_time   | date: '%Y-%m-%dT%H:%M:%S' }}",
+        {% endif %}
+
+        "allDay": false,
+        "url": "{{ event.url }}"
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+] 
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+<script src="{{ '/assets/calendar.js' | relative_url }}"></script>
