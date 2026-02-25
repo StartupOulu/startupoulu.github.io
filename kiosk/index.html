@@ -1,0 +1,78 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kioski</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="kiosk.js" defer></script>
+</head>
+
+<body>
+  <div class="kiosk">
+
+    <!-- LEFT SIDE -->
+    <div id="text-side">
+      <img
+        src="https://www.startupoulu.com/assets/images/logos/startupoulu-stacked.svg"
+        id="startup-logo"
+        alt="StartupOulu logo"
+      />
+
+      <h2 id="coming-events">Upcoming events (next 30 days)</h2>
+      <hr />
+
+      <div class="badge-row">
+        <span class="date-badge">28.1.2026</span>
+        <span class="status-badge">Today</span>
+      </div>
+
+      <h1 id="event-title">IPO-klinikka<br/>Matkalla pörssiin?</h1>
+
+      <div class="meta">
+        <div id="date">28.01.2026 · 09:30–11:30</div>
+        <div id="location">Startup Station, Sepänkatu 20, Oulu</div>
+      </div>
+
+      <p id="kuvaus">
+        Listautuminen pörssiin on yrityksen toiminnan kehittämisessä merkittävä askel ja valinta,
+        johon sisältyy paljon mahdollisuuksia ja kysymyksiä.
+      </p>
+
+      <div id="countdown-box">
+        <div class="count-label">Starts in</div>
+        <div id="countdown-num">01 : 59 : 59</div>
+      </div>
+
+      <footer class="footer">
+  <div class="footer-left">
+    <a href="https://www.startupoulu.com/events.html">
+      startupoulu.com/events
+    </a>
+  </div>
+
+  <div class="footer-right">
+    <img
+      src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://www.startupoulu.com/events.html"
+      alt="QR code to StartupOulu events"
+      class="qr-code"
+    />
+  </div>
+</footer>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div id="image-side">
+      <img
+        src="https://www.startupoulu.com/assets/images/event_banner.png"
+        alt="Event image"
+        id="event-img"
+      />
+    </div>
+
+  </div>
+</body>
+</html>

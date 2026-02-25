@@ -1,0 +1,271 @@
+
+/*tarkoittaa kaikkia elementtejä muuten kuva venyy liikaa*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+/* fontit ja värit koko sivulle sekä tekee sivusta näytön korkuisen*/
+body {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  background: #050a30;
+  color: #ffffff;
+  height: 100vh;
+}
+
+/* MAIN GRID jakaa sivun kahteen palstaan*/
+.kiosk {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  height: 100vh;
+  padding: 48px;
+  gap: 48px;
+}
+
+/*asettaa vasemman palstan elementit järjestykseen*/
+#text-side {
+  display: flex;
+  flex-direction: column;
+}
+
+#startup-logo {
+  width: 180px;
+  margin-bottom: 32px;
+}
+
+#coming-events {
+  font-size: 22px;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-bottom: 12px;
+}
+/*väli viiva*/
+hr {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.25);
+  margin-bottom: 24px;
+}
+
+
+.badge-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+/* Päivämäärä lätkät pitää varmaan olla isommat */
+.date-badge,
+.status-badge {
+  border: 1px solid #ffffff;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* TITLE */
+#event-title {
+  font-size: 64px;
+  line-height: 1.05;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+/* META */
+.meta {
+  font-size: 22px;
+  opacity: 0.9;
+  margin-bottom: 24px;
+}
+
+.meta div {
+  margin-bottom: 6px;
+}
+
+/* DESCRIPTION */
+#kuvaus {
+  font-size: 22px;
+  line-height: 1.4;
+  max-width: 520px;
+  margin-bottom: 32px;
+  opacity: 0.9;
+}
+
+/* COUNTDOWN */
+#countdown-box {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(0,0,0,0.35);
+  padding: 20px 28px;
+  border-radius: 16px;
+  width: fit-content;
+  margin-bottom: auto;
+}
+
+.count-label {
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+#countdown-num {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+/* FOOTER */
+footer a {
+  color: #ffffff;
+  opacity: 0.8;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 32px;
+  padding-bottom: 24px;
+}
+
+.footer-left a {
+  color: #ffffff;
+  opacity: 0.8;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.qr-code {
+  width: 150px;
+  height: 150px;
+  background: #ffffff;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+
+/* RIGHT SIDE */
+#image-side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#event-img {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+
+
+/*-------------------------------------------*/
+/* PORTRAIT  tässä jää nyt liikaa tilaa kuvan ja tekstien väliin. Varmaan pitäis tota
+ kuvaustakin säätää joko lyhkäsemmäksi tai isommaksi? omassa näytössä näyttä vähän oudolta.. */
+@media (orientation: portrait), (max-width: 1100px) {
+
+  .kiosk {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 16px;
+  }
+
+  /* KUVA: pienempi banneri */
+  #image-side {
+  order: -1;
+  align-items: center;
+  justify-content: center;
+
+}
+
+ #event-img {
+  width: min(90vw, 90vw);
+  border-radius: 18px;
+  object-fit: cover;
+  object-position: center top;
+  margin: 0;
+  padding: 0;
+}
+  /* LOGO pienemmäksi ja tiiviimmäksi */
+  #startup-logo {
+    width: 140px;
+    margin-bottom: 14px;
+  }
+
+  #coming-events {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  hr {
+    margin-bottom: 14px;
+  }
+
+  .badge-row {
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .date-badge,
+  .status-badge {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  
+  #event-title {
+    font-size: auto-fit;
+    margin-bottom: 14px;
+  }
+
+  .meta {
+    font-size: 16px;
+    margin-bottom: 14px;
+  }
+
+  #kuvaus {
+    font-size: 16px;
+    line-height: 1.45;
+    margin-bottom: 16px;
+    max-width: none;
+  }
+
+  /* Countdown pienemmäksi */
+  #countdown-box {
+    padding: 16px 18px;
+    border-radius: 14px;
+  }
+
+  #countdown-num {
+    font-size: 34px;
+    letter-spacing: 1px;
+  }
+
+ /* footer pakotetaan alas ja keskelle */
+  .footer {
+    margin-top: auto;              /* footer alas */
+    width: 100%;
+    align-items: center;           /* keskitys */
+    justify-content: center;
+    flex-direction: column;        /* QR ja linkki allekkain */
+    gap: 10px;
+    padding-top: 18px;
+    padding-bottom: 8px;
+    text-align: center;
+  }
+
+  .footer-left a {
+    font-size: 14px;
+    word-break: break-word;       
+  }
+
+  .qr-code {
+    width: 150px;
+    height: 150px;
+  }
+  .footer-right { order: 0; }   /*qr ja linkin järjesty */
+  .footer-left  { order: 1; }
+}
