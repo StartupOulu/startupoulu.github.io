@@ -68,6 +68,7 @@ exclude:
   - README.markdown
   - Gemfile
   - Gemfile.lock
+  - vendor/
 
 gems:
   - jekyll-redirect-from
