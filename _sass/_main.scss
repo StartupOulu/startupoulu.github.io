@@ -1,7 +1,6 @@
 
 
 @import "variables";
-@import "_components/common";
 @import "_components/event_card";
 @import "_components/menu";
 @import "_components/events";
@@ -14,18 +13,6 @@
 @import "_pages/single_blog";
 @import "_pages/contact";
 @import "_pages/incubator";
-
-
-// responsive css like media queries
-
-@import "_responsive/home";
-@import "_responsive/event";
-@import "_responsive/single_event";
-@import "_responsive/service";
-@import "_responsive/single_service";
-@import "_responsive/single_blog";
-@import "_responsive/contact";
-
 
 @import '_components/newsletter';
 
