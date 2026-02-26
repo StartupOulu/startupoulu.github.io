@@ -1,0 +1,271 @@
+@import "variables";
+
+/* Toggle button (list/calendar switch) */
+.calendar-toggle-wrapper {
+    display: flex;
+    justify-content: flex-start;
+
+    @media (max-width: 991.98px){
+        justify-content: center;
+    }
+
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+.calendar-toggle-btn {
+    background: $brand-color;
+    color: $white-color;
+    padding: 10px 20px;
+    font-size: $font-size-medium;
+    font-weight: 600;
+    border: 2px solid $brand-color;
+    cursor: pointer;
+
+    &:hover {
+        background: $white-color;
+        color: $brand-color;
+    }
+}
+
+/* ---------------------------------------------
+   Calendar Container
+--------------------------------------------- */
+#calendar-view {
+    margin: 0;
+}
+
+//if calendar is active, reduce padding from 6rem 0rem 6rem 0rem
+.event_section.calendar-active {
+    padding: 2rem 0rem 6rem 0rem;
+}
+
+.fc {
+    font-family: $default-font-face;
+    color: $brand-color;
+    background: $white-color;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ---------------------------------------------
+   Toolbar
+--------------------------------------------- */
+.fc-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+
+    h2,
+    .fc-toolbar-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: $brand-color;
+    }
+}
+
+/* ---------------------------------------------
+   Navigation Buttons
+--------------------------------------------- */
+.fc .fc-button {
+    background: $brand-color;
+    color: $white-color;
+    border: 3px solid $brand-color;
+    padding: 12px 12px;
+    font-size: $font-size-medium;
+    font-weight: 600;
+    box-shadow: none;
+
+    &:focus,
+    &:active,
+    &:focus-visible,
+    &:focus:not(:focus-visible) {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .fc-icon {
+        font-size: 1.2em;
+        line-height: 0.9;
+    }
+}
+
+.fc-today-buttonn {
+    line-height: 1.6px;
+}
+
+.fc .fc-button:hover:not(:disabled) {
+    background: $white-color;
+    color: $brand-color;
+}
+
+.fc .fc-button:disabled {
+    background-color: $brand-color;
+    opacity: 0.1;
+}
+
+/* ---------------------------------------------
+   Day Grid
+--------------------------------------------- */
+
+/* Weekday header font size (Mon–Sun) */
+.fc-col-header-cell-cushion {
+    font-size: 20px;
+    font-weight: 600;
+    color: $brand-color;
+}
+
+.fc-daygrid-day {
+    border: 1px solid $gray-color;
+    height: 80px;
+}
+
+.fc-daygrid-day-frame {
+    min-height: 60px;
+}
+
+.fc-daygrid-day-number {
+    font-size: $font-size-large;
+    padding: 6px;
+    color: $brand-color;
+}
+
+/* Today highlight */
+.fc-day-today {
+    background: rgba($brand-color, 0.15);
+    border: 1px solid $brand-color;
+}
+
+:root {
+    --fc-today-bg-color: rgba(0, 120, 255, 0.18);
+    /* soft blue */
+    --fc-today-border-color: rgba(0, 120, 255, 0.6);
+}
+
+/* ---------------------------------------------
+   Unified Event Styling (dot + block)
+--------------------------------------------- */
+.fc-event {
+    background: $brand-color;
+    color: $white-color;
+    border: 1px solid transparent;
+    /* prevents hover jump */
+    border-radius: 4px;
+    padding: 4px 4px;
+    font-size: $font-size-normal;
+    font-weight: 500;
+    cursor: pointer;
+    line-height: 1.2;
+    display: block;
+    transition: 0.2s ease;
+}
+
+.fc-event:hover {
+    background: $white-color;
+    color: $brand-color;
+    border-color: $brand-color;
+}
+
+/* ---------------------------------------------
+   Remove dot from single-day events
+--------------------------------------------- */
+.fc-daygrid-event-dot {
+    display: none;
+}
+
+/* Allow wrapping */
+.fc-daygrid-dot-event .fc-event-title,
+.fc-daygrid-dot-event .fc-event-time {
+    white-space: normal;
+}
+
+/* Title/time weights */
+.fc-daygrid-dot-event .fc-event-time,
+.fc-daygrid-block-event .fc-event-time {
+    font-weight: 400;
+}
+
+.fc-daygrid-dot-event .fc-event-title,
+.fc-daygrid-block-event .fc-event-title {
+    font-weight: 700;
+}
+
+/* ---------------------------------------------
+   Multi-day Event Normalization
+--------------------------------------------- */
+.fc-daygrid-block-event {
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: $brand-color;
+    color: $white-color;
+}
+
+.fc-daygrid-block-event .fc-event-main {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0px 0px;
+    margin: 0;
+    line-height: 1.2;
+    box-sizing: border-box;
+}
+
+/* Inherit hover color */
+.fc-daygrid-block-event .fc-event-main,
+.fc-daygrid-block-event .fc-event-title,
+.fc-daygrid-block-event .fc-event-time {
+    color: inherit;
+}
+
+/* Hover */
+.fc-daygrid-block-event:hover {
+    background: $white-color;
+    color: $brand-color;
+    border-color: $brand-color;
+}
+
+/* ---------------------------------------------
+   Responsive
+--------------------------------------------- */
+@media (max-width: 768px) {
+    .fc {
+        padding: 4px;
+        font-size: 14px;
+    }
+
+    .fc-toolbar-title {
+        font-size: 18px;
+    }
+
+    .fc .fc-button {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+
+    .fc-daygrid-day {
+        height: 55px;
+    }
+
+    .fc-daygrid-day-number {
+        font-size: 14px;
+    }
+
+    .fc-daygrid-event .fc-event-title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .fc-event {
+        font-size: 12px;
+        padding: 2px 4px;
+    }
+
+    .fc-col-header-cell-cushion {
+        font-size: 14px;
+    }
+}
