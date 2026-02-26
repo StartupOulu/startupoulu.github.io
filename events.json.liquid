@@ -1,0 +1,21 @@
+---
+layout: null
+permalink: /events.json
+---
+[
+{% assign now = site.time %}
+{% assign valid_events = site.events | where_exp: "e", "e.end_time >= now" %}
+
+{% for event in valid_events %}
+  {
+    "title": {{ event.title | jsonify }},
+    "start_time": {{ event.start_time | jsonify }},
+    "end_time": {{ event.end_time | jsonify }},
+    "location": {{ event.location | jsonify }},
+    "cover_image": {{ "/assets/images/events/" | append: event.cover_image | jsonify }},
+    "cta_title": {{ event.cta_title | jsonify }},
+    "cta_link": {{ event.cta_link | jsonify }},
+    "description": {{ event.description | strip_newlines | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+{% endfor %}
+]
