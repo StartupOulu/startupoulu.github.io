@@ -1,15 +1,34 @@
+{% assign meta_title = page.title | default: site.title %}
+{% assign meta_description = page.description | default: page.excerpt | default: site.description %}
+{%- comment -%}
+1. page.blog_image (blogs) 
+2. page.cover_image (events)
+3. page.image (old events)
+4. site.default_image (default site image/fallback)
 
-<meta name="description" content="Everything you need to know about Oulu startup ecosystem in one place: events, services and community!">
+if img already contains a slash, assume it's the full path /assets/images/...
+else, it's likely an page.cover_image (events) because  
+_events/*.html -> cover_image:image_path does not include the full path
+{%- endcomment -%}
+{% assign img = page.blog_image | default: page.cover_image | default: page.image | default: site.default_image %}
+{% if img contains '/' %}
+    {% assign meta_image = img %}
+{% else %}
+    {% assign meta_image = '/assets/images/events/' | append: img %}
+{% endif %}
+{% assign meta_url = page.url | absolute_url %}
 
-<meta property="og:url" content="http://www.startupoulu.com">
+<meta name="description" content="{{ meta_description | strip_newlines | strip}}">
+
+<meta property="og:url" content="{{ meta_url }}">
 <meta property="og:type" content="website">
-<meta property="og:title" content="StartupOulu">
-<meta property="og:description" content="Everything you need to know about Oulu startup ecosystem in one place: events, services and community!">
-<meta property="og:image" content="{{ site.baseurl }}/assets/images/startupoulu-preview.png">
+<meta property="og:title" content="{{ meta_title}}">
+<meta property="og:description" content="{{ meta_description | strip_newlines | strip}}">
+<meta property="og:image" content="{{ meta_image | absolute_url }}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="startupoulu.com">
-<meta property="twitter:url" content="http://www.startupoulu.com">
-<meta name="twitter:title" content="StartupOulu">
-<meta name="twitter:description" content="Everything you need to know about Oulu startup ecosystem in one place: events, services and community!">
-<meta name="twitter:image" content="{{ site.baseurl }}/assets/images/startupoulu-preview.png">
+<meta property="twitter:url" content="{{ meta_url }}">
+<meta name="twitter:title" content="{{ meta_title }}">
+<meta name="twitter:description" content="{{ meta_description | strip_newlines | strip }}">
+<meta name="twitter:image" content="{{ meta_image | absolute_url }}">

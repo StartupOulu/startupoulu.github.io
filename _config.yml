@@ -21,11 +21,10 @@
 title: StartupOulu
 email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Everything you need to know about Oulu startup ecosystem in one place: events, services and community!
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
+default_image: "/assets/images/startupoulu-preview.png"
 twitter_username: jekyllrb
 github_username:  jekyll
 
