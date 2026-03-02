@@ -177,27 +177,17 @@ function updateCountdown(event, labelEl, numEl) {
     return;
   }
 
-  var days = Math.floor(diff / (24 * 60 * 60 * 1000));
-
-  if (days > 2) {
-    showDaysCountdown(labelEl, numEl, days);
-  } else {
-    showHoursCountdown(labelEl, numEl, diff);
-  }
-}
-
-function showDaysCountdown(labelEl, numEl, days) {
-  labelEl.textContent = 'Days to start';
-  numEl.textContent = days + (days !== 1 ? ' days' : ' day');
-}
-
-function showHoursCountdown(labelEl, numEl, diff) {
-  var h = Math.floor(diff / (60 * 60 * 1000));
+  var d = Math.floor(diff / (24 * 60 * 60 * 1000));
+  var h = Math.floor((diff % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
   var m = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
   var s = Math.floor((diff % (60 * 1000)) / 1000);
 
   labelEl.textContent = 'Starts in';
-  numEl.textContent = padTwo(h) + ' : ' + padTwo(m) + ' : ' + padTwo(s);
+  if (d > 0) {
+    numEl.textContent = d + 'd  ' + padTwo(h) + 'h  ' + padTwo(m) + 'm  ' + padTwo(s) + 's';
+  } else {
+    numEl.textContent = padTwo(h) + 'h  ' + padTwo(m) + 'm  ' + padTwo(s) + 's';
+  }
 }
 
 
