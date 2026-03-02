@@ -172,8 +172,8 @@ hr {
 }
 
 .qr-code {
-  width: 10vh;
-  height: 10vh;
+  width: 20vh;
+  height: 20vh;
   background: #ffffff;
   padding: 0.8vh;
   border-radius: 1vh;
