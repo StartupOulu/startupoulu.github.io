@@ -13,7 +13,7 @@ layout: null
 </head>
 
 <body>
-  <div class="kiosk">
+  <div id="screen-events" class="screen kiosk" style="display:none">
 
     <!-- LEFT SIDE -->
     <div id="text-side">
@@ -66,6 +66,16 @@ layout: null
     </div>
 
   </div>
+
+  <div id="screen-welcome" class="screen" style="display:none">
+    <img
+      src="https://www.startupoulu.com/assets/images/logos/startupoulu-stacked.svg"
+      class="welcome-logo"
+      alt="StartupOulu logo"
+    />
+    <div id="sine-scroller"></div>
+  </div>
+
   <script src="kiosk.js"></script>
 </body>
 </html>

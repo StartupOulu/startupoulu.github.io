@@ -55,6 +55,7 @@ ai-incubator/            # AI incubator program pages
 incubator/               # Incubator program pages
 mentoring/               # Mentoring program pages
 oulu-startup-database/   # Startup database section
+kiosk/                   # Kiosk display for Samsung SmartTV
 debug/                   # Debug/troubleshooting pages
 index.html               # Homepage (layout: frontpage)
 events.html              # Events listing page
@@ -326,6 +327,10 @@ Before finalizing changes:
 - Blog post dates come from the filename, not front matter
 - Services are filtered by stage on dedicated pages under `/services/`
 - The site generates an iCal feed (`events.ics`) and an AI content feed (`ai-content.txt`)
+
+## Kiosk Display
+
+See [kiosk/KIOSK.md](./kiosk/KIOSK.md) for kiosk documentation (screens, technical constraints, how to add new screens).
 
 ## Questions?
 
