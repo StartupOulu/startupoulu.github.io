@@ -33,6 +33,14 @@ var countdownTimer = null;
 
 document.addEventListener('DOMContentLoaded', function () {
   loadEvents();
+
+  // Fire custom Umami event (does not count as a pageview)
+  // Use ?s=name in the URL to identify each display
+  var parts = window.location.search.split('s=');
+  var screen = parts.length > 1 ? parts[1].split('&')[0] : '';
+  if (screen && typeof umami !== 'undefined') {
+    umami.track('kiosk-heartbeat', { screen: screen });
+  }
 });
 
 
