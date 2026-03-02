@@ -39,7 +39,7 @@ body {
 
 #text-side {
   display: table-cell;
-  width: 55%;
+  width: 40%;
   vertical-align: top;
   padding: 3vh 3vw;
   position: relative;
@@ -149,7 +149,7 @@ hr {
 
 #image-side {
   display: table-cell;
-  width: 45%;
+  width: 60%;
   vertical-align: top;
   padding: 3vh 3vw 3vh 0;
   position: relative;
