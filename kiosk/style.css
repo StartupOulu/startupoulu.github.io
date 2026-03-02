@@ -168,7 +168,7 @@ hr {
 .qr-row {
   position: absolute;
   bottom: 3vh;
-  left: 0;
+  right: 3vw;
 }
 
 .qr-code {
