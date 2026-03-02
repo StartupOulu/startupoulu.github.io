@@ -1,98 +1,208 @@
-const EVENTS_URL = '/events.json'; // For running this, go to CMD and paste this "bundle exec jekyll serve". The site will be at /kiosk. 
-let currentIndex = 0;
-let eventChangeinSec = 30000;//Change this to whatever the refresh time needs to be, currently 30seconds.
-let rotationTimer = null;
-let countdownTimer = null;
+/*
+ * ============================================================
+ *  StartupOulu Kiosk – Event Display for Samsung SmartTV
+ * ============================================================
+ *
+ *  This code is intentionally written in old-school ES5 JavaScript.
+ *
+ *  The kiosk runs on a Samsung SmartTV whose built-in browser
+ *  is based on an older version of Chromium / Tizen WebKit.
+ *  It does NOT support modern JavaScript features such as:
+ *
+ *    - const / let        (we use var)
+ *    - arrow functions     (we use function)
+ *    - template literals   (we use string concatenation)
+ *    - fetch API           (we use XMLHttpRequest)
+ *    - Promise             (we use callbacks)
+ *    - spread operator     (we copy properties manually)
+ *    - padStart            (we wrote a helper)
+ *
+ *  Please keep all future changes ES5-compatible.
+ * ============================================================
+ */
 
-//Get the data from Jekyll made JSON.
-function init() {
-  fetch(EVENTS_URL)
-    .then((response) => {
-      if (!response.ok) throw new Error("Failed to fetch events");
-      return response.json();
-    })
-    .then(data => {
-      const now = new Date();
-      const thirtyDaysLater = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);//If wanted to change the ammount of days shown, change the first number in days, currently 30.
+var EVENTS_URL = '/events.json';
+var EVENT_ROTATE_MS = 30000; // rotate to next event every 30 seconds
+var THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
-      const events = data
-        .map(e => ({ ...e, start: new Date(e.start_time), end: new Date(e.end_time) }))
-        .filter(e => e.start > now && e.start <= thirtyDaysLater)  // Fitler so that only coming events will be shown. 
-        .sort((a, b) => a.start - b.start);
+var currentIndex = 0;
+var countdownTimer = null;
 
-      if (events.length > 0) {//Change event, currently every 30 seconds.
-        showEvent(events, 0);
-        if (events.length > 1) setInterval(() => {
+
+/* ---- STARTUP ---- */
+
+document.addEventListener('DOMContentLoaded', function () {
+  loadEvents();
+});
+
+
+/* ---- DATA LOADING ---- */
+
+function loadEvents() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', EVENTS_URL, true);
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState !== 4) return;
+    if (xhr.status !== 200) return;
+
+    var data = JSON.parse(xhr.responseText);
+    var events = filterUpcomingEvents(data);
+
+    if (events.length === 0) return;
+
+    showEvent(events, 0);
+
+    if (events.length > 1) {
+      setInterval(function () {
         currentIndex = (currentIndex + 1) % events.length;
         showEvent(events, currentIndex);
-      }, eventChangeinSec);
-      }
-    })
-    .catch(console.error);
+      }, EVENT_ROTATE_MS);
+    }
+  };
+
+  xhr.send();
 }
 
-function showEvent(events, i) {//Show the event data in HTML.
-  const e = events[i];
+
+/* ---- EVENT FILTERING ---- */
+
+function filterUpcomingEvents(data) {
+  var now = new Date();
+  var cutoff = new Date(now.getTime() + THIRTY_DAYS_MS);
+  var upcoming = [];
+  var i, e;
+
+  for (i = 0; i < data.length; i++) {
+    e = data[i];
+    e.start = new Date(e.start_time);
+    e.end = new Date(e.end_time);
+
+    if (e.start > now && e.start <= cutoff) {
+      upcoming.push(e);
+    }
+  }
+
+  upcoming.sort(function (a, b) {
+    return a.start - b.start;
+  });
+
+  return upcoming;
+}
+
+
+/* ---- DISPLAY ---- */
+
+function showEvent(events, index) {
+  var e = events[index];
   if (!e) return;
-  currentIndex = i;
+  currentIndex = index;
 
   document.getElementById('event-title').innerHTML = e.title;
   document.getElementById('date').textContent = formatDate(e.start, e.end);
   document.getElementById('location').textContent = e.location || '';
   document.getElementById('kuvaus').innerHTML = e.description || '';
-  document.getElementById('event-img').src = (e.cover_image);
+  document.getElementById('event-img').src = e.cover_image;
 
-  const dateBadge = document.querySelector('.date-badge');
-  const statusBadge = document.querySelector('.status-badge');
-  const now = new Date();
-  const daysUntil = Math.floor((e.start - now) / (24 * 60 * 60 * 1000));
-
-  if (dateBadge) dateBadge.textContent = e.start.toLocaleDateString('fi-FI');
-  if (statusBadge) {
-    statusBadge.textContent = daysUntil === 0 ? 'Today' : daysUntil === 1 ? 'Tomorrow' : '';
-    statusBadge.style.display = daysUntil <= 1 ? '' : 'none';
-  }
-
+  updateBadges(e);
   startCountdown(e);
 }
 
-function formatDate(start, end) {// Date formatting so things wont hopefully break.
-  const d = start.toLocaleDateString('fi-FI');
-  const s = start.toLocaleTimeString('fi-FI', { hour: '2-digit', minute: '2-digit' });
-  const e = end.toLocaleTimeString('fi-FI', { hour: '2-digit', minute: '2-digit' });
-  return `${d} · ${s}–${e}`;
+function updateBadges(event) {
+  var dateBadge = document.querySelector('.date-badge');
+  var statusBadge = document.querySelector('.status-badge');
+  var now = new Date();
+  var daysUntil = Math.floor((event.start - now) / (24 * 60 * 60 * 1000));
+
+  if (dateBadge) {
+    dateBadge.textContent = formatShortDate(event.start);
+  }
+
+  if (statusBadge) {
+    if (daysUntil === 0) {
+      statusBadge.textContent = 'Today';
+      statusBadge.style.display = '';
+    } else if (daysUntil === 1) {
+      statusBadge.textContent = 'Tomorrow';
+      statusBadge.style.display = '';
+    } else {
+      statusBadge.style.display = 'none';
+    }
+  }
 }
 
-//Countdown box
+
+/* ---- DATE FORMATTING ---- */
+
+function formatShortDate(date) {
+  var day = date.getDate();
+  var month = date.getMonth() + 1;
+  var year = date.getFullYear();
+  return day + '.' + month + '.' + year;
+}
+
+function formatTime(date) {
+  return padTwo(date.getHours()) + ':' + padTwo(date.getMinutes());
+}
+
+function formatDate(start, end) {
+  var date = formatShortDate(start);
+  var startTime = formatTime(start);
+  var endTime = formatTime(end);
+  return date + ' \u00B7 ' + startTime + '\u2013' + endTime;
+}
+
+
+/* ---- COUNTDOWN ---- */
+
 function startCountdown(event) {
   clearInterval(countdownTimer);
-  const labelEl = document.querySelector('#countdown-box .count-label');
-  const numEl = document.getElementById('countdown-num');
 
-  //Show hours in case event is within 2 days, else show in days for the next 30 days, otherwise it will be skipped, so wont be shown.
-  const tick = () => {
-    const diff = event.start - new Date();
-    if (diff <= 0) {
-      labelEl.textContent = 'Event started';
-      numEl.textContent = '';
-      return;
-    }
+  var labelEl = document.querySelector('#countdown-box .count-label');
+  var numEl = document.getElementById('countdown-num');
 
-    const days = Math.floor(diff / (24 * 60 * 60 * 1000));
-    if (days > 2) {
-      labelEl.textContent = 'Days to start';
-      numEl.textContent = `${days} day${days !== 1 ? 's' : ''}`;
-    } else {
-      const h = Math.floor(diff / (60 * 60 * 1000));
-      const m = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
-      const s = Math.floor((diff % (60 * 1000)) / 1000);
-      labelEl.textContent = 'Starts in';
-      numEl.textContent = `${String(h).padStart(2, '0')} : ${String(m).padStart(2, '0')} : ${String(s).padStart(2, '0')}`;
-    }
-  };
+  updateCountdown(event, labelEl, numEl);
 
-  tick();
-  countdownTimer = setInterval(tick, 1000);
+  countdownTimer = setInterval(function () {
+    updateCountdown(event, labelEl, numEl);
+  }, 1000);
 }
 
-document.addEventListener('DOMContentLoaded', init);
+function updateCountdown(event, labelEl, numEl) {
+  var diff = event.start - new Date();
+
+  if (diff <= 0) {
+    labelEl.textContent = 'Event started';
+    numEl.textContent = '';
+    return;
+  }
+
+  var days = Math.floor(diff / (24 * 60 * 60 * 1000));
+
+  if (days > 2) {
+    showDaysCountdown(labelEl, numEl, days);
+  } else {
+    showHoursCountdown(labelEl, numEl, diff);
+  }
+}
+
+function showDaysCountdown(labelEl, numEl, days) {
+  labelEl.textContent = 'Days to start';
+  numEl.textContent = days + (days !== 1 ? ' days' : ' day');
+}
+
+function showHoursCountdown(labelEl, numEl, diff) {
+  var h = Math.floor(diff / (60 * 60 * 1000));
+  var m = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
+  var s = Math.floor((diff % (60 * 1000)) / 1000);
+
+  labelEl.textContent = 'Starts in';
+  numEl.textContent = padTwo(h) + ' : ' + padTwo(m) + ' : ' + padTwo(s);
+}
+
+
+/* ---- HELPERS ---- */
+
+function padTwo(num) {
+  return num < 10 ? '0' + num : '' + num;
+}
