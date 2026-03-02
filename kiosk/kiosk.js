@@ -101,7 +101,7 @@ function showEvent(events, index) {
   document.getElementById('event-title').innerHTML = e.title;
   document.getElementById('date').textContent = formatDate(e.start, e.end);
   document.getElementById('location').textContent = e.location || '';
-  document.getElementById('kuvaus').innerHTML = e.description || '';
+  document.getElementById('kuvaus').innerHTML = truncate(e.description || '', 150);
   document.getElementById('event-img').src = e.cover_image;
 
   updateBadges(e);
@@ -205,4 +205,11 @@ function showHoursCountdown(labelEl, numEl, diff) {
 
 function padTwo(num) {
   return num < 10 ? '0' + num : '' + num;
+}
+
+function truncate(str, max) {
+  if (str.length <= max) return str;
+  var cut = str.lastIndexOf(' ', max);
+  if (cut === -1) cut = max;
+  return str.substring(0, cut) + '\u2026';
 }
