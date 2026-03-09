@@ -172,10 +172,10 @@ function deactivateEvents() {
 
 var sineTimer = null;
 var unicornTimer = null;
-var SINE_TEXT = 'Tervetuloa  \u00B7  Welcome  \u00B7  Tervetuloa  \u00B7  Welcome';
+var SINE_TEXT = '★ Onko sinulla bisnes-idea? ★ Tule juttelemaan meille! ★';
 var SINE_FREQUENCY = 0.15;
 var SINE_AMPLITUDE = 0; // set dynamically based on scroller height
-var SINE_SPEED = 3;     // pixels per frame of horizontal scroll
+var SINE_SPEED = 7;     // pixels per frame of horizontal scroll
 var SINE_FPS = 33;      // ~30fps interval in ms
 
 var UNICORN_COUNT = 8;
@@ -287,7 +287,7 @@ function spawnUnicorns(parent) {
   var screenH = window.innerHeight || document.documentElement.clientHeight;
 
   for (var i = 0; i < UNICORN_COUNT; i++) {
-    var size = 4 + Math.random() * 6; // 4vh–10vh
+    var size = 6 + (Math.random() * 14); // 4vh–10vh
     var el = document.createElement('span');
     el.className = 'flying-unicorn';
     el.textContent = '\uD83E\uDD84'; // 🦄
@@ -299,7 +299,7 @@ function spawnUnicorns(parent) {
       el: el,
       x: Math.random() * screenW,
       y: screenH * 0.1 + Math.random() * screenH * 0.5,
-      speed: 1.5 + Math.random() * 3,
+      speed: 2.5 + Math.random() * 3,
       bobPhase: Math.random() * Math.PI * 2,
       bobAmp: 10 + Math.random() * 30,
       size: size
