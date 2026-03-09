@@ -42,7 +42,6 @@ body {
   width: 40%;
   vertical-align: top;
   padding: 3vh 3vw 17vh;
-  position: relative;
 }
 
 #startup-logo {
@@ -123,6 +122,10 @@ hr {
 
 /* ---- COUNTDOWN BOX (pinned to bottom of left pane) ---- */
 
+.kiosk {
+  position: relative;
+}
+
 #countdown-box {
   position: absolute;
   bottom: 3vh;
@@ -152,7 +155,6 @@ hr {
   width: 60%;
   vertical-align: top;
   padding: 3vh 3vw 3vh 0;
-  position: relative;
   text-align: center;
 }
 

@@ -8,7 +8,7 @@ layout: null
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kioski</title>
   <link rel="stylesheet" href="style.css" />
-  <meta http-equiv="Refresh" content="1800" /> <!-- force browser refresh every 30 minutes -->
+  <meta http-equiv="Refresh" content="500" /> <!-- force browser refresh every 5 minutes -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="b612b215-f6db-487c-92d6-afb99c98bfbf" data-auto-track="false"></script>
 </head>
 
@@ -43,10 +43,6 @@ layout: null
         johon sisältyy paljon mahdollisuuksia ja kysymyksiä.
       </p>
 
-      <div id="countdown-box">
-        <div class="count-label">Starts in</div>
-        <div id="countdown-num">01 : 59 : 59</div>
-      </div>
     </div>
 
     <!-- RIGHT SIDE -->
@@ -56,13 +52,19 @@ layout: null
         alt="Event image"
         id="event-img"
       />
-      <div class="qr-row">
-        <img
-          src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://www.startupoulu.com/events.html"
-          alt="QR code to StartupOulu events"
-          class="qr-code"
-        />
-      </div>
+    </div>
+
+    <!-- BOTTOM-PINNED ELEMENTS (outside table cells for reliable absolute positioning) -->
+    <div id="countdown-box">
+      <div class="count-label">Starts in</div>
+      <div id="countdown-num">01 : 59 : 59</div>
+    </div>
+    <div class="qr-row">
+      <img
+        src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://www.startupoulu.com/events.html"
+        alt="QR code to StartupOulu events"
+        class="qr-code"
+      />
     </div>
 
   </div>
