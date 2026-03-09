@@ -194,6 +194,12 @@
     font-weight: 700;
 }
 
+/* Single line titles */
+.fc-daygrid-event .fc-event-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /* ---------------------------------------------
    Multi-day Event Normalization
 --------------------------------------------- */
@@ -202,6 +208,7 @@
     border-radius: 4px;
     background: $brand-color;
     color: $white-color;
+    overflow: hidden;
 }
 
 .fc-daygrid-block-event .fc-event-main {
@@ -219,6 +226,9 @@
 .fc-daygrid-block-event .fc-event-title,
 .fc-daygrid-block-event .fc-event-time {
     color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Hover */
