@@ -168,21 +168,33 @@ function deactivateEvents() {
 }
 
 
-/* ---- WELCOME SCREEN (sine scroller) ---- */
+/* ---- WELCOME SCREEN (sine scroller + flying unicorns) ---- */
 
 var sineTimer = null;
+var unicornTimer = null;
 var SINE_TEXT = 'Tervetuloa  \u00B7  Welcome  \u00B7  Tervetuloa  \u00B7  Welcome';
 var SINE_FREQUENCY = 0.15;
 var SINE_AMPLITUDE = 0; // set dynamically based on scroller height
 var SINE_SPEED = 3;     // pixels per frame of horizontal scroll
 var SINE_FPS = 33;      // ~30fps interval in ms
 
+var UNICORN_COUNT = 8;
+var unicorns = [];       // array of { el, x, y, speed, bobPhase, bobAmp, size }
+
+// Rainbow colors for sine text
+var RAINBOW = [
+  '#FF0055', '#FF4600', '#FFD500', '#00FF88',
+  '#00CCFF', '#7B2FFF', '#FF3198', '#FF6600'
+];
+
 function activateWelcome() {
   var container = document.getElementById('sine-scroller');
-  if (!container) return;
+  var welcomeEl = document.getElementById('screen-welcome');
+  if (!container || !welcomeEl) return;
 
-  // Clear any leftover spans
+  // Clear any leftover content
   container.innerHTML = '';
+  clearUnicorns(welcomeEl);
 
   SINE_AMPLITUDE = container.offsetHeight * 0.3;
 
@@ -211,6 +223,9 @@ function activateWelcome() {
     spans[i].className = 'sine-char';
   }
 
+  // Spawn flying unicorns
+  spawnUnicorns(welcomeEl);
+
   var containerWidth = container.offsetWidth;
   var offset = containerWidth; // start from right edge
   var time = 0;
@@ -223,14 +238,22 @@ function activateWelcome() {
       offset = containerWidth;
     }
 
-    var j, x, y;
+    var j, x, y, hue;
     for (j = 0; j < spans.length; j++) {
       x = offset + positions[j];
       y = Math.sin(j * SINE_FREQUENCY + time) * SINE_AMPLITUDE;
       spans[j].style.left = x + 'px';
       spans[j].style.top = (SINE_AMPLITUDE + y) + 'px';
+
+      // Rainbow color cycle: each char picks a color based on position + time
+      spans[j].style.color = RAINBOW[Math.floor((j + time * 3) % RAINBOW.length)];
     }
     time += 0.07;
+  }, SINE_FPS);
+
+  // Animate unicorns on the same tick rate
+  unicornTimer = setInterval(function () {
+    animateUnicorns();
   }, SINE_FPS);
 }
 
@@ -239,11 +262,79 @@ function deactivateWelcome() {
     clearInterval(sineTimer);
     sineTimer = null;
   }
+  if (unicornTimer) {
+    clearInterval(unicornTimer);
+    unicornTimer = null;
+  }
 
   var container = document.getElementById('sine-scroller');
   if (container) {
     container.innerHTML = '';
   }
+
+  var welcomeEl = document.getElementById('screen-welcome');
+  if (welcomeEl) {
+    clearUnicorns(welcomeEl);
+  }
+}
+
+
+/* ---- FLYING UNICORNS ---- */
+
+function spawnUnicorns(parent) {
+  unicorns = [];
+  var screenW = window.innerWidth || document.documentElement.clientWidth;
+  var screenH = window.innerHeight || document.documentElement.clientHeight;
+
+  for (var i = 0; i < UNICORN_COUNT; i++) {
+    var size = 4 + Math.random() * 6; // 4vh–10vh
+    var el = document.createElement('span');
+    el.className = 'flying-unicorn';
+    el.textContent = '\uD83E\uDD84'; // 🦄
+    el.style.fontSize = size + 'vh';
+    el.style.position = 'absolute';
+    parent.appendChild(el);
+
+    var u = {
+      el: el,
+      x: Math.random() * screenW,
+      y: screenH * 0.1 + Math.random() * screenH * 0.5,
+      speed: 1.5 + Math.random() * 3,
+      bobPhase: Math.random() * Math.PI * 2,
+      bobAmp: 10 + Math.random() * 30,
+      size: size
+    };
+    unicorns.push(u);
+  }
+}
+
+function animateUnicorns() {
+  var screenW = window.innerWidth || document.documentElement.clientWidth;
+  var i, u, yOffset;
+
+  for (i = 0; i < unicorns.length; i++) {
+    u = unicorns[i];
+    u.x -= u.speed;
+    u.bobPhase += 0.04;
+
+    // Wrap around when off the left edge
+    if (u.x < -150) {
+      u.x = screenW + 50;
+    }
+
+    yOffset = Math.sin(u.bobPhase) * u.bobAmp;
+    u.el.style.left = u.x + 'px';
+    u.el.style.top = (u.y + yOffset) + 'px';
+  }
+}
+
+function clearUnicorns(parent) {
+  var els = parent.getElementsByClassName('flying-unicorn');
+  // Remove in reverse since it's a live collection
+  while (els.length > 0) {
+    els[0].parentNode.removeChild(els[0]);
+  }
+  unicorns = [];
 }
 
 

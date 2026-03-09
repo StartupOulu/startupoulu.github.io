@@ -215,6 +215,8 @@ hr {
   display: block;
   width: 30vw;
   margin: 15vh auto 0;
+  position: relative;
+  z-index: 1;
 }
 
 #sine-scroller {
@@ -226,6 +228,7 @@ hr {
   overflow: hidden;
   text-align: center;
   white-space: nowrap;
+  z-index: 1;
 }
 
 /* Inline layout used briefly to measure natural character positions */
@@ -243,4 +246,11 @@ hr {
   font-weight: 800;
   color: #ffffff;
   white-space: pre;
+}
+
+/* Flying unicorns */
+.flying-unicorn {
+  position: absolute;
+  z-index: 0;
+  line-height: 1;
 }
