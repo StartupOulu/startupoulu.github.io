@@ -36,7 +36,7 @@
  */
 
 var EVENTS_URL = '/events.json';
-var SCREEN_DURATION_MS = 30000; // each screen shows for 30 seconds
+var SCREEN_DURATION_MS = 15000; // each screen shows for 30 seconds
 var THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
 var events = [];
