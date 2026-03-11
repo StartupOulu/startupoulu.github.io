@@ -18,6 +18,8 @@
 
 @import '_components/event_archive';
 
+@import "_components/calendar";
+
 @import '_pages/find-a-team';
 
 *,
@@ -282,3 +284,8 @@ body {
   opacity: 1 !important;
   transition: all 0.5s !important; 
 }
+
+.no-top-padding {
+  padding-top: 0 !important;
+}
+

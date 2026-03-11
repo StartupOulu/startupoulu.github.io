@@ -1,0 +1,256 @@
+/*
+ * StartupOulu Kiosk – Samsung SmartTV stylesheet
+ *
+ * Landscape-only, two-pane layout. No responsive breakpoints.
+ * Uses display:table/table-cell (CSS 2.1) for the column layout
+ * and position:absolute to pin elements to the bottom of each pane.
+ * Viewport units (vh/vw) scale across 720p, 1080p and 4K.
+ * No flexbox, no grid, no modern CSS features.
+ */
+
+/* RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* PAGE */
+body {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  background: #050a30;
+  color: #ffffff;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+/* ---- MAIN LAYOUT (two columns via CSS table) ---- */
+
+.kiosk {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  height: 100vh;
+}
+
+
+/* ---- LEFT SIDE ---- */
+
+#text-side {
+  display: table-cell;
+  width: 40%;
+  vertical-align: top;
+  padding: 3vh 3vw 17vh;
+}
+
+#startup-logo {
+  width: 12vw;
+  max-width: 220px;
+  margin-bottom: 2.5vh;
+}
+
+#coming-events {
+  font-size: 2.2vh;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-bottom: 1.2vh;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.25);
+  margin-bottom: 2.4vh;
+}
+
+
+/* ---- BADGES ---- */
+
+.badge-row {
+  margin-bottom: 2.4vh;
+}
+
+.date-badge,
+.status-badge {
+  display: inline-block;
+  border: 1px solid #ffffff;
+  padding: 0.8vh 1.2vw;
+  border-radius: 999px;
+  font-size: 1.8vh;
+  font-weight: 600;
+}
+
+.status-badge {
+  margin-left: 1vw;
+}
+
+
+/* ---- EVENT TITLE ---- */
+
+#event-title {
+  font-size: 5.5vh;
+  line-height: 1.05;
+  font-weight: 800;
+  margin-bottom: 2.4vh;
+}
+
+
+/* ---- META (date, location) ---- */
+
+.meta {
+  font-size: 2.2vh;
+  opacity: 0.9;
+  margin-bottom: 2.4vh;
+}
+
+.meta div {
+  margin-bottom: 0.6vh;
+}
+
+
+/* ---- DESCRIPTION ---- */
+
+#kuvaus {
+  font-size: 2.2vh;
+  line-height: 1.4;
+  opacity: 0.9;
+  margin-bottom: 3vh;
+  max-height: 9.3vh;  /* 3 lines: 3 * 2.2vh * 1.4 ~= 9.24vh */
+  overflow: hidden;
+}
+
+
+/* ---- COUNTDOWN BOX (pinned to bottom of left pane) ---- */
+
+.kiosk {
+  position: relative;
+}
+
+#countdown-box {
+  position: absolute;
+  bottom: 3vh;
+  left: 3vw;
+  background: rgba(0,0,0,0.35);
+  padding: 2vh 2vw;
+  border-radius: 1.6vh;
+}
+
+.count-label {
+  font-size: 1.8vh;
+  opacity: 0.8;
+  margin-bottom: 0.6vh;
+}
+
+#countdown-num {
+  font-size: 4.5vh;
+  font-weight: 800;
+  letter-spacing: 0.15vw;
+}
+
+
+/* ---- RIGHT SIDE (event image + QR) ---- */
+
+#image-side {
+  display: table-cell;
+  width: 60%;
+  vertical-align: top;
+  padding: 3vh 3vw 3vh 0;
+  text-align: center;
+}
+
+#event-img {
+  width: 100%;
+  max-height: 70vh;
+  border-radius: 1.2vh;
+}
+
+
+/* ---- QR ROW (pinned to bottom of right pane) ---- */
+
+.qr-row {
+  position: absolute;
+  bottom: 3vh;
+  right: 3vw;
+}
+
+.qr-code {
+  width: 20vh;
+  height: 20vh;
+  background: #ffffff;
+  padding: 0.8vh;
+  border-radius: 1vh;
+  vertical-align: middle;
+}
+
+.qr-link {
+  color: #ffffff;
+  opacity: 0.85;
+  font-size: 2vh;
+  text-decoration: none;
+  margin-left: 1.5vw;
+  vertical-align: middle;
+}
+
+
+/* ---- SCREEN ROTATION SYSTEM ---- */
+
+.screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: none;
+}
+
+
+/* ---- WELCOME SCREEN ---- */
+
+#screen-welcome {
+  background: #050a30;
+  text-align: center;
+}
+
+.welcome-logo {
+  display: block;
+  width: 30vw;
+  margin: 15vh auto 0;
+  position: relative;
+  z-index: 1;
+}
+
+#sine-scroller {
+  position: absolute;
+  bottom: 10vh;
+  left: 0;
+  width: 100%;
+  height: 20vh;
+  overflow: hidden;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+/* Inline layout used briefly to measure natural character positions */
+.sine-char-inline {
+  font-size: 8vh;
+  font-weight: 800;
+  color: #ffffff;
+  white-space: pre;
+}
+
+/* Absolute positioning used during sine animation */
+.sine-char {
+  position: absolute;
+  font-size: 8vh;
+  font-weight: 800;
+  color: #ffffff;
+  white-space: pre;
+}
+
+/* Flying unicorns */
+.flying-unicorn {
+  position: absolute;
+  z-index: 0;
+  line-height: 1;
+}
