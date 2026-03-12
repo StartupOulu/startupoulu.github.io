@@ -55,12 +55,85 @@
     }
 }
 
-// event section
-.events_grid{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    .card{
-        width: 100%;
-    }
+.events_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 33.33%);
+  gap: 80px 20px;
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    //height: 650px;   <-- when height is not defined, it will set the size by highest grid/card element
+  }
 }
+
+// mobile screen responsive
+@media (max-width: 767.98px){
+    // banner section for event page
+    .event_banner {
+        overflow: visible;
+        background: $white-color;
+        min-height: 670px;
+        padding: 0px 0;
+        .r2a_container{
+            display: none;
+        }
+        .banner_image{
+            width: 100%;
+            height: auto;
+        }
+        .mobile_content{
+            display: block;
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+            background: $brand-color;
+        }
+    }
+
+    // event section
+    .event_section{
+        .flex{
+            .show_event_btn {
+                margin-bottom: 100px;
+            }
+        }
+    }
+
+  .events_grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+// tablet screen responsive
+@media (min-width: 768px) and (max-width: 991.98px){
+      .event_banner {
+        overflow: visible;
+        background: $white-color;
+        min-height: 650px;
+        padding: 0px 0;
+        .r2a_container{
+            display: none;
+        }
+        .banner_image{
+            width: 100%;
+            height: auto;
+        }
+        .mobile_content{
+            display: block;
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+            background: $brand-color;
+        }
+    }
+    .event_section{
+        .show_event_btn {
+            margin-bottom: 0px;
+        }
+    }
+ .events_grid {
+    grid-template-columns: repeat(2, 1fr);
+  } 
+}
+
