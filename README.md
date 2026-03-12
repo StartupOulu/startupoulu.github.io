@@ -2,12 +2,13 @@
 
 This is the source code for [startupoulu.com](https://www.startupoulu.com). The website is built automatically from the files in this repository. To add or edit content (events, blog posts, services), you edit files here on GitHub. All changes go through a **pull request** — a simple review step where the system checks your changes for errors before they are published to the live site. No coding experience is needed; just follow the guides below.
 
+- [Create an event in GitHub](#create-an-event-in-github) — step-by-step walkthrough
 - [Something not working? How to find and fix errors](#something-not-working-how-to-find-and-fix-errors)
 - [File naming rules](#file-naming-rules)
-- [How to add an event?](#how-to-add-an-event)
+- [Event template reference](#how-to-add-an-event)
 - [How to add a blog post?](#how-to-add-a-blog-post)
 - [How to add a service?](#how-to-add-a-service)
-- [How to make changes (step-by-step)](#how-to-make-changes)
+- [How to make changes (general)](#how-to-make-changes)
 - [Public Analytics page](https://cloud.umami.is/analytics/eu/share/TRXfirUynZGCZDPq)
 
 ## Something not working? How to find and fix errors
@@ -46,9 +47,109 @@ For questions or help, contact information can be found at [startupoulu.com](htt
 
 ---
 
+## Create an event in GitHub
+
+This walkthrough covers everything from start to finish — uploading an image and creating the event file — in a **single pull request**.
+
+> **What is a pull request?** Think of it like a draft. Instead of changing the website directly, you save your changes to a separate draft. The system automatically checks the draft for errors. If everything looks good, you click a button to publish the draft to the live site. If there are errors, you can fix them before anything goes live.
+
+### Step 1: Prepare your image
+
+- Recommended size: **960x540 pixels** (16:9 ratio)
+- Accepted formats: JPG, PNG
+- Rename the file to be **all lowercase with dashes** instead of spaces
+  - Good: `startup-pitch-night.jpg`
+  - Bad: `Startup Pitch Night.JPG`
+
+### Step 2: Upload the image to GitHub
+
+1. Go to the repository on GitHub
+2. Navigate to the **`assets/images/events/`** folder
+3. Click **"Add file"** > **"Upload files"**
+4. Drag your image into the upload area, or click "choose your files" to browse
+5. At the bottom of the page, select **"Create a new branch for this commit and start a pull request"**
+6. Give the branch a short descriptive name, for example: `add-march-pitch-event`
+   (use only lowercase letters, numbers, and dashes — no spaces)
+7. Click **"Propose changes"**
+8. On the next page ("Open a pull request"), click **"Create pull request"**
+
+Your image is now on its own branch, and you have an open pull request. **Don't merge yet** — first you'll add the event file to the same branch.
+
+### Step 3: Create the event file on the same branch
+
+9. Near the top of the pull request page, you'll see the branch name (e.g., `add-march-pitch-event`). **Click the branch name** to browse the repository on that branch
+10. Navigate to the **`_events/`** folder
+11. Click **"Add file"** > **"Create new file"**
+12. In the filename field at the top, type your filename:
+    ```
+    YYYY-MM-slug.html
+    ```
+    For example: `2026-03-startup-pitch.html`
+
+    The filename must be **all lowercase**, use **dashes** instead of spaces, and start with the event's **year and month** (zero-padded)
+
+13. In the large text area, paste this template and fill in your event details:
+
+```yaml
+---
+layout: event
+title: Your Event Title
+start_time: 2026-03-15 18:00:00
+end_time: 2026-03-15 21:00:00
+location: Venue Name, Address
+cover_image: your-image-filename.jpg
+cta_title: Register
+cta_link: https://registration-link.com
+excerpt: |
+  A brief description of the event (max 60 words). This appears
+  on event cards and in previews. Keep it concise and engaging.
+description: |
+  The full event description. This is displayed on the event page
+  as the main content. Use the pipe character (|) followed by
+  indented text for multi-line descriptions.
+---
+```
+
+14. Make sure `cover_image` matches the **exact filename** of the image you uploaded in Step 2
+15. Click the green **"Commit changes..."** button
+16. In the dialog, make sure it says **"Commit directly to the `add-march-pitch-event` branch"** (your branch name). Do NOT select "Create a new branch"
+17. Click **"Commit changes"**
+
+### Step 4: Wait for checks and merge
+
+18. Go back to your pull request (click **"Pull requests"** tab, then click on your PR)
+19. The system will automatically check your files. Wait for the status at the bottom:
+    - **Yellow circle** — checks are running, wait a moment
+    - **Green checkmark** — everything looks good, continue below
+    - **Red X** — there's an error. See [how to find and fix errors](#something-not-working-how-to-find-and-fix-errors)
+20. Click the green **"Merge pull request"** button
+21. Click **"Confirm merge"**
+
+Your event is now live! The website will update within a few minutes.
+
+22. Click **"Delete branch"** to clean up (optional but recommended)
+
+### Quick reference: event fields
+
+| Field | Required? | Notes |
+|---|---|---|
+| `layout` | Yes | Always `event` |
+| `title` | Yes | The event name |
+| `start_time` | Yes | Format: `YYYY-MM-DD HH:MM:SS` |
+| `end_time` | No | Format: `YYYY-MM-DD HH:MM:SS` |
+| `location` | No | Venue name and address |
+| `cover_image` | No | Just the filename (e.g., `my-event.jpg`). Path is added automatically. If omitted, a placeholder image is shown |
+| `description` | Yes | Full event description. Use `\|` and indent text below |
+| `excerpt` | No | Short preview text (max 60 words). If omitted, `description` is used |
+| `cta_title` | No | Button text (e.g., "Register"). Omit to hide the button |
+| `cta_link` | No | Button URL. Only used if `cta_title` is also set |
+| `published` | No | Set to `false` to hide the event without deleting the file |
+
+---
+
 ## Guides
 
-All changes to the website are made through **pull requests** on GitHub. This means your changes are checked for errors before going live. See [How to Make Changes](#how-to-make-changes) for a step-by-step walkthrough of the pull request process.
+All changes to the website are made through **pull requests** on GitHub. This means your changes are checked for errors before going live. See [How to Make Changes](#how-to-make-changes) for a general walkthrough of the pull request process.
 
 ### File naming rules
 
@@ -318,93 +419,24 @@ assets/
 
 All changes go through **pull requests**. This means you propose your changes first, the system checks them for errors, and then you publish them. This prevents mistakes from reaching the live website.
 
-> **What is a pull request?** Think of it like a draft. Instead of changing the website directly, you save your changes to a separate draft. The system automatically checks the draft for errors (like missing fields or typos in the formatting). If everything looks good, you click a button to publish the draft to the live site. If there are errors, you can fix them before anything goes live.
+For creating events, see the complete [Create an event in GitHub](#create-an-event-in-github) walkthrough above. The same approach (upload files to a branch, add content to the same branch, merge one PR) works for blog posts and other changes too.
 
-### Option 1: GitHub Web Interface
+### Making changes via the GitHub web interface
 
-#### Step 1: Upload your image first (if needed)
+The general steps for any change are:
 
-If your event or blog post has an image, upload it first. You'll create a pull request for the image, merge it, and then create another pull request for the content file.
+1. Navigate to the file or folder you want to change
+2. Make your edit or upload your file
+3. Select **"Create a new branch for this commit and start a pull request"**
+4. Give the branch a short name (lowercase, dashes, no spaces)
+5. Click **"Propose changes"**, then **"Create pull request"**
+6. Wait for the green checkmark, then click **"Merge pull request"** > **"Confirm merge"**
 
-1. Go to the repository on GitHub
-2. Navigate to the correct image folder:
-   - For events: `assets/images/events/`
-   - For blog posts: `assets/images/blogs/`
-3. Click **"Add file"** > **"Upload files"**
-4. Drag your image file into the upload area, or click "choose your files" to browse
-5. At the bottom of the page, select **"Create a new branch for this commit and start a pull request"**
-6. Give the branch a name like `add-event-image` and click **"Propose changes"**
-7. On the next page, click **"Create pull request"**, wait for the green checkmark, then click **"Merge pull request"** > **"Confirm merge"**
+If you need to make **multiple changes** in one pull request (e.g., upload an image and create a content file), commit additional files to the **same branch** instead of creating a new one. See the [event walkthrough](#step-3-create-the-event-file-on-the-same-branch) for a detailed example.
 
-#### Step 2: Create your content file
+**If a check fails (red X):** See [how to find and fix errors](#something-not-working-how-to-find-and-fix-errors).
 
-1. Navigate to the appropriate folder (`_events/` for events, `_posts/` for blog posts)
-
-![Navigate to the _events folder and click Add file button](assets/images/readme/github-add-file.png)
-
-2. Click **"Add file"** > **"Create new file"**
-3. In the filename field at the top, type your filename following the naming rules above (e.g., `2026-03-my-event.html`)
-
-![Enter filename and paste the event content](assets/images/readme/github-create-file.png)
-
-4. In the large text area below, paste your content (copy a template from the guides above)
-
-#### Step 3: Save your changes as a pull request
-
-This is the key part — instead of publishing directly, you'll create a pull request so the system can check your work first.
-
-5. Click the green **"Commit changes..."** button in the top right
-
-![Click the commit changes button](assets/images/readme/github-commit-button.png)
-
-6. A dialog box will appear. Look for the two radio button options near the bottom:
-   - "Commit directly to the `main` branch" — skip this one
-   - **"Create a new branch for this commit and start a pull request"** — **select this one**
-
-7. You'll see a text field for the branch name. Type a short name that describes your change, for example:
-   - `add-march-pitch-event`
-   - `add-blog-post-arctic`
-   - `update-event-date`
-
-   (Use only lowercase letters, numbers, and dashes. No spaces.)
-
-![Select create a new branch and start a pull request](assets/images/readme/github-commit-dialog.png)
-
-8. Click **"Propose changes"**
-
-#### Step 4: Open the pull request
-
-You'll be taken to a new page titled **"Open a pull request"**.
-
-9. The **title** field will be pre-filled. You can keep it or write something more descriptive (e.g., "Add March pitch event")
-10. The description field is optional — you can leave it empty or add a note for your team
-11. Click the green **"Create pull request"** button
-
-#### Step 5: Wait for the automatic check
-
-After creating the pull request, the system will automatically check your content. This takes about 1–2 minutes. You'll see the status at the bottom of the pull request page:
-
-- **Yellow circle** — checks are still running, wait a moment
-- **Green checkmark** with "All checks have passed" — everything looks good, you can proceed to Step 6
-- **Red X** with "Some checks were not successful" — there's an error that needs fixing (see below)
-
-#### Step 6: Publish your changes
-
-Once you see the green checkmark:
-
-12. Scroll down to the bottom of the pull request page
-13. Click the green **"Merge pull request"** button
-14. Click **"Confirm merge"**
-
-Your changes are now live! The website will update within a few minutes.
-
-15. You'll see an option to **"Delete branch"** — click it to clean up (this is optional but keeps things tidy)
-
-#### If the check fails (red X)
-
-Don't worry — nothing has been published, and you can fix the error right from GitHub. See [Something not working? How to find and fix errors](#something-not-working-how-to-find-and-fix-errors) for detailed step-by-step instructions on how to find and fix the problem.
-
-### Option 2: Local Development
+### Making changes via local development
 
 1. Clone the repository
 2. Create a new branch: `git checkout -b my-change`
