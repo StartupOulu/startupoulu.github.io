@@ -57,8 +57,8 @@ This walkthrough covers everything from start to finish — uploading an image a
 
 - Recommended size: **960x540 pixels** (16:9 ratio)
 - Accepted formats: JPG, PNG
-- Rename the file to be **all lowercase with dashes** instead of spaces
-  - Good: `startup-pitch-night.jpg`
+- Rename the file to be **all lowercase with dashes** instead of spaces, and **start with the year and month** (`YYYY-MM-`)
+  - Good: `2026-03-startup-pitch-night.jpg`
   - Bad: `Startup Pitch Night.JPG`
 
 ### Step 2: Upload the image to GitHub
@@ -97,7 +97,7 @@ title: Your Event Title
 start_time: 2026-03-15 18:00:00
 end_time: 2026-03-15 21:00:00
 location: Venue Name, Address
-cover_image: your-image-filename.jpg
+cover_image: 2026-03-your-image-filename.jpg
 cta_title: Register
 cta_link: https://registration-link.com
 excerpt: |
@@ -138,7 +138,7 @@ Your event is now live! The website will update within a few minutes.
 | `start_time` | Yes | Format: `YYYY-MM-DD HH:MM:SS` |
 | `end_time` | No | Format: `YYYY-MM-DD HH:MM:SS` |
 | `location` | No | Venue name and address |
-| `cover_image` | No | Just the filename (e.g., `my-event.jpg`). Path is added automatically. If omitted, a placeholder image is shown |
+| `cover_image` | No | Just the filename (e.g., `2026-03-my-event.jpg`). Path is added automatically. If omitted, a placeholder image is shown |
 | `description` | Yes | Full event description. Use `\|` and indent text below |
 | `excerpt` | No | Short preview text (max 60 words). If omitted, `description` is used |
 | `cta_title` | No | Button text (e.g., "Register"). Omit to hide the button |
@@ -159,14 +159,14 @@ All filenames in this project follow the same simple rules:
 - **Dashes instead of spaces** — use `my-event.html`, not `my event.html`
 - **Only one dot in the filename** — the dot goes right before the file extension (`.html`, `.markdown`, `.jpg`). For example: `2026-03-my-event.html`, not `2026-03-my.event.html`
 - **No special characters** — stick to letters (a–z), numbers (0–9), and dashes. No underscores, accented letters, or symbols
-- **Start with a date** — events use `YYYY-MM-` (e.g., `2026-03-`), blog posts use `YYYY-MM-DD-` (e.g., `2026-03-15-`), and images can optionally start with a date too
+- **Start with a date** — events and their images use `YYYY-MM-` (e.g., `2026-03-`), blog posts use `YYYY-MM-DD-` (e.g., `2026-03-15-`)
 
 | Content type | Format | Example |
 |---|---|---|
 | Event | `YYYY-MM-slug.html` | `2026-03-startup-pitch.html` |
 | Blog post | `YYYY-MM-DD-slug.markdown` | `2026-03-15-building-bridges.markdown` |
-| Event image | `descriptive-name.jpg` | `2026-03-startup-pitch.jpg` |
-| Blog image | `descriptive-name.jpg` | `2026-03-building-bridges.png` |
+| Event image | `YYYY-MM-descriptive-name.jpg` | `2026-03-startup-pitch.jpg` |
+| Blog image | `YYYY-MM-descriptive-name.jpg` | `2026-03-building-bridges.png` |
 
 ### How to add an event?
 
@@ -175,6 +175,7 @@ All filenames in this project follow the same simple rules:
 - Recommended size: 960x540 pixels (16:9 ratio)
 - Accepted formats: JPG, PNG
 - Use lowercase filenames with dashes instead of spaces
+- Start with `YYYY-MM-` matching the event date
 - Example: `2025-03-startup-pitch-night.jpg`
 
 Upload the image to the `assets/images/events/` folder on GitHub.
@@ -211,7 +212,7 @@ title: Your Event Title
 start_time: 2026-03-15 18:00:00
 end_time: 2026-03-15 21:00:00
 location: Venue Name, Address
-cover_image: your-image-filename.jpg
+cover_image: 2026-03-your-image-filename.jpg
 cta_title: Register
 cta_link: https://registration-link.com
 excerpt: |
@@ -267,7 +268,7 @@ Copy this template and fill in your post details:
 layout: blog
 title: Your Blog Post Title
 description: A brief meta description for search engines and social media sharing (1-2 sentences).
-blog_image: /assets/images/blogs/your-image-filename.jpg
+blog_image: /assets/images/blogs/2026-03-your-image-filename.jpg
 ---
 
 Your blog content goes here. You can use **Markdown formatting**.
