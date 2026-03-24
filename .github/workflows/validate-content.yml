@@ -69,6 +69,40 @@ jobs:
               echo "::warning file=$file::Layout is '$layout_value' but expected 'event'. Change to 'layout: event' unless you intentionally use a custom layout."
             fi
 
+            # Validate start_time format and value
+            start_time_value=$(echo "$front_matter" | grep -E '^start_time:' | sed 's/^start_time:[[:space:]]*//')
+            if [ -n "$start_time_value" ]; then
+              if ! echo "$start_time_value" | grep -qE '^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{1,2}:[0-9]{2}:[0-9]{2}$'; then
+                echo "::error file=$file::Invalid start_time format '$start_time_value'. Expected format: YYYY-MM-DD HH:MM:SS (e.g. 2026-04-22 18:00:00)."
+                errors=$((errors + 1))
+              elif ! date -d "$start_time_value" >/dev/null 2>&1; then
+                echo "::error file=$file::Invalid start_time date '$start_time_value'. The date does not exist. Check the month and day values."
+                errors=$((errors + 1))
+              fi
+            fi
+
+            # Validate end_time format and value
+            end_time_value=$(echo "$front_matter" | grep -E '^end_time:' | sed 's/^end_time:[[:space:]]*//')
+            if [ -n "$end_time_value" ]; then
+              if ! echo "$end_time_value" | grep -qE '^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{1,2}:[0-9]{2}:[0-9]{2}$'; then
+                echo "::error file=$file::Invalid end_time format '$end_time_value'. Expected format: YYYY-MM-DD HH:MM:SS (e.g. 2026-04-22 20:00:00)."
+                errors=$((errors + 1))
+              elif ! date -d "$end_time_value" >/dev/null 2>&1; then
+                echo "::error file=$file::Invalid end_time date '$end_time_value'. The date does not exist. Check the month and day values."
+                errors=$((errors + 1))
+              fi
+            fi
+
+            # Check end_time is after start_time
+            if [ -n "$start_time_value" ] && [ -n "$end_time_value" ]; then
+              start_epoch=$(date -d "$start_time_value" +%s 2>/dev/null)
+              end_epoch=$(date -d "$end_time_value" +%s 2>/dev/null)
+              if [ -n "$start_epoch" ] && [ -n "$end_epoch" ] && [ "$end_epoch" -lt "$start_epoch" ]; then
+                echo "::error file=$file::end_time '$end_time_value' is before start_time '$start_time_value'. The event cannot end before it starts."
+                errors=$((errors + 1))
+              fi
+            fi
+
             # Check cover_image exists and follows naming conventions
             cover_image=$(echo "$front_matter" | grep -E '^cover_image:' | sed 's/^cover_image:[[:space:]]*//')
             if [ -n "$cover_image" ]; then
