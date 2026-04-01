@@ -72,13 +72,14 @@
   .mobile_nav_bar{
     transform: translateX(-100%); /* Initially hidden off-screen */
     transition: transform 1s ease; /* Smooth transition */
-    position: absolute; /* Adjust position as needed */
+    position: fixed;
     top: 0;
-    left: -100%;
+    left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background: $brand-color;
     z-index: 999;
+    overflow-y: auto;
     .r2a_container{
       .flex{
         padding: 15px 0;
@@ -157,17 +158,16 @@
     }
   }
   .active{
-    transform: translateX(0);
-    left: 0;
+    transform: translateX(0) !important;
   }
   .toggle_btn{
     display: none;
     font-size: 30px;
-    color: $white-color;
+    color: $brand-color;
     cursor: pointer;
   }
   .toggle_btn svg {
-    color: $white-color;
+    color: $brand-color;
   }
 }
 
@@ -186,11 +186,14 @@
   .nav-item {
       color: $white-color !important;
       background-color: $brand-color !important;
-    
+
     &:hover {
       color: $brand-color !important;
       background-color: $white-color !important;
     }
   }
-
+  .toggle_btn,
+  .toggle_btn svg {
+    color: $white-color !important;
+  }
 }

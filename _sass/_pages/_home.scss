@@ -567,8 +567,14 @@
         font-size: 40px;
         line-height: 50px;
     }
+    // header responsive css--------
+    .toggle_btn{
+        display: block !important;
+    }
+    .nav_bar{
+        display: none !important;
+    }
 
-    
     // banner section responsive css--------
     .main-banner-center {
         margin-left: 0px !important;
