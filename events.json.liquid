@@ -9,8 +9,8 @@ permalink: /events.json
 {% for event in valid_events %}
   {
     "title": {{ event.title | jsonify }},
-    "start_time": {{ event.start_time | jsonify }},
-    "end_time": {{ event.end_time | jsonify }},
+    "start_time": {{ event.start_time | date: "%Y-%m-%dT%H:%M:%S" | jsonify }},
+    "end_time": {{ event.end_time | date: "%Y-%m-%dT%H:%M:%S" | jsonify }},
     "location": {{ event.location | jsonify }},
     "cover_image": {{ "/assets/images/events/" | append: event.cover_image | jsonify }},
     "cta_title": {{ event.cta_title | jsonify }},
