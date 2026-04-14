@@ -383,38 +383,22 @@ function showEvent(evts, index) {
 
 function updateBadges(event) {
   var dateBadge = document.querySelector('.date-badge');
-  var statusBadge = document.querySelector('.status-badge');
+  var countdownBox = document.getElementById('countdown-box');
   var now = new Date();
 
   if (dateBadge) {
     dateBadge.textContent = formatShortDate(event.start);
   }
 
-  if (!statusBadge) return;
-
-  statusBadge.className = 'status-badge';
-
+  var state = 'future';
   if (event.start <= now && now < event.end) {
-    statusBadge.textContent = 'LIVE NOW';
-    statusBadge.className = 'status-badge happening-now';
-    statusBadge.style.display = '';
-    return;
+    state = 'happening-now';
+  } else if (event.start.toDateString() === now.toDateString() && event.start > now) {
+    state = 'today-upcoming';
   }
 
-  var sameDay = event.start.toDateString() === now.toDateString();
-  if (sameDay && event.start > now) {
-    statusBadge.textContent = 'Today';
-    statusBadge.className = 'status-badge today-upcoming';
-    statusBadge.style.display = '';
-    return;
-  }
-
-  var daysUntil = Math.floor((event.start - now) / (24 * 60 * 60 * 1000));
-  if (daysUntil === 1) {
-    statusBadge.textContent = 'Tomorrow';
-    statusBadge.style.display = '';
-  } else {
-    statusBadge.style.display = 'none';
+  if (countdownBox) {
+    countdownBox.className = state === 'future' ? '' : state;
   }
 }
 
@@ -461,7 +445,7 @@ function updateCountdown(event, labelEl, numEl) {
 
   if (diff <= 0) {
     labelEl.textContent = '';
-    numEl.textContent = '';
+    numEl.textContent = 'LIVE';
     updateBadges(event);
     return;
   }
