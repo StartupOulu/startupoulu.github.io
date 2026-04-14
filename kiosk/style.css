@@ -84,6 +84,30 @@ hr {
   margin-left: 1vw;
 }
 
+.status-badge.today-upcoming {
+  background: #FFD500;
+  border-color: #FFD500;
+  color: #050a30;
+}
+
+.status-badge.happening-now {
+  background: #FF0055;
+  border-color: #FF0055;
+  color: #ffffff;
+  animation: live-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(255, 0, 85, 0.7);
+  }
+  50% {
+    opacity: 0.85;
+    box-shadow: 0 0 0 1.2vh rgba(255, 0, 85, 0);
+  }
+}
+
 
 /* ---- EVENT TITLE ---- */
 

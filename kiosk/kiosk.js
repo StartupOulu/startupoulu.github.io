@@ -385,22 +385,36 @@ function updateBadges(event) {
   var dateBadge = document.querySelector('.date-badge');
   var statusBadge = document.querySelector('.status-badge');
   var now = new Date();
-  var daysUntil = Math.floor((event.start - now) / (24 * 60 * 60 * 1000));
 
   if (dateBadge) {
     dateBadge.textContent = formatShortDate(event.start);
   }
 
-  if (statusBadge) {
-    if (daysUntil === 0) {
-      statusBadge.textContent = 'Today';
-      statusBadge.style.display = '';
-    } else if (daysUntil === 1) {
-      statusBadge.textContent = 'Tomorrow';
-      statusBadge.style.display = '';
-    } else {
-      statusBadge.style.display = 'none';
-    }
+  if (!statusBadge) return;
+
+  statusBadge.className = 'status-badge';
+
+  if (event.start <= now && now < event.end) {
+    statusBadge.textContent = 'LIVE NOW';
+    statusBadge.className = 'status-badge happening-now';
+    statusBadge.style.display = '';
+    return;
+  }
+
+  var sameDay = event.start.toDateString() === now.toDateString();
+  if (sameDay && event.start > now) {
+    statusBadge.textContent = 'Today';
+    statusBadge.className = 'status-badge today-upcoming';
+    statusBadge.style.display = '';
+    return;
+  }
+
+  var daysUntil = Math.floor((event.start - now) / (24 * 60 * 60 * 1000));
+  if (daysUntil === 1) {
+    statusBadge.textContent = 'Tomorrow';
+    statusBadge.style.display = '';
+  } else {
+    statusBadge.style.display = 'none';
   }
 }
 
@@ -442,11 +456,13 @@ function startCountdown(event) {
 }
 
 function updateCountdown(event, labelEl, numEl) {
-  var diff = event.start - new Date();
+  var now = new Date();
+  var diff = event.start - now;
 
   if (diff <= 0) {
-    labelEl.textContent = 'Event started';
+    labelEl.textContent = '';
     numEl.textContent = '';
+    updateBadges(event);
     return;
   }
 
@@ -457,9 +473,13 @@ function updateCountdown(event, labelEl, numEl) {
 
   labelEl.textContent = 'Starts in';
   if (d > 0) {
-    numEl.textContent = d + 'd  ' + padTwo(h) + 'h  ' + padTwo(m) + 'm  ' + padTwo(s) + 's';
+    numEl.textContent = d + 'd ' + h + 'h ' + m + 'min';
+  } else if (h > 0) {
+    numEl.textContent = h + 'h ' + m + 'min';
+  } else if (m > 0) {
+    numEl.textContent = m + 'min ' + s + 's';
   } else {
-    numEl.textContent = padTwo(h) + 'h  ' + padTwo(m) + 'm  ' + padTwo(s) + 's';
+    numEl.textContent = s + 's';
   }
 }
 
