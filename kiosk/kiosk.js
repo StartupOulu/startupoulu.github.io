@@ -350,19 +350,82 @@ function clearUnicorns(parent) {
 
 /* ---- EVENT FILTERING ---- */
 
-// Parse "YYYY-MM-DDTHH:MM:SS" (or "YYYY-MM-DD HH:MM:SS") as local time.
-// Built from components so DST and older WebKit parsers both behave
-// correctly — avoids the ISO-without-offset ambiguity where some
-// engines interpret the string as UTC.
-function parseLocal(str) {
+// ---- Europe/Helsinki timezone handling ----
+//
+// The kiosk TV may run on a device whose system timezone is not Helsinki
+// (e.g. UTC on some Samsung displays). We can't rely on the browser's
+// local-time methods (getHours, new Date(y,m,d,...)) to represent
+// Helsinki wall-clock time. So all event times are treated explicitly as
+// Helsinki wall-clock, converted to a real UTC instant for any time
+// math, and formatted back to Helsinki wall-clock for display.
+
+// Day-of-month of the last Sunday in a given month. month is 1-12.
+function lastSundayOfMonth(year, month) {
+  // Date.UTC(y, month, 0) gives the last day of month (month-1 as 0-indexed),
+  // which is month (1-indexed).
+  var d = new Date(Date.UTC(year, month, 0));
+  return d.getUTCDate() - d.getUTCDay();
+}
+
+// Is the given Helsinki wall-clock moment in EEST (summer, UTC+3)?
+// DST starts: last Sunday of March, 03:00 local jumps to 04:00 local
+// DST ends:   last Sunday of October, 04:00 local falls back to 03:00 local
+function isHelsinkiSummer(year, month, day, hour) {
+  if (month < 3 || month > 10) return false;
+  if (month > 3 && month < 10) return true;
+  if (month === 3) {
+    var springDay = lastSundayOfMonth(year, 3);
+    if (day > springDay) return true;
+    if (day === springDay && hour >= 3) return true;
+    return false;
+  }
+  var fallDay = lastSundayOfMonth(year, 10);
+  if (day < fallDay) return true;
+  if (day === fallDay && hour < 4) return true;
+  return false;
+}
+
+// Parse "YYYY-MM-DDTHH:MM:SS" as Helsinki wall-clock and return the
+// corresponding real UTC Date.
+function parseHelsinki(str) {
   if (!str) return new Date(NaN);
   var m = String(str).match(/(\d{4})-(\d{1,2})-(\d{1,2})[T ](\d{1,2}):(\d{2}):(\d{2})/);
-  if (!m) return new Date(str);
-  return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]);
+  if (!m) return new Date(NaN);
+  var y = +m[1], mo = +m[2], d = +m[3], h = +m[4], mi = +m[5], s = +m[6];
+  var offsetMin = isHelsinkiSummer(y, mo, d, h) ? 180 : 120;
+  // Wall = UTC + offset, so UTC ms = Date.UTC(wall components) - offset
+  return new Date(Date.UTC(y, mo - 1, d, h, mi, s) - offsetMin * 60000);
+}
+
+// Given a real Date, return Helsinki wall-clock components.
+// Used for display (can't trust getHours on a non-Helsinki device).
+function helsinkiWall(date) {
+  var ms = date.getTime();
+  // Determine the offset in effect at this UTC instant.
+  // Spring forward in Helsinki happens at 01:00 UTC on last Sun March.
+  // Fall back happens at 01:00 UTC on last Sun October.
+  var y = date.getUTCFullYear();
+  var springUtc = Date.UTC(y, 2, lastSundayOfMonth(y, 3), 1, 0, 0);
+  var fallUtc = Date.UTC(y, 9, lastSundayOfMonth(y, 10), 1, 0, 0);
+  var offsetMin = (ms >= springUtc && ms < fallUtc) ? 180 : 120;
+  var shifted = new Date(ms + offsetMin * 60000);
+  return {
+    year: shifted.getUTCFullYear(),
+    month: shifted.getUTCMonth() + 1,
+    day: shifted.getUTCDate(),
+    hour: shifted.getUTCHours(),
+    minute: shifted.getUTCMinutes()
+  };
 }
 
 function isValidDate(d) {
   return d instanceof Date && !isNaN(d.getTime());
+}
+
+function sameHelsinkiDay(a, b) {
+  var wa = helsinkiWall(a);
+  var wb = helsinkiWall(b);
+  return wa.year === wb.year && wa.month === wb.month && wa.day === wb.day;
 }
 
 function filterUpcomingEvents(data) {
@@ -373,8 +436,8 @@ function filterUpcomingEvents(data) {
 
   for (i = 0; i < data.length; i++) {
     e = data[i];
-    e.start = parseLocal(e.start_time);
-    e.end = parseLocal(e.end_time);
+    e.start = parseHelsinki(e.start_time);
+    e.end = parseHelsinki(e.end_time);
 
     if (!isValidDate(e.start)) continue;
     if (e.start > cutoff) continue;
@@ -432,7 +495,7 @@ function updateBadges(event) {
   var state = 'future';
   if (shortEvent && event.start <= now && now < event.end) {
     state = 'happening-now';
-  } else if (shortEvent && event.start.toDateString() === now.toDateString() && event.start > now) {
+  } else if (shortEvent && sameHelsinkiDay(event.start, now) && event.start > now) {
     state = 'today-upcoming';
   }
 
@@ -445,14 +508,13 @@ function updateBadges(event) {
 /* ---- DATE FORMATTING ---- */
 
 function formatShortDate(date) {
-  var day = date.getDate();
-  var month = date.getMonth() + 1;
-  var year = date.getFullYear();
-  return day + '.' + month + '.' + year;
+  var w = helsinkiWall(date);
+  return w.day + '.' + w.month + '.' + w.year;
 }
 
 function formatTime(date) {
-  return padTwo(date.getHours()) + ':' + padTwo(date.getMinutes());
+  var w = helsinkiWall(date);
+  return padTwo(w.hour) + ':' + padTwo(w.minute);
 }
 
 function formatDate(start, end) {
