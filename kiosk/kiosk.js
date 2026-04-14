@@ -340,6 +340,17 @@ function clearUnicorns(parent) {
 
 /* ---- EVENT FILTERING ---- */
 
+// Parse "YYYY-MM-DDTHH:MM:SS" (or "YYYY-MM-DD HH:MM:SS") as local time.
+// Built from components so DST and older WebKit parsers both behave
+// correctly — avoids the ISO-without-offset ambiguity where some
+// engines interpret the string as UTC.
+function parseLocal(str) {
+  if (!str) return new Date(NaN);
+  var m = String(str).match(/(\d{4})-(\d{1,2})-(\d{1,2})[T ](\d{1,2}):(\d{2}):(\d{2})/);
+  if (!m) return new Date(str);
+  return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]);
+}
+
 function filterUpcomingEvents(data) {
   var now = new Date();
   var cutoff = new Date(now.getTime() + THIRTY_DAYS_MS);
@@ -348,10 +359,10 @@ function filterUpcomingEvents(data) {
 
   for (i = 0; i < data.length; i++) {
     e = data[i];
-    e.start = new Date(e.start_time);
-    e.end = new Date(e.end_time);
+    e.start = parseLocal(e.start_time);
+    e.end = parseLocal(e.end_time);
 
-    if (e.start > now && e.start <= cutoff) {
+    if (e.end > now && e.start <= cutoff) {
       upcoming.push(e);
     }
   }
