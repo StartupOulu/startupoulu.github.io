@@ -38,6 +38,7 @@
 var EVENTS_URL = '/events.json';
 var SCREEN_DURATION_MS = 15000; // each screen shows for 30 seconds
 var THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+var EVENTS_REFRESH_MS = 10 * 60 * 1000; // re-fetch events.json every 10 min
 
 var events = [];
 var currentEventIndex = 0;
@@ -70,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
   screens.events.el = document.getElementById('screen-events');
 
   loadEvents();
+  setInterval(loadEvents, EVENTS_REFRESH_MS);
 
   // Fire custom Umami event (does not count as a pageview)
   // Use ?s=name in the URL to identify each display
@@ -85,7 +87,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function loadEvents() {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', EVENTS_URL, true);
+  // Append a timestamp so neither the browser nor a CDN serves a stale copy
+  xhr.open('GET', EVENTS_URL + '?t=' + new Date().getTime(), true);
+  xhr.setRequestHeader('Cache-Control', 'no-cache');
 
   xhr.onreadystatechange = function () {
     if (xhr.readyState !== 4) return;
@@ -94,6 +98,12 @@ function loadEvents() {
     var data = JSON.parse(xhr.responseText);
     events = filterUpcomingEvents(data);
 
+    // Stop any in-flight rotation, rebuild playlist from fresh data,
+    // and start over so the kiosk reflects additions/removals immediately
+    if (rotationTimer) {
+      clearInterval(rotationTimer);
+      rotationTimer = null;
+    }
     buildPlaylist();
     startRotation();
   };
@@ -351,20 +361,33 @@ function parseLocal(str) {
   return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]);
 }
 
+function isValidDate(d) {
+  return d instanceof Date && !isNaN(d.getTime());
+}
+
 function filterUpcomingEvents(data) {
   var now = new Date();
   var cutoff = new Date(now.getTime() + THIRTY_DAYS_MS);
   var upcoming = [];
-  var i, e;
+  var i, e, reference;
 
   for (i = 0; i < data.length; i++) {
     e = data[i];
     e.start = parseLocal(e.start_time);
     e.end = parseLocal(e.end_time);
 
-    if (e.end > now && e.start <= cutoff) {
-      upcoming.push(e);
-    }
+    if (!isValidDate(e.start)) continue;
+    if (e.start > cutoff) continue;
+
+    // Short events (≤24h) stay visible until they end — so a "LIVE"
+    // event keeps its slot while it's running. Long-running programs
+    // (multi-day/week courses) disappear once they've started, since
+    // they clutter the upcoming-events rotation.
+    var shortEvent = isValidDate(e.end) && (e.end - e.start) <= 24 * 60 * 60 * 1000;
+    reference = shortEvent ? e.end : e.start;
+    if (reference <= now) continue;
+
+    upcoming.push(e);
   }
 
   upcoming.sort(function (a, b) {
@@ -401,10 +424,15 @@ function updateBadges(event) {
     dateBadge.textContent = formatShortDate(event.start);
   }
 
+  var endValid = event.end instanceof Date && !isNaN(event.end.getTime());
+  // Only single-day-ish events get the visual state treatment.
+  // A months-long programme shouldn't pulse "LIVE" or wear the yellow
+  // "Today" badge — those indicators are for things starting imminently.
+  var shortEvent = endValid && (event.end - event.start) <= 24 * 60 * 60 * 1000;
   var state = 'future';
-  if (event.start <= now && now < event.end) {
+  if (shortEvent && event.start <= now && now < event.end) {
     state = 'happening-now';
-  } else if (event.start.toDateString() === now.toDateString() && event.start > now) {
+  } else if (shortEvent && event.start.toDateString() === now.toDateString() && event.start > now) {
     state = 'today-upcoming';
   }
 
@@ -455,8 +483,11 @@ function updateCountdown(event, labelEl, numEl) {
   var diff = event.start - now;
 
   if (diff <= 0) {
+    var endValid = event.end instanceof Date && !isNaN(event.end.getTime());
+    var shortEvent = endValid && (event.end - event.start) <= 24 * 60 * 60 * 1000;
+    var isLive = shortEvent && now < event.end;
     labelEl.textContent = '';
-    numEl.textContent = 'LIVE';
+    numEl.textContent = isLive ? 'LIVE' : '';
     updateBadges(event);
     return;
   }
