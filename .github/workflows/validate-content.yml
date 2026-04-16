@@ -34,7 +34,7 @@ jobs:
               continue
             fi
 
-            closing_count=$(tail -n +2 "$file" | grep -c '^---[[:space:]]*$')
+            closing_count=$(tail -n +2 "$file" | grep -c '^---[[:space:]]*$' || true)
             if [ "$closing_count" -eq 0 ]; then
               echo "::error file=$file::Missing closing '---' in front matter. Add a line containing only --- after your last front matter field. Without it, Jekyll cannot parse the file and the event will not appear on the site."
               errors=$((errors + 1))
@@ -148,7 +148,7 @@ jobs:
               continue
             fi
 
-            closing_count=$(tail -n +2 "$file" | grep -c '^---[[:space:]]*$')
+            closing_count=$(tail -n +2 "$file" | grep -c '^---[[:space:]]*$' || true)
             if [ "$closing_count" -eq 0 ]; then
               echo "::error file=$file::Missing closing '---' in front matter. Add a line containing only --- after your last front matter field. Without it, Jekyll cannot parse the file and the post will not appear on the site."
               errors=$((errors + 1))
