@@ -101,14 +101,14 @@
         grid-template-columns: repeat(1, 1fr);
     }
     .single_service{
-        min-height: 820px;
+        min-height: auto;
         .mobile_content{
             padding: 40px;
         }
     }
     .founder_section{
         .r2a_container{
-            
+
         }
     }
 }
@@ -121,7 +121,7 @@
         grid-template-columns: repeat(2, 1fr);
     }
     .single_service{
-        min-height: 1000px;
+        min-height: auto;
         .mobile_content{
             padding: 40px;
         }
