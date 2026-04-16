@@ -1,0 +1,785 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Startup Weekend Oulu · Schedule</title>
+<meta http-equiv="Refresh" content="3600" />
+<script defer src="https://cloud.umami.is/script.js" data-website-id="b612b215-f6db-487c-92d6-afb99c98bfbf" data-auto-track="false"></script>
+<style>
+  /* ============================================================
+     Startup Weekend Oulu – Schedule Display
+     Single-file kiosk page for Business Corner TVs.
+     Tizen / old-Chromium friendly: no flexbox, no grid, no filter:blur.
+     Brand (from official SW slide): dark background, Techstars green
+     accent #1BB554, "techstars_ Startup Weekend Oulu" lockup.
+     ============================================================ */
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }
+
+  body {
+    font-family: Inter, "Hanken Grotesk", Arial, Helvetica, sans-serif;
+    background: #0A120D;
+    color: #ffffff;
+    position: relative;
+  }
+
+  /* ---- WEEKEND PROGRESS BAR (top edge, 3px) ---- */
+  .weekend-progress {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: rgba(255,255,255,0.04);
+    z-index: 10;
+    pointer-events: none;
+  }
+  .weekend-progress-fill {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #1BB554 0%, #26D470 60%, #7CF29F 100%);
+    box-shadow: 0 0 10px rgba(27,181,84,0.7), 0 0 4px rgba(124,242,159,0.9);
+    transition: width 1.5s linear;
+  }
+  .weekend-progress-tick {
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 6px;
+    background: rgba(255,255,255,0.3);
+  }
+
+  /* ---- FINALS COUNTDOWN PILL ---- */
+  .finals-countdown {
+    display: inline-block;
+    margin-top: 0.6vh;
+    margin-bottom: 0.8vh;
+    padding: 0.55vh 1vw;
+    background: rgba(27,181,84,0.12);
+    color: #ffffff;
+    border: 1px solid rgba(27,181,84,0.55);
+    border-radius: 999px;
+    font-size: 1.4vh;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .finals-countdown .finals-label {
+    color: #1BB554;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-right: 0.5vw;
+  }
+  .finals-countdown .finals-time {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+  }
+  .finals-countdown.live {
+    background: #1BB554;
+    border-color: #1BB554;
+    color: #0A120D;
+    animation: finals-pulse 1.5s ease-in-out infinite;
+  }
+  .finals-countdown.live .finals-label { color: #0A120D; }
+  .finals-countdown.wrap {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.25);
+  }
+  @keyframes finals-pulse {
+    0%, 100% { box-shadow: 0 0 0 0    rgba(27,181,84,0.5); }
+    70%      { box-shadow: 0 0 0 1.5vh rgba(27,181,84,0); }
+  }
+
+  /* Decorative background circles (solid, no blur — works on old Tizen) */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .orb-1 {
+    width: 60vh; height: 60vh;
+    background: #1BB554;
+    top: -22vh; left: -16vh;
+    opacity: 0.14;
+  }
+  .orb-2 {
+    width: 48vh; height: 48vh;
+    background: #0E8F3F;
+    bottom: -14vh; right: 14vw;
+    opacity: 0.16;
+  }
+  .orb-3 {
+    width: 30vh; height: 30vh;
+    background: #26D470;
+    top: 42vh; right: -12vh;
+    opacity: 0.10;
+  }
+
+  /* ---- HEADER ---- */
+  header {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 19vh;
+    padding: 2vh 3.5vw 1.5vh;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    z-index: 2;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  .header-left, .header-right {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .header-right {
+    text-align: right;
+    width: 22vw;
+  }
+
+  .brand-prefix {
+    font-size: 1.6vh;
+    font-weight: 500;
+    opacity: 0.7;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.2vh;
+    line-height: 1;
+  }
+  h1.event-title {
+    font-size: 4.8vh;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
+  .event-title .accent { color: #1BB554; }
+
+  .tagline {
+    font-size: 1.9vh;
+    opacity: 0.95;
+    margin-top: 0.8vh;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+  .tagline .dot-green {
+    color: #1BB554;
+    font-weight: 900;
+    margin: 0 0.4vw;
+  }
+
+  .event-meta {
+    font-size: 1.6vh;
+    opacity: 0.85;
+    margin-top: 0.6vh;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .event-meta .venue-pill {
+    display: inline-block;
+    background: #1BB554;
+    color: #0A120D;
+    padding: 0.2vh 0.9vw;
+    border-radius: 999px;
+    font-weight: 700;
+    font-style: italic;
+    margin-left: 0.4vw;
+  }
+
+  .partners-label {
+    font-size: 1vh;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    margin-bottom: 0.3vh;
+    line-height: 1;
+  }
+  .partners {
+    font-size: 1.4vh;
+    opacity: 0.9;
+    font-weight: 600;
+    margin-bottom: 0.8vh;
+    line-height: 1.2;
+  }
+  .partners .sep { color: #1BB554; }
+  .clock {
+    font-size: 2.9vh;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .clock-date {
+    font-size: 1.2vh;
+    opacity: 0.6;
+    margin-top: 0.3vh;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  /* ---- MAIN: 3 day columns ---- */
+  main {
+    position: absolute;
+    top: 19vh; bottom: 12vh;
+    left: 0; right: 0;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    z-index: 2;
+  }
+  .day {
+    display: table-cell;
+    vertical-align: top;
+    padding: 2vh 2vw 1.5vh;
+    width: 33.33%;
+    border-right: 1px solid rgba(255,255,255,0.07);
+    position: relative;
+  }
+  .day:last-child { border-right: none; }
+
+  /* Today column gets a subtle green wash */
+  .day.today {
+    background: rgba(27, 181, 84, 0.05);
+  }
+  .day.today::after {
+    content: "TODAY";
+    position: absolute;
+    top: 1.5vh;
+    right: 1.5vw;
+    background: #1BB554;
+    color: #0A120D;
+    font-size: 1.2vh;
+    font-weight: 900;
+    padding: 0.4vh 0.9vw;
+    border-radius: 999px;
+    letter-spacing: 0.25em;
+  }
+
+  .day-header {
+    margin-bottom: 1.3vh;
+    padding-bottom: 1.2vh;
+    border-bottom: 2px solid rgba(255,255,255,0.12);
+    position: relative;
+  }
+  .day-number {
+    font-size: 1.1vh;
+    font-weight: 700;
+    color: #1BB554;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 0.4vh;
+    line-height: 1;
+  }
+  .day-name {
+    font-size: 3.6vh;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: #ffffff;
+  }
+  .day-date {
+    font-size: 1.3vh;
+    opacity: 0.6;
+    margin-top: 0.4vh;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  /* ---- SCHEDULE ITEMS ---- */
+  .item {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    padding: 0.85vh 0;
+    position: relative;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+  .item:first-of-type { border-top: none; }
+
+  .item-time, .item-icon, .item-title {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .item-time {
+    width: 5.5vw;
+    font-size: 2.2vh;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+  }
+  .item-icon {
+    width: 3.5vw;
+    font-size: 2.7vh;
+    text-align: center;
+  }
+  .item-title {
+    font-size: 2.2vh;
+    font-weight: 600;
+    padding-right: 0.5vw;
+  }
+
+  /* NOW highlight: the item currently happening */
+  .item.now {
+    background: #1BB554;
+    margin: 0.3vh -1.2vw;
+    padding: 1vh 1.2vw;
+    border-top: none;
+    border-radius: 0.8vh;
+    box-shadow: 0 0 0 0.4vh rgba(27, 181, 84, 0.22);
+  }
+  .item.now + .item { border-top: none; }
+  .item.now .item-time  { color: #0A120D; font-weight: 800; }
+  .item.now .item-title { color: #0A120D; font-weight: 800; }
+
+  .now-badge {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 0.8vw;
+    margin-top: -1.2vh;
+    background: #0A120D;
+    color: #1BB554;
+    font-size: 1.2vh;
+    font-weight: 900;
+    padding: 0.4vh 0.8vw;
+    border-radius: 999px;
+    letter-spacing: 0.25em;
+    line-height: 1;
+  }
+  .item.now .now-badge { display: block; }
+
+  /* ---- ANIMATIONS ---- */
+  @keyframes pulse-now {
+    0%   { box-shadow: 0 0 0 0    rgba(27, 181, 84, 0.55); }
+    70%  { box-shadow: 0 0 0 2vh  rgba(27, 181, 84, 0); }
+    100% { box-shadow: 0 0 0 0    rgba(27, 181, 84, 0); }
+  }
+  .item.now { animation: pulse-now 1.8s ease-out infinite; }
+
+  /* Icons rest still by default. JS occasionally picks a single icon and
+     lets it float once — subtle, not distracting. */
+  .item-icon span {
+    display: inline-block;
+  }
+  @keyframes icon-float-once {
+    0%   { transform: translateY(0) rotate(0deg); }
+    20%  { transform: translateY(-0.7vh) rotate(-4deg); }
+    50%  { transform: translateY(-1vh) rotate(3deg); }
+    80%  { transform: translateY(-0.5vh) rotate(-2deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+  }
+  .item-icon.floating span {
+    animation: icon-float-once 2.4s ease-in-out;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 12vh;
+    padding: 1vh 3vw;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0,0,0,0.22);
+    z-index: 2;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  .footer-left, .footer-center, .footer-right {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .footer-left  { width: 16vw; }
+  .footer-right { width: 22vw; text-align: right; }
+
+  .so-logo {
+    height: 4.5vh;
+    display: block;
+  }
+  .so-logo-label {
+    font-size: 1vh;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    margin-bottom: 0.5vh;
+    line-height: 1;
+  }
+
+  .sponsors-label {
+    font-size: 1vh;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    margin-bottom: 0.5vh;
+    text-align: center;
+    line-height: 1;
+  }
+  .sponsors-marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+  }
+  .sponsors-track {
+    display: inline-block;
+    animation: sponsors-scroll 40s linear infinite;
+  }
+  .sponsors-copy {
+    display: inline-block;
+    padding-right: 4vw;
+    font-size: 1.5vh;
+    opacity: 0.9;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .sponsors-copy .dot {
+    color: #1BB554;
+    margin: 0 0.8vw;
+    font-weight: 900;
+  }
+  @keyframes sponsors-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .qr-wrap {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: right;
+  }
+  .qr-hint-label {
+    font-size: 1vh;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    line-height: 1;
+  }
+  .qr-hint-value {
+    font-size: 1.4vh;
+    font-weight: 700;
+    margin-top: 0.3vh;
+    line-height: 1;
+  }
+  .qr-code {
+    width: 7.5vh;
+    height: 7.5vh;
+    background: #ffffff;
+    padding: 0.4vh;
+    border-radius: 0.6vh;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 1vw;
+  }
+</style>
+</head>
+<body>
+
+<div class="weekend-progress">
+  <div class="weekend-progress-fill" id="progress-fill"></div>
+  <div class="weekend-progress-tick" id="progress-tick-sat" style="left:0%"></div>
+  <div class="weekend-progress-tick" id="progress-tick-sun" style="left:0%"></div>
+</div>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<header>
+  <div class="header-left">
+    <div class="brand-prefix">techstars_</div>
+    <h1 class="event-title">Startup Weekend <span class="accent">Oulu</span></h1>
+    <div class="tagline">Find a team.<span class="dot-green">&middot;</span>Solve a problem.<span class="dot-green">&middot;</span>Build a startup.</div>
+    <div class="event-meta">17&ndash;19 April 2026<span class="venue-pill">Business Corner, Linnanmaa campus</span></div>
+  </div>
+  <div class="header-right">
+    <div class="partners-label">In partnership with</div>
+    <div class="partners">OAMK &nbsp;&middot;&nbsp; University of Oulu &nbsp;&middot;&nbsp; BusinessOulu</div>
+    <div class="finals-countdown" id="finals-countdown">
+      <span class="finals-label" id="finals-label">Finals in</span><span class="finals-time" id="finals-time">&mdash;</span>
+    </div>
+    <div class="clock" id="clock">--:--</div>
+    <div class="clock-date" id="clock-date">&nbsp;</div>
+  </div>
+</header>
+
+<main>
+
+  <section class="day day-friday" data-day="2026-04-17">
+    <div class="day-header">
+      <div class="day-number">Day 01</div>
+      <div class="day-name">Friday</div>
+      <div class="day-date">17 April 2026</div>
+    </div>
+    <div class="item" data-time="17:00"><span class="item-time">17:00</span><span class="item-icon"><span>&#128221;</span></span><span class="item-title">Registration<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="17:15"><span class="item-time">17:15</span><span class="item-icon"><span>&#127829;</span></span><span class="item-title">Dinner &amp; networking<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="17:45"><span class="item-time">17:45</span><span class="item-icon"><span>&#128075;</span></span><span class="item-title">Welcome address<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="18:30"><span class="item-time">18:30</span><span class="item-icon"><span>&#128161;</span></span><span class="item-title">Participant idea pitches<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="19:00"><span class="item-time">19:00</span><span class="item-icon"><span>&#128499;</span></span><span class="item-title">Voting &amp; team formation<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="20:00"><span class="item-time">20:00</span><span class="item-icon"><span>&#128187;</span></span><span class="item-title">Team work begins<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="22:00"><span class="item-time">22:00</span><span class="item-icon"><span>&#127769;</span></span><span class="item-title">Venue closes<span class="now-badge">NOW</span></span></div>
+  </section>
+
+  <section class="day day-saturday" data-day="2026-04-18">
+    <div class="day-header">
+      <div class="day-number">Day 02</div>
+      <div class="day-name">Saturday</div>
+      <div class="day-date">18 April 2026</div>
+    </div>
+    <div class="item" data-time="08:00"><span class="item-time">08:00</span><span class="item-icon"><span>&#129360;</span></span><span class="item-title">Breakfast<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="08:45"><span class="item-time">08:45</span><span class="item-icon"><span>&#128227;</span></span><span class="item-title">Morning announcements<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="09:00"><span class="item-time">09:00</span><span class="item-icon"><span>&#127891;</span></span><span class="item-title">Validation workshop<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="10:00"><span class="item-time">10:00</span><span class="item-icon"><span>&#128187;</span></span><span class="item-title">Team work<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="12:00"><span class="item-time">12:00</span><span class="item-icon"><span>&#129367;</span></span><span class="item-title">Lunch<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="13:00"><span class="item-time">13:00</span><span class="item-icon"><span>&#129504;</span></span><span class="item-title">Mentor sessions<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="17:00"><span class="item-time">17:00</span><span class="item-icon"><span>&#127869;</span></span><span class="item-title">Dinner<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="18:00"><span class="item-time">18:00</span><span class="item-icon"><span>&#9989;</span></span><span class="item-title">Check-ins<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="21:00"><span class="item-time">21:00</span><span class="item-icon"><span>&#128226;</span></span><span class="item-title">Wrap-up &amp; team work<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="22:00"><span class="item-time">22:00</span><span class="item-icon"><span>&#127769;</span></span><span class="item-title">Venue closes<span class="now-badge">NOW</span></span></div>
+  </section>
+
+  <section class="day day-sunday" data-day="2026-04-19">
+    <div class="day-header">
+      <div class="day-number">Day 03</div>
+      <div class="day-name">Sunday</div>
+      <div class="day-date">19 April 2026</div>
+    </div>
+    <div class="item" data-time="08:00"><span class="item-time">08:00</span><span class="item-icon"><span>&#129360;</span></span><span class="item-title">Breakfast<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="08:45"><span class="item-time">08:45</span><span class="item-icon"><span>&#128227;</span></span><span class="item-title">Morning announcements<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="09:00"><span class="item-time">09:00</span><span class="item-icon"><span>&#127908;</span></span><span class="item-title">Pitching workshop<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="10:00"><span class="item-time">10:00</span><span class="item-icon"><span>&#128187;</span></span><span class="item-title">Team work<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="12:00"><span class="item-time">12:00</span><span class="item-icon"><span>&#129367;</span></span><span class="item-title">Lunch<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="13:00"><span class="item-time">13:00</span><span class="item-icon"><span>&#9881;</span></span><span class="item-title">Tech checks &amp; pitch practice<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="16:00"><span class="item-time">16:00</span><span class="item-icon"><span>&#127869;</span></span><span class="item-title">Early dinner<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="17:00"><span class="item-time">17:00</span><span class="item-icon"><span>&#127942;</span></span><span class="item-title">Finals begin<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="20:00"><span class="item-time">20:00</span><span class="item-icon"><span>&#127881;</span></span><span class="item-title">Networking &amp; celebrations<span class="now-badge">NOW</span></span></div>
+    <div class="item" data-time="22:00"><span class="item-time">22:00</span><span class="item-icon"><span>&#127769;</span></span><span class="item-title">Venue closes<span class="now-badge">NOW</span></span></div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-left">
+    <div class="so-logo-label">Displayed by</div>
+    <img class="so-logo" src="https://www.startupoulu.com/assets/images/logos/startupoulu-stacked.svg" alt="StartupOulu" />
+  </div>
+  <div class="footer-center">
+    <div class="sponsors-label">Sponsors</div>
+    <div class="sponsors-marquee">
+      <div class="sponsors-track">
+        <span class="sponsors-copy">
+          StartupOulu <span class="dot">&bull;</span>
+          Technopolis <span class="dot">&bull;</span>
+          BusinessOulu <span class="dot">&bull;</span>
+          Google for Startups <span class="dot">&bull;</span>
+          Brex <span class="dot">&bull;</span>
+          University of Oulu <span class="dot">&bull;</span>
+          Growth Entrepreneur Foundation <span class="dot">&bull;</span>
+        </span><span class="sponsors-copy">
+          StartupOulu <span class="dot">&bull;</span>
+          Technopolis <span class="dot">&bull;</span>
+          BusinessOulu <span class="dot">&bull;</span>
+          Google for Startups <span class="dot">&bull;</span>
+          Brex <span class="dot">&bull;</span>
+          University of Oulu <span class="dot">&bull;</span>
+          Growth Entrepreneur Foundation <span class="dot">&bull;</span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-right">
+    <div class="qr-wrap">
+      <div class="qr-hint-label">More info</div>
+      <div class="qr-hint-value">startupweekendoulu.com</div>
+    </div>
+    <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&amp;data=https://www.startupweekendoulu.com/" alt="QR code to startupweekendoulu.com" />
+  </div>
+</footer>
+
+<script>
+  /* ES5 only — Samsung SmartTV / Tizen 2018 compatible */
+  (function () {
+    var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    function padTwo(n) { return n < 10 ? '0' + n : '' + n; }
+
+    function isoDate(d) {
+      return d.getFullYear() + '-' + padTwo(d.getMonth() + 1) + '-' + padTwo(d.getDate());
+    }
+
+    function timeToMinutes(t) {
+      var parts = t.split(':');
+      return (+parts[0]) * 60 + (+parts[1]);
+    }
+
+    function updateClock() {
+      var now = new Date();
+      var clockEl = document.getElementById('clock');
+      var dateEl = document.getElementById('clock-date');
+      if (clockEl) {
+        clockEl.textContent = padTwo(now.getHours()) + ':' + padTwo(now.getMinutes());
+      }
+      if (dateEl) {
+        dateEl.textContent = DAYS[now.getDay()] + ' ' + now.getDate() + ' ' + MONTHS[now.getMonth()];
+      }
+    }
+
+    function updateNow() {
+      var now = new Date();
+      var today = isoDate(now);
+      var nowMinutes = now.getHours() * 60 + now.getMinutes();
+
+      // Clear all existing now / today markers
+      var previous = document.querySelectorAll('.item.now');
+      var k;
+      for (k = 0; k < previous.length; k++) {
+        previous[k].className = 'item';
+      }
+      var prevToday = document.querySelectorAll('.day.today');
+      for (k = 0; k < prevToday.length; k++) {
+        prevToday[k].className = prevToday[k].className.replace(' today', '');
+      }
+
+      var daySection = document.querySelector('.day[data-day="' + today + '"]');
+      if (!daySection) return;
+
+      daySection.className += ' today';
+
+      var items = daySection.getElementsByClassName('item');
+      var currentItem = null;
+      for (var i = 0; i < items.length; i++) {
+        var itemTime = items[i].getAttribute('data-time');
+        if (timeToMinutes(itemTime) <= nowMinutes) {
+          currentItem = items[i];
+        } else {
+          break;
+        }
+      }
+      if (currentItem) {
+        currentItem.className = 'item now';
+      }
+    }
+
+    // Event timing (local browser time — TVs in Oulu)
+    var EVENT_START  = new Date(2026, 3, 17, 17, 0, 0); // Fri 17 Apr 17:00
+    var FINALS_START = new Date(2026, 3, 19, 17, 0, 0); // Sun 19 Apr 17:00
+    var FINALS_END   = new Date(2026, 3, 19, 20, 0, 0); // Sun 19 Apr 20:00
+    var EVENT_END    = new Date(2026, 3, 19, 22, 0, 0); // Sun 19 Apr 22:00
+
+    function formatCountdown(ms) {
+      if (ms < 0) ms = 0;
+      var d = Math.floor(ms / 86400000);
+      var h = Math.floor((ms % 86400000) / 3600000);
+      var m = Math.floor((ms % 3600000) / 60000);
+      var s = Math.floor((ms % 60000) / 1000);
+      if (d > 0) return d + 'd ' + h + 'h ' + m + 'm';
+      if (h > 0) return h + 'h ' + padTwo(m) + 'm';
+      if (m > 0) return m + 'm ' + padTwo(s) + 's';
+      return s + 's';
+    }
+
+    function updateFinalsCountdown() {
+      var now = new Date();
+      var box = document.getElementById('finals-countdown');
+      var label = document.getElementById('finals-label');
+      var time = document.getElementById('finals-time');
+      if (!box || !label || !time) return;
+
+      box.className = 'finals-countdown';
+      if (now < EVENT_START) {
+        label.textContent = 'Kick-off in';
+        time.textContent = formatCountdown(EVENT_START - now);
+      } else if (now < FINALS_START) {
+        label.textContent = 'Finals in';
+        time.textContent = formatCountdown(FINALS_START - now);
+      } else if (now < FINALS_END) {
+        box.className = 'finals-countdown live';
+        label.textContent = '\uD83C\uDFC6';
+        time.textContent = 'Finals live';
+      } else if (now < EVENT_END) {
+        box.className = 'finals-countdown live';
+        label.textContent = '\uD83C\uDF89';
+        time.textContent = 'Celebrating';
+      } else {
+        box.className = 'finals-countdown wrap';
+        label.textContent = '';
+        time.textContent = "That's a wrap \u2014 see you next year";
+      }
+    }
+
+    function updateWeekendProgress() {
+      var now = new Date();
+      var total = EVENT_END - EVENT_START;
+      var pct = ((now - EVENT_START) / total) * 100;
+      if (pct < 0) pct = 0;
+      if (pct > 100) pct = 100;
+      var fill = document.getElementById('progress-fill');
+      if (fill) fill.style.width = pct + '%';
+    }
+
+    function placeProgressTicks() {
+      // Tick marks at day boundaries (Sat 00:00, Sun 00:00)
+      var total = EVENT_END - EVENT_START;
+      var satTick = (new Date(2026, 3, 18, 0, 0, 0) - EVENT_START) / total * 100;
+      var sunTick = (new Date(2026, 3, 19, 0, 0, 0) - EVENT_START) / total * 100;
+      var satEl = document.getElementById('progress-tick-sat');
+      var sunEl = document.getElementById('progress-tick-sun');
+      if (satEl) satEl.style.left = satTick + '%';
+      if (sunEl) sunEl.style.left = sunTick + '%';
+    }
+
+    function floatOneRandomIcon() {
+      var icons = document.getElementsByClassName('item-icon');
+      if (icons.length === 0) return;
+      var idx = Math.floor(Math.random() * icons.length);
+      var icon = icons[idx];
+      // Skip if this one is already floating
+      if (icon.className.indexOf('floating') !== -1) return;
+      icon.className = 'item-icon floating';
+      setTimeout(function () {
+        icon.className = 'item-icon';
+      }, 2500);
+    }
+
+    function init() {
+      updateClock();
+      updateNow();
+      updateFinalsCountdown();
+      updateWeekendProgress();
+      placeProgressTicks();
+      // Clock ticks every 15s; schedule highlight re-checks every minute
+      setInterval(updateClock, 15000);
+      setInterval(updateNow, 60000);
+      // Countdown ticks every second (visible seconds) until it's down to minutes
+      setInterval(updateFinalsCountdown, 1000);
+      // Progress bar nudges forward every 30s (smooth via CSS transition)
+      setInterval(updateWeekendProgress, 30000);
+      // Every ~5s, pick one random icon to float briefly. Subtle flair.
+      setInterval(floatOneRandomIcon, 5000);
+
+      // Optional Umami heartbeat (only when ?s= is present, matches /kiosk/ pattern)
+      var parts = window.location.search.split('s=');
+      var screen = parts.length > 1 ? parts[1].split('&')[0] : '';
+      if (screen && typeof umami !== 'undefined') {
+        umami.track('sw-heartbeat', { screen: screen });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+</body>
+</html>
