@@ -1,0 +1,8 @@
+---
+layout: blog
+title: Testing
+---
+
+## This is a test
+
+this is a paragraph
