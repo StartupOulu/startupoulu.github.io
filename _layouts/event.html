@@ -34,7 +34,7 @@ layout: default
             <a href="#" class="common_pera">{{ page.location }}</a>
           </div>
           <p class="common_pera description">{{ page.description }}</p>
-          {% if page.cta_link %} 
+          {% if page.cta_link %}
           <a href="{{ page.cta_link }}" class="common_btn" target="_blank">
             {% if page.cta_title %}
               {{ page.cta_title }}
@@ -43,6 +43,7 @@ layout: default
             {% endif %}
           </a>
           {% endif %}
+          <button onclick="downloadEventICS()" style="background:none;border:none;padding:0;cursor:pointer;font:inherit;color:inherit;text-decoration:underline;opacity:0.7;">Add to Calendar</button>
         </div>
         <div class="image">
           {% if page.cover_image %}
@@ -122,6 +123,45 @@ layout: default
     <!-- follow us section ends -->
 
     {% include footer.html %}
+    <script>
+    function downloadEventICS() {
+      var title    = {{ page.title | jsonify }};
+      var location = {{ page.location | jsonify }};
+      var start    = '{{ page.start_time | date: "%Y%m%dT%H%M%S" }}';
+      var end      = '{{ page.end_time | date: "%Y%m%dT%H%M%S" }}';
+      var url      = '{{ site.url }}{{ page.url }}';
+      var filename = '{{ page.title | slugify }}';
+
+      function esc(s) {
+        return (s || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+      }
+
+      var lines = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Startup Oulu//Events//EN',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+        'BEGIN:VEVENT',
+        'DTSTART;TZID=Europe/Helsinki:' + start,
+        'DTEND;TZID=Europe/Helsinki:' + end,
+        'SUMMARY:' + esc(title),
+        'LOCATION:' + esc(location),
+        'URL:' + url,
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ];
+
+      var blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename + '.ics';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+    }
+    </script>
     {% include script.html %}
 </body>
 </html>
