@@ -9,6 +9,7 @@ This is the source code for [startupoulu.com](https://www.startupoulu.com). The 
 - [How to add a blog post?](#how-to-add-a-blog-post)
 - [How to add a service?](#how-to-add-a-service)
 - [How to make changes (general)](#how-to-make-changes)
+- [Brand page](#brand-page)
 - [Public Analytics page](https://cloud.umami.is/analytics/eu/share/TRXfirUynZGCZDPq)
 
 ## Something not working? How to find and fix errors
@@ -478,3 +479,27 @@ bundle exec jekyll build
 ```
 
 If this completes without errors, your changes are safe to commit.
+
+---
+
+## Brand page
+
+The brand page lives at [startupoulu.com/brand/](https://startupoulu.com/brand/) and is a self-contained HTML file — no Jekyll layout, all CSS inline. It documents the visual identity for designers, developers, and partners.
+
+**What it contains:**
+- Logo variants (SVG + PNG download links)
+- Logo clearspace rules
+- Brand colors with HEX, RGB, CMYK, and PMS values
+- Typeface (Hanken Grotesk Black + Regular)
+- Brand gradients
+- CSS custom properties for all of the above
+
+**Logo files** live in `brand/assets/logos/` and follow the naming convention:
+
+```
+startupoulu_logo_{shape}_{text-color}_text_{outline-color}_outline.{svg|png}
+```
+
+For example: `startupoulu_logo_wide_dark_text_white_outline.svg`
+
+To update the brand page, edit `brand/index.html` directly. All styles are in the `<head>` of that file.

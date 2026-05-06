@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand — StartupOulu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+
+        :root {
+            --canvas:      #EDF2F5;
+            --knowledge:   #070540;
+            --passion:     #FF3296;
+            --inspiration: #E9DEFF;
+            --growth:      #D2FACD;
+            --fame:        #FF4600;
+        }
+
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background: #fff;
+            color: var(--knowledge);
+            margin: 0;
+            padding: 0;
+        }
+
+        a { color: inherit; }
+
+        /* ── Layout ─────────────────────────────────────────── */
+
+        .wrap {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        section {
+            padding: 96px 0;
+        }
+
+        section.alt {
+            background: #fff;
+        }
+
+        /* ── Page header ─────────────────────────────────────── */
+
+        .page-header {
+            background: var(--knowledge);
+            padding: 80px 0 72px;
+        }
+
+        .page-header a {
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        .page-header a img {
+            height: 100px;
+        }
+
+        .page-header h1 {
+            color: #fff;
+            font-size: 72px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin: 0 0 12px;
+            line-height: 1;
+        }
+
+        .page-header p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 18px;
+            margin: 0;
+        }
+
+        /* ── Section labels ──────────────────────────────────── */
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--passion);
+            margin: 0 0 10px;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 900;
+            margin: 0 0 52px;
+            letter-spacing: -1px;
+        }
+
+        /* ── Logos ───────────────────────────────────────────── */
+
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .logo-card {
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .logo-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 56px 40px;
+            min-height: 220px;
+        }
+
+        .logo-display.on-light  { background: var(--canvas); }
+        .logo-display.on-white  { background: #fff; border: 1px solid #e8e8e8; border-bottom: none; }
+        .logo-display.on-dark   { background: var(--knowledge); }
+        .logo-display.on-green  { background: var(--growth); }
+
+        .logo-display img {
+            max-width: 75%;
+            max-height: 140px;
+            object-fit: contain;
+        }
+
+        .logo-meta {
+            padding: 20px 24px;
+            background: #fff;
+            border: 1px solid #ebebeb;
+            border-top: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .logo-meta h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 0.3px;
+        }
+
+        .logo-downloads {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .dl-btn {
+            display: inline-block;
+            padding: 6px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid var(--knowledge);
+            color: var(--knowledge);
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .dl-btn:hover {
+            background: var(--knowledge);
+            color: #fff;
+        }
+
+        /* ── Clearspace ─────────────────────────────────────── */
+
+        .clearspace {
+            margin-top: 40px;
+            padding: 28px 32px;
+            border: 1px solid #ebebeb;
+            border-radius: 6px;
+            border-left: 3px solid var(--passion);
+        }
+
+        .clearspace-title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--passion);
+            margin: 0 0 12px;
+        }
+
+        .clearspace p {
+            font-size: 15px;
+            color: #555;
+            margin: 0 0 8px;
+            line-height: 1.6;
+        }
+
+        .clearspace p:last-child { margin-bottom: 0; }
+
+        /* ── Typeface ────────────────────────────────────────── */
+
+        .type-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .type-card {
+            border: 1px solid #ebebeb;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .type-specimen {
+            padding: 48px 40px 32px;
+            background: var(--canvas);
+            border-bottom: 1px solid #ebebeb;
+        }
+
+        .type-display {
+            font-size: 96px;
+            line-height: 1;
+            color: var(--knowledge);
+            margin-bottom: 24px;
+        }
+
+        .type-alphabet {
+            font-size: 15px;
+            line-height: 1.9;
+            color: var(--knowledge);
+            opacity: 0.6;
+            letter-spacing: 0.5px;
+        }
+
+        .type-meta {
+            padding: 20px 28px;
+            border-bottom: 1px solid #ebebeb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .type-name {
+            font-size: 15px;
+            font-weight: 700;
+            margin: 0 0 4px;
+        }
+
+        .type-usage {
+            font-size: 13px;
+            color: #888;
+            margin: 0;
+        }
+
+        .type-weight {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--passion);
+        }
+
+        .type-scale {
+            padding: 28px 28px 32px;
+        }
+
+        .type-scale p {
+            margin: 0 0 16px;
+            color: var(--knowledge);
+        }
+
+        .type-scale p:last-child { margin-bottom: 0; }
+
+        .type-sources {
+            margin: 32px 0 0;
+        }
+
+        .type-source-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #aaa;
+            margin: 0 0 12px;
+        }
+
+        .type-source-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .type-source-list li {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .type-source-list a {
+            color: var(--knowledge);
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        @media (max-width: 640px) {
+            .type-grid { grid-template-columns: 1fr; }
+            .type-display { font-size: 64px; }
+        }
+
+        /* ── Colors ──────────────────────────────────────────── */
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+        }
+
+        .color-card {
+            border-radius: 6px;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid #ebebeb;
+        }
+
+        .color-swatch {
+            height: 148px;
+        }
+
+        .color-info {
+            padding: 20px 22px 22px;
+        }
+
+        .color-name {
+            font-size: 20px;
+            font-weight: 900;
+            margin: 0 0 14px;
+            letter-spacing: -0.3px;
+        }
+
+        .color-values {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .color-values li {
+            font-size: 13px;
+            color: #555;
+            display: flex;
+            gap: 8px;
+        }
+
+        .color-values li .label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--knowledge);
+            opacity: 0.4;
+            width: 38px;
+            flex-shrink: 0;
+            padding-top: 1px;
+        }
+
+        .hex-val {
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--knowledge);
+            letter-spacing: 0.5px;
+            transition: opacity 0.15s;
+        }
+
+        .hex-val:hover { opacity: 0.6; }
+
+        .hex-val.copied::after {
+            content: ' ✓';
+            font-size: 11px;
+            color: var(--passion);
+        }
+
+        /* Canvas needs a border on its swatch since it's near-white */
+        .color-card.canvas .color-swatch {
+            border-bottom: 1px solid #dde3e7;
+        }
+
+        /* ── Gradients ───────────────────────────────────────── */
+
+        .gradient-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+        }
+
+        .gradient-card {
+            border-radius: 6px;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid #ebebeb;
+        }
+
+        .gradient-swatch {
+            height: 640px;
+        }
+
+        .gradient-info {
+            padding: 18px 22px;
+        }
+
+        .gradient-stops {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .stop-chip {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .stop-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.12);
+            flex-shrink: 0;
+        }
+
+        .stop-arrow {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        /* ── CSS block ───────────────────────────────────────── */
+
+        .css-block {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(7,5,64,0.18);
+        }
+
+        .css-toolbar {
+            background: #0b0840;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .css-toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .css-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .css-dots span {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+        }
+
+        .css-filename {
+            font-size: 13px;
+            color: rgba(255,255,255,0.35);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.3px;
+        }
+
+        .css-copy-btn {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.5);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Hanken Grotesk', sans-serif;
+            transition: all 0.15s;
+        }
+
+        .css-copy-btn:hover {
+            background: rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.85);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .css-copy-btn.copied {
+            color: #a6e3a1;
+            border-color: #a6e3a1;
+            background: rgba(166,227,161,0.08);
+        }
+
+        .css-code {
+            background: #07042e;
+            color: rgba(255,255,255,0.75);
+            font-family: 'Courier New', monospace;
+            font-size: 13.5px;
+            line-height: 1.85;
+            margin: 0;
+            padding: 36px 40px 40px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        /* syntax tokens */
+        .t-sel  { color: #FF3296; }
+        .t-brace { color: rgba(255,255,255,0.5); }
+        .t-cmt  { color: #3d4f78; font-style: italic; }
+        .t-prop { color: #89b4fa; }
+        .t-p    { color: rgba(255,255,255,0.25); }
+        .t-hex  { color: #a6e3a1; }
+        .t-str  { color: #f9e2af; }
+        .t-kw   { color: #cba6f7; }
+        .t-fn   { color: #89dceb; }
+        .t-num  { color: #fab387; }
+        .t-sw   {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            margin-right: 3px;
+            vertical-align: middle;
+            position: relative;
+            top: -1px;
+            flex-shrink: 0;
+        }
+
+        /* ── Responsive ──────────────────────────────────────── */
+
+        @media (max-width: 900px) {
+            .color-grid    { grid-template-columns: repeat(3, 1fr); }
+            .gradient-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 640px) {
+            .logo-grid     { grid-template-columns: repeat(2, 1fr); }
+            .color-grid    { grid-template-columns: repeat(2, 1fr); }
+            .gradient-grid { grid-template-columns: repeat(2, 1fr); }
+            .wrap          { padding: 0 20px; }
+            section        { padding: 64px 0; }
+            .page-header   { padding: 56px 0 52px; }
+            .page-header h1 { font-size: 48px; }
+            .section-title  { font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── Header ─────────────────────────────────────── -->
+    <header class="page-header">
+        <div class="wrap">
+            <a href="https://startupoulu.com">
+                <img src="assets/logos/svg/startupoulu_logo_wide_dark_text_white_outline.svg" alt="StartupOulu">
+            </a>
+            <h1>Brand</h1>
+            <p>StartupOulu visual identity — logos, colors, and gradients</p>
+        </div>
+    </header>
+
+
+    <!-- ── Logos ──────────────────────────────────────── -->
+    <section>
+        <div class="wrap">
+            <p class="section-label">Identity</p>
+            <h2 class="section-title">Logo</h2>
+
+            <div class="logo-grid">
+
+                <div class="logo-card">
+                    <div class="logo-display on-dark">
+                        <img src="assets/logos/svg/startupoulu_logo_wide_dark_text_white_outline.svg" alt="Wide — Dark text, white outline">
+                    </div>
+                    <div class="logo-meta">
+                        <h3>Wide — Dark / White outline</h3>
+                        <div class="logo-downloads">
+                            <a href="assets/logos/svg/startupoulu_logo_wide_dark_text_white_outline.svg" download class="dl-btn">SVG</a>
+                            <a href="assets/logos/png/startupoulu_logo_wide_dark_text_white_outline.png" download class="dl-btn">PNG</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="logo-card">
+                    <div class="logo-display on-light">
+                        <img src="assets/logos/svg/startupoulu_logo_wide_white_text_dark_outline.svg" alt="Wide — White text, dark outline">
+                    </div>
+                    <div class="logo-meta">
+                        <h3>Wide — White / Dark outline</h3>
+                        <div class="logo-downloads">
+                            <a href="assets/logos/svg/startupoulu_logo_wide_white_text_dark_outline.svg" download class="dl-btn">SVG</a>
+                            <a href="assets/logos/png/startupoulu_logo_wide_white_text_dark_outline.png" download class="dl-btn">PNG</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="logo-card">
+                    <div class="logo-display on-white">
+                        <img src="assets/logos/svg/startupoulu_logo_wide_green_text_dark_outline.svg" alt="Wide — Green text, dark outline">
+                    </div>
+                    <div class="logo-meta">
+                        <h3>Wide — Green / Dark outline</h3>
+                        <div class="logo-downloads">
+                            <a href="assets/logos/svg/startupoulu_logo_wide_green_text_dark_outline.svg" download class="dl-btn">SVG</a>
+                            <a href="assets/logos/png/startupoulu_logo_wide_green_text_dark_outline.png" download class="dl-btn">PNG</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="logo-card">
+                    <div class="logo-display on-dark">
+                        <img src="assets/logos/svg/startupoulu_logo_wide_dark_text_green_outline.svg" alt="Wide — Dark text, green outline">
+                    </div>
+                    <div class="logo-meta">
+                        <h3>Wide — Dark / Green outline</h3>
+                        <div class="logo-downloads">
+                            <a href="assets/logos/svg/startupoulu_logo_wide_dark_text_green_outline.svg" download class="dl-btn">SVG</a>
+                            <a href="assets/logos/png/startupoulu_logo_wide_dark_text_green_outline.png" download class="dl-btn">PNG</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="logo-card">
+                    <div class="logo-display on-dark">
+                        <img src="assets/logos/svg/startupoulu_logo_stacked_dark_text_white_outline.svg" alt="Stacked — Dark text, white outline">
+                    </div>
+                    <div class="logo-meta">
+                        <h3>Stacked — Dark / White outline</h3>
+                        <div class="logo-downloads">
+                            <a href="assets/logos/svg/startupoulu_logo_stacked_dark_text_white_outline.svg" download class="dl-btn">SVG</a>
+                            <a href="assets/logos/png/startupoulu_logo_stacked_dark_text_white_outline.png" download class="dl-btn">PNG</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="logo-card">
+                    <div class="logo-display on-light">
+                        <img src="assets/logos/svg/startupoulu_logo_stacked_white_text_dark_outline.svg" alt="Stacked — White text, dark outline">
+                    </div>
+                    <div class="logo-meta">
+                        <h3>Stacked — White / Dark outline</h3>
+                        <div class="logo-downloads">
+                            <a href="assets/logos/svg/startupoulu_logo_stacked_white_text_dark_outline.svg" download class="dl-btn">SVG</a>
+                            <a href="assets/logos/png/startupoulu_logo_stacked_white_text_dark_outline.png" download class="dl-btn">PNG</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="logo-card">
+                    <div class="logo-display on-white">
+                        <img src="assets/logos/svg/startupoulu_logo_stacked_green_text_dark_outline.svg" alt="Stacked — Green text, dark outline">
+                    </div>
+                    <div class="logo-meta">
+                        <h3>Stacked — Green / Dark outline</h3>
+                        <div class="logo-downloads">
+                            <a href="assets/logos/svg/startupoulu_logo_stacked_green_text_dark_outline.svg" download class="dl-btn">SVG</a>
+                            <a href="assets/logos/png/startupoulu_logo_stacked_green_text_dark_outline.png" download class="dl-btn">PNG</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="logo-card">
+                    <div class="logo-display on-dark">
+                        <img src="assets/logos/svg/startupoulu_logo_stacked_dark_text_green_outline.svg" alt="Stacked — Dark text, green outline">
+                    </div>
+                    <div class="logo-meta">
+                        <h3>Stacked — Dark / Green outline</h3>
+                        <div class="logo-downloads">
+                            <a href="assets/logos/svg/startupoulu_logo_stacked_dark_text_green_outline.svg" download class="dl-btn">SVG</a>
+                            <a href="assets/logos/png/startupoulu_logo_stacked_dark_text_green_outline.png" download class="dl-btn">PNG</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="clearspace">
+                <p class="clearspace-title">Logo Clearspace</p>
+                <p>The clearspace for horizontal logos is one times the width of the letter O (x) in all directions.</p>
+                <p>The clearspace for vertical logos is one times the width of the letter O (x) in all directions.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ── Typeface ──────────────────────────────────── -->
+    <section class="alt">
+        <div class="wrap">
+            <p class="section-label">Typography</p>
+            <h2 class="section-title">Typeface</h2>
+
+            <div class="type-grid">
+
+                <div class="type-card">
+                    <div class="type-specimen" style="font-weight:900;">
+                        <div class="type-display">Aa</div>
+                        <div class="type-alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 !@#&amp;()–</div>
+                    </div>
+                    <div class="type-meta">
+                        <div>
+                            <p class="type-name">Hanken Grotesk Black</p>
+                            <p class="type-usage">Headlines &amp; display</p>
+                        </div>
+                        <span class="type-weight">900</span>
+                    </div>
+                    <div class="type-scale">
+                        <p style="font-size:48px; font-weight:900; line-height:1.1;">The quick brown fox</p>
+                        <p style="font-size:32px; font-weight:900; line-height:1.2;">The quick brown fox</p>
+                        <p style="font-size:20px; font-weight:900; line-height:1.3;">The quick brown fox jumps over the lazy dog</p>
+                    </div>
+                </div>
+
+                <div class="type-card">
+                    <div class="type-specimen" style="font-weight:400;">
+                        <div class="type-display">Aa</div>
+                        <div class="type-alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 !@#&amp;()–</div>
+                    </div>
+                    <div class="type-meta">
+                        <div>
+                            <p class="type-name">Hanken Grotesk Regular</p>
+                            <p class="type-usage">Body &amp; UI text</p>
+                        </div>
+                        <span class="type-weight">400</span>
+                    </div>
+                    <div class="type-scale">
+                        <p style="font-size:48px; font-weight:400; line-height:1.1;">The quick brown fox</p>
+                        <p style="font-size:32px; font-weight:400; line-height:1.2;">The quick brown fox</p>
+                        <p style="font-size:20px; font-weight:400; line-height:1.3;">The quick brown fox jumps over the lazy dog</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="type-sources">
+                <p class="type-source-label">Available on</p>
+                <ul class="type-source-list">
+                    <li><a href="https://fonts.google.com/specimen/Hanken+Grotesk" target="_blank" rel="noopener">Google Fonts</a> — fonts.google.com/specimen/Hanken+Grotesk</li>
+                    <li><a href="https://fonts.adobe.com/fonts/hanken-grotesk" target="_blank" rel="noopener">Adobe Fonts</a> — fonts.adobe.com/fonts/hanken-grotesk</li>
+                    <li><a href="https://fontsource.org/fonts/hanken-grotesk" target="_blank" rel="noopener">Fontsource</a> — fontsource.org/fonts/hanken-grotesk</li>
+                    <li><a href="https://hanken.co/products/hanken-grotesk" target="_blank" rel="noopener">Hanken Design Co.</a> — hanken.co/products/hanken-grotesk</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ── Brand Colors ───────────────────────────────── -->
+    <section class="alt">
+        <div class="wrap">
+            <p class="section-label">Palette</p>
+            <h2 class="section-title">Brand Colors</h2>
+
+            <div class="color-grid">
+
+                <div class="color-card canvas">
+                    <div class="color-swatch" style="background:#EDF2F5;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Canvas</p>
+                        <ul class="color-values">
+                            <li><span class="label">HEX</span><span class="hex-val" onclick="copyHex(this, '#EDF2F5')">#EDF2F5</span></li>
+                            <li><span class="label">RGB</span>237 242 245</li>
+                            <li><span class="label">CMYK</span>9 3 4 0</li>
+                            <li><span class="label">PMS</span>656 C</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background:#070540;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Knowledge</p>
+                        <ul class="color-values">
+                            <li><span class="label">HEX</span><span class="hex-val" onclick="copyHex(this, '#070540')">#070540</span></li>
+                            <li><span class="label">RGB</span>8 5 62</li>
+                            <li><span class="label">CMYK</span>100 95 40 50</li>
+                            <li><span class="label">PMS</span>288 C</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background:#FF3296;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Passion</p>
+                        <ul class="color-values">
+                            <li><span class="label">HEX</span><span class="hex-val" onclick="copyHex(this, '#FF3296')">#FF3296</span></li>
+                            <li><span class="label">RGB</span>255 50 150</li>
+                            <li><span class="label">CMYK</span>0 90 0 0</li>
+                            <li><span class="label">PMS</span>232 C</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background:#E9DEFF;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Inspiration</p>
+                        <ul class="color-values">
+                            <li><span class="label">HEX</span><span class="hex-val" onclick="copyHex(this, '#E9DEFF')">#E9DEFF</span></li>
+                            <li><span class="label">RGB</span>233 222 255</li>
+                            <li><span class="label">CMYK</span>10 16 0 0</li>
+                            <li><span class="label">PMS</span>263 C</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background:#D2FACD;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Growth</p>
+                        <ul class="color-values">
+                            <li><span class="label">HEX</span><span class="hex-val" onclick="copyHex(this, '#D2FACD')">#D2FACD</span></li>
+                            <li><span class="label">RGB</span>210 250 205</li>
+                            <li><span class="label">CMYK</span>26 0 32 0</li>
+                            <li><span class="label">PMS</span>7485 C</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-swatch" style="background:#FF4600;"></div>
+                    <div class="color-info">
+                        <p class="color-name">Fame</p>
+                        <ul class="color-values">
+                            <li><span class="label">HEX</span><span class="hex-val" onclick="copyHex(this, '#FF4600')">#FF4600</span></li>
+                            <li><span class="label">RGB</span>255 70 0</li>
+                            <li><span class="label">CMYK</span>0 87 100 0</li>
+                            <li><span class="label">PMS</span>1655 C</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ── Brand Gradients ────────────────────────────── -->
+    <section>
+        <div class="wrap">
+            <p class="section-label">Gradients</p>
+            <h2 class="section-title">Brand Gradients</h2>
+
+            <div class="gradient-grid">
+
+                <div class="gradient-card">
+                    <div class="gradient-swatch" style="background: linear-gradient(to bottom, #EDF2F5, #E9DEFF);"></div>
+                    <div class="gradient-info">
+                        <div class="gradient-stops">
+                            <div class="stop-chip"><div class="stop-dot" style="background:#EDF2F5;"></div>Canvas</div>
+                            <span class="stop-arrow">→</span>
+                            <div class="stop-chip"><div class="stop-dot" style="background:#E9DEFF;"></div>Inspiration</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gradient-card">
+                    <div class="gradient-swatch" style="background: linear-gradient(to bottom, #E9DEFF, #D2FACD);"></div>
+                    <div class="gradient-info">
+                        <div class="gradient-stops">
+                            <div class="stop-chip"><div class="stop-dot" style="background:#E9DEFF;"></div>Inspiration</div>
+                            <span class="stop-arrow">→</span>
+                            <div class="stop-chip"><div class="stop-dot" style="background:#D2FACD;"></div>Growth</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gradient-card">
+                    <div class="gradient-swatch" style="background: linear-gradient(to bottom, #FF3296, #070540);"></div>
+                    <div class="gradient-info">
+                        <div class="gradient-stops">
+                            <div class="stop-chip"><div class="stop-dot" style="background:#FF3296;"></div>Passion</div>
+                            <span class="stop-arrow">→</span>
+                            <div class="stop-chip"><div class="stop-dot" style="background:#070540;"></div>Knowledge</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gradient-card">
+                    <div class="gradient-swatch" style="background: linear-gradient(to bottom, #D2FACD, #E9DEFF, #FF3296);"></div>
+                    <div class="gradient-info">
+                        <div class="gradient-stops">
+                            <div class="stop-chip"><div class="stop-dot" style="background:#D2FACD;"></div>Growth</div>
+                            <span class="stop-arrow">→</span>
+                            <div class="stop-chip"><div class="stop-dot" style="background:#E9DEFF;"></div>Inspiration</div>
+                            <span class="stop-arrow">→</span>
+                            <div class="stop-chip"><div class="stop-dot" style="background:#FF3296;"></div>Passion</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gradient-card">
+                    <div class="gradient-swatch" style="background: linear-gradient(to bottom, #FF4600, #D2FACD);"></div>
+                    <div class="gradient-info">
+                        <div class="gradient-stops">
+                            <div class="stop-chip"><div class="stop-dot" style="background:#FF4600;"></div>Fame</div>
+                            <span class="stop-arrow">→</span>
+                            <div class="stop-chip"><div class="stop-dot" style="background:#D2FACD;"></div>Growth</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gradient-card">
+                    <div class="gradient-swatch" style="background: linear-gradient(to bottom, #D2FACD, #FF3296, #FF4600);"></div>
+                    <div class="gradient-info">
+                        <div class="gradient-stops">
+                            <div class="stop-chip"><div class="stop-dot" style="background:#D2FACD;"></div>Growth</div>
+                            <span class="stop-arrow">→</span>
+                            <div class="stop-chip"><div class="stop-dot" style="background:#FF3296;"></div>Passion</div>
+                            <span class="stop-arrow">→</span>
+                            <div class="stop-chip"><div class="stop-dot" style="background:#FF4600;"></div>Fame</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CSS Variables ─────────────────────────────── -->
+    <section class="alt">
+        <div class="wrap">
+            <p class="section-label">Developer</p>
+            <h2 class="section-title">CSS</h2>
+
+            <div class="css-block">
+                <div class="css-toolbar">
+                    <div class="css-toolbar-left">
+                        <div class="css-dots">
+                            <span style="background:#FF5F57;"></span>
+                            <span style="background:#FEBC2E;"></span>
+                            <span style="background:#28C840;"></span>
+                        </div>
+                        <span class="css-filename">brand.css</span>
+                    </div>
+                    <button class="css-copy-btn" onclick="copyCSS(this)">Copy</button>
+                </div>
+<pre class="css-code" id="css-vars"><span class="t-sel">:root</span> <span class="t-brace">{</span>
+
+  <span class="t-cmt">/* ── Colors ─────────────────────────────── */</span>
+  <span class="t-prop">--color-canvas</span><span class="t-p">:      </span><span class="t-sw" style="background:#EDF2F5;outline:1px solid rgba(255,255,255,0.2)"></span><span class="t-hex">#EDF2F5</span><span class="t-p">;</span>
+  <span class="t-prop">--color-knowledge</span><span class="t-p">:   </span><span class="t-sw" style="background:#070540;outline:1px solid rgba(255,255,255,0.2)"></span><span class="t-hex">#070540</span><span class="t-p">;</span>
+  <span class="t-prop">--color-passion</span><span class="t-p">:     </span><span class="t-sw" style="background:#FF3296"></span><span class="t-hex">#FF3296</span><span class="t-p">;</span>
+  <span class="t-prop">--color-inspiration</span><span class="t-p">: </span><span class="t-sw" style="background:#E9DEFF;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#E9DEFF</span><span class="t-p">;</span>
+  <span class="t-prop">--color-growth</span><span class="t-p">:      </span><span class="t-sw" style="background:#D2FACD;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#D2FACD</span><span class="t-p">;</span>
+  <span class="t-prop">--color-fame</span><span class="t-p">:        </span><span class="t-sw" style="background:#FF4600"></span><span class="t-hex">#FF4600</span><span class="t-p">;</span>
+
+  <span class="t-cmt">/* ── Typography ─────────────────────────── */</span>
+  <span class="t-prop">--font-family</span><span class="t-p">:         </span><span class="t-str">'Hanken Grotesk'</span><span class="t-p">, </span><span class="t-kw">sans-serif</span><span class="t-p">;</span>
+  <span class="t-prop">--font-weight-black</span><span class="t-p">:   </span><span class="t-num">900</span><span class="t-p">;</span> <span class="t-cmt">/* headlines */</span>
+  <span class="t-prop">--font-weight-regular</span><span class="t-p">: </span><span class="t-num">400</span><span class="t-p">;</span> <span class="t-cmt">/* body */</span>
+
+  <span class="t-cmt">/* ── Gradients ───────────────────────────── */</span>
+  <span class="t-prop">--gradient-canvas-inspiration</span><span class="t-p">:         </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#EDF2F5;outline:1px solid rgba(255,255,255,0.2)"></span><span class="t-hex">#EDF2F5</span><span class="t-p">, </span><span class="t-sw" style="background:#E9DEFF;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#E9DEFF</span><span class="t-p">);</span>
+  <span class="t-prop">--gradient-inspiration-growth</span><span class="t-p">:         </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#E9DEFF;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#E9DEFF</span><span class="t-p">, </span><span class="t-sw" style="background:#D2FACD;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#D2FACD</span><span class="t-p">);</span>
+  <span class="t-prop">--gradient-passion-knowledge</span><span class="t-p">:          </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#FF3296"></span><span class="t-hex">#FF3296</span><span class="t-p">, </span><span class="t-sw" style="background:#070540;outline:1px solid rgba(255,255,255,0.2)"></span><span class="t-hex">#070540</span><span class="t-p">);</span>
+  <span class="t-prop">--gradient-growth-inspiration-passion</span><span class="t-p">: </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#D2FACD;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#D2FACD</span><span class="t-p">, </span><span class="t-sw" style="background:#E9DEFF;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#E9DEFF</span><span class="t-p">, </span><span class="t-sw" style="background:#FF3296"></span><span class="t-hex">#FF3296</span><span class="t-p">);</span>
+  <span class="t-prop">--gradient-fame-growth</span><span class="t-p">:                </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#FF4600"></span><span class="t-hex">#FF4600</span><span class="t-p">, </span><span class="t-sw" style="background:#D2FACD;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#D2FACD</span><span class="t-p">);</span>
+  <span class="t-prop">--gradient-growth-passion-fame</span><span class="t-p">:        </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#D2FACD;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#D2FACD</span><span class="t-p">, </span><span class="t-sw" style="background:#FF3296"></span><span class="t-hex">#FF3296</span><span class="t-p">, </span><span class="t-sw" style="background:#FF4600"></span><span class="t-hex">#FF4600</span><span class="t-p">);</span>
+
+<span class="t-brace">}</span></pre>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        function copyHex(el, hex) {
+            navigator.clipboard.writeText(hex).then(function() {
+                el.classList.add('copied');
+                setTimeout(function() { el.classList.remove('copied'); }, 1500);
+            });
+        }
+
+        function copyCSS(btn) {
+            var code = document.getElementById('css-vars').textContent;
+            navigator.clipboard.writeText(code).then(function() {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(function() {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 1500);
+            });
+        }
+    </script>
+
+</body>
+</html>

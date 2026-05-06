@@ -56,6 +56,12 @@ incubator/               # Incubator program pages
 mentoring/               # Mentoring program pages
 oulu-startup-database/   # Startup database section
 kiosk/                   # Kiosk display for Samsung SmartTV
+brand/                   # Self-contained brand/media page (logos, colors, gradients, typeface, CSS vars)
+  index.html             # Single-file page — all CSS inline, no Jekyll layout dependency
+  assets/
+    logos/
+      svg/               # SVG logo variants (naming: startupoulu_logo_{shape}_{text}_{outline}.svg)
+      png/               # PNG logo variants (same naming convention as SVG)
 debug/                   # Debug/troubleshooting pages
 index.html               # Homepage (layout: frontpage)
 events.html              # Events listing page
@@ -232,6 +238,23 @@ Filenames must be lowercase with dashes (no spaces). Example: `2026-02-startup-p
 - Pink: `#FF3198`
 - Gray: `#EAEAEA`
 - Responsive breakpoint: `800px`
+
+### Full Brand Palette (from `brand/index.html`)
+
+The brand page defines the complete identity system. Use these CSS variable names when referencing brand values:
+
+| Name | HEX | CSS variable |
+|---|---|---|
+| Canvas | `#EDF2F5` | `--color-canvas` |
+| Knowledge | `#070540` | `--color-knowledge` |
+| Passion | `#FF3296` | `--color-passion` |
+| Inspiration | `#E9DEFF` | `--color-inspiration` |
+| Growth | `#D2FACD` | `--color-growth` |
+| Fame | `#FF4600` | `--color-fame` |
+
+**Typeface:** Hanken Grotesk — Black (900) for headlines, Regular (400) for body. Available on Google Fonts (`fonts.google.com/specimen/Hanken+Grotesk`).
+
+**Logo files** follow the naming pattern `startupoulu_logo_{shape}_{text-color}_text_{outline-color}_outline.{ext}` and live in `brand/assets/logos/svg/` and `brand/assets/logos/png/`.
 
 ## Development Workflow
 
