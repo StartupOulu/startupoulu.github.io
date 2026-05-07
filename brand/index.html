@@ -78,15 +78,6 @@
 
         /* ── Section labels ──────────────────────────────────── */
 
-        .section-label {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--passion);
-            margin: 0 0 10px;
-        }
-
         .section-title {
             font-size: 40px;
             font-weight: 900;
@@ -560,6 +551,282 @@
             .page-header   { padding: 56px 0 52px; }
             .page-header h1 { font-size: 48px; }
             .section-title  { font-size: 30px; }
+            .frame-editor  { grid-template-columns: 1fr; }
+        }
+
+        /* ── Image Frame editor ───────────────────────────────── */
+
+        section.dark { background: var(--knowledge); color: #fff; }
+        section.dark .section-title { color: #fff; }
+
+        .section-desc {
+            font-size: 18px;
+            color: rgba(255,255,255,0.55);
+            margin: -28px 0 52px;
+            max-width: 560px;
+            line-height: 1.5;
+        }
+
+        .frame-drop-zone {
+            border: 2px dashed rgba(255,255,255,0.2);
+            border-radius: 16px;
+            padding: 72px 40px;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255,255,255,0.55);
+            font-size: 18px;
+            font-weight: 700;
+            transition: border-color 0.2s, background 0.2s, color 0.2s;
+            user-select: none;
+        }
+
+        .frame-drop-zone:hover,
+        .frame-drop-zone.drag-over {
+            border-color: rgba(255,255,255,0.55);
+            background: rgba(255,255,255,0.04);
+            color: rgba(255,255,255,0.85);
+        }
+
+        .frame-drop-hint { font-size: 14px; font-weight: 400; opacity: 0.5; }
+        .frame-drop-zone input[type="file"] { display: none; }
+
+        .frame-editor {
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+            align-items: start;
+            margin-top: 40px;
+        }
+
+        .frame-panel {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 16px;
+            padding: 24px 24px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .frame-field { padding-top: 24px; }
+
+        .frame-preview { min-width: 0; }
+
+        .frame-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .frame-dimensions {
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+            margin: 0;
+            letter-spacing: 0.03em;
+        }
+
+        .frame-reset-btn {
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            white-space: nowrap;
+            transition: color 0.15s;
+        }
+        .frame-reset-btn:hover { color: rgba(255,255,255,0.7); }
+
+        .frame-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 16px;
+        }
+
+        .frame-swatches { display: flex; flex-wrap: wrap; gap: 10px; }
+
+        .frame-swatch {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18), 0 0 0 1px rgba(0,0,0,0.18);
+            cursor: pointer;
+            outline: none;
+            transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+            padding: 0;
+        }
+
+        .frame-swatch:hover { transform: scale(1.12); }
+
+        .frame-swatch--selected {
+            border-color: #fff;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.35);
+        }
+
+        .frame-swatch--transparent {
+            background: repeating-conic-gradient(#555 0% 25%, #333 0% 50%) 0 0 / 12px 12px !important;
+        }
+
+        .frame-canvas {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .frame-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.09);
+        }
+
+        .frame-btn {
+            padding: 14px 28px;
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            letter-spacing: 0.01em;
+        }
+
+        .frame-btn:hover {
+            background: rgba(255,255,255,0.16);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .frame-btn--primary { background: var(--passion); border-color: transparent; }
+        .frame-btn--primary:hover { background: #ff4aaa; }
+
+        .frame-select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-color: rgba(255,255,255,0.08);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.45)' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            padding: 12px 40px 12px 16px;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            outline: none;
+            width: 100%;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .frame-select:hover { border-color: rgba(255,255,255,0.4); }
+        .frame-select:focus { border-color: rgba(255,255,255,0.6); }
+        .frame-select option { background: #070540; color: #fff; }
+
+        .frame-ratio-warn {
+            font-size: 13px;
+            color: rgba(255, 200, 80, 0.85);
+            background: rgba(255, 200, 80, 0.08);
+            border: 1px solid rgba(255, 200, 80, 0.25);
+            border-radius: 8px;
+            padding: 10px 16px;
+            margin-bottom: 20px;
+        }
+
+        .frame-blend-toggle { display: flex; gap: 8px; }
+        .frame-blend-btn {
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s, border-color 0.15s;
+        }
+        .frame-blend-btn--active {
+            background: rgba(255,255,255,0.14);
+            color: #fff;
+            border-color: rgba(255,255,255,0.35);
+        }
+        .frame-blend-btn:hover:not(.frame-blend-btn--active) {
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.75);
+        }
+        .frame-opacity-row { display: flex; align-items: center; gap: 14px; }
+        .frame-range {
+            flex: 1;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.15);
+            outline: none;
+            cursor: pointer;
+        }
+        .frame-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+        .frame-range::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+        .frame-opacity-val {
+            font-size: 13px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.5);
+            min-width: 38px;
+            text-align: right;
+            letter-spacing: 0.03em;
+        }
+        .frame-check-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.6);
+            cursor: pointer;
+            user-select: none;
+        }
+        .frame-check-label input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--passion);
+            cursor: pointer;
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -580,7 +847,7 @@
     <!-- ── Logos ──────────────────────────────────────── -->
     <section>
         <div class="wrap">
-            <p class="section-label">Identity</p>
+
             <h2 class="section-title">Logo</h2>
 
             <div class="logo-grid">
@@ -702,7 +969,7 @@
     <!-- ── Typeface ──────────────────────────────────── -->
     <section class="alt">
         <div class="wrap">
-            <p class="section-label">Typography</p>
+
             <h2 class="section-title">Typeface</h2>
 
             <div class="type-grid">
@@ -763,7 +1030,7 @@
     <!-- ── Brand Colors ───────────────────────────────── -->
     <section class="alt">
         <div class="wrap">
-            <p class="section-label">Palette</p>
+
             <h2 class="section-title">Brand Colors</h2>
 
             <div class="color-grid">
@@ -854,7 +1121,7 @@
     <!-- ── Brand Gradients ────────────────────────────── -->
     <section>
         <div class="wrap">
-            <p class="section-label">Gradients</p>
+
             <h2 class="section-title">Brand Gradients</h2>
 
             <div class="gradient-grid">
@@ -936,7 +1203,7 @@
     <!-- ── CSS Variables ─────────────────────────────── -->
     <section class="alt">
         <div class="wrap">
-            <p class="section-label">Developer</p>
+
             <h2 class="section-title">CSS</h2>
 
             <div class="css-block">
@@ -980,6 +1247,82 @@
     </section>
 
 
+    <!-- ── Image Frame ───────────────────────────────── -->
+    <section class="dark">
+        <div class="wrap">
+
+            <h2 class="section-title">Image Frame</h2>
+            <p class="section-desc">Frame photos and artwork with the brand's graphic shapes. Drop an image, choose a shape and background, optionally layer a brand gradient — then download or copy as PNG.</p>
+
+            <div id="frame-drop-zone" class="frame-drop-zone">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span>Drop image here</span>
+                <span class="frame-drop-hint">or click to choose a file</span>
+                <input type="file" id="frame-file-input" accept="image/*">
+            </div>
+
+            <div id="frame-editor" class="frame-editor" style="display:none">
+
+                <aside id="frame-controls" class="frame-panel">
+                    <div class="frame-meta">
+                        <p id="frame-dimensions" class="frame-dimensions"></p>
+                        <button id="frame-reset-btn" type="button" class="frame-reset-btn">Change image</button>
+                    </div>
+
+                    <div class="frame-field">
+                        <label class="frame-label">Shape</label>
+                        <select id="frame-shape-select" class="frame-select"></select>
+                    </div>
+
+                    <div class="frame-field">
+                        <label class="frame-label">Background</label>
+                        <div id="frame-color-swatches" class="frame-swatches"></div>
+                    </div>
+
+                    <div class="frame-field">
+                        <label class="frame-label">Gradient overlay</label>
+                        <select id="frame-gradient-select" class="frame-select"></select>
+                    </div>
+
+                    <div id="frame-gradient-options" style="display:none">
+                        <div class="frame-field">
+                            <label class="frame-label">Blend mode</label>
+                            <div class="frame-blend-toggle">
+                                <button id="frame-blend-screen" type="button" class="frame-blend-btn frame-blend-btn--active">Screen</button>
+                                <button id="frame-blend-lighten" type="button" class="frame-blend-btn">Lighten</button>
+                            </div>
+                        </div>
+                        <div class="frame-field">
+                            <label class="frame-label">Opacity</label>
+                            <div class="frame-opacity-row">
+                                <input type="range" id="frame-gradient-opacity" class="frame-range" min="0" max="100" value="80">
+                                <span id="frame-opacity-val" class="frame-opacity-val">80%</span>
+                            </div>
+                        </div>
+                        <div class="frame-field">
+                            <label class="frame-check-label">
+                                <input type="checkbox" id="frame-gradient-reverse">
+                                Reverse gradient
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="frame-actions" class="frame-actions">
+                        <button id="frame-copy-btn" class="frame-btn">Copy to clipboard</button>
+                        <button id="frame-dl-btn" class="frame-btn frame-btn--primary">Download PNG</button>
+                    </div>
+                </aside>
+
+                <div class="frame-preview">
+                    <div id="frame-ratio-warn" class="frame-ratio-warn" style="display:none"></div>
+                    <canvas id="frame-canvas" class="frame-canvas"></canvas>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
     <script>
         function copyHex(el, hex) {
             navigator.clipboard.writeText(hex).then(function() {
@@ -1001,5 +1344,6 @@
         }
     </script>
 
+    <script src="app.js"></script>
 </body>
 </html>
