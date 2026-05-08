@@ -432,6 +432,88 @@
             color: #aaa;
         }
 
+        /* ── Shapes ──────────────────────────────────────────── */
+
+        .shape-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .shape-card {
+            border: 1px solid #ebebeb;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .shape-preview {
+            background: var(--canvas);
+            padding: 28px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 160px;
+        }
+
+        .shape-preview svg {
+            width: 100%;
+            max-height: 160px;
+            display: block;
+        }
+
+        .shape-info {
+            padding: 16px 20px 20px;
+            border-top: 1px solid #ebebeb;
+        }
+
+        .shape-name {
+            font-size: 15px;
+            font-weight: 700;
+            margin: 0 0 10px;
+        }
+
+        .shape-details summary {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #aaa;
+            cursor: pointer;
+            user-select: none;
+            list-style: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: color 0.15s;
+        }
+
+        .shape-details summary::-webkit-details-marker { display: none; }
+
+        .shape-details summary::before {
+            content: '▶';
+            font-size: 7px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .shape-details[open] summary::before { transform: rotate(90deg); }
+        .shape-details summary:hover { color: var(--knowledge); }
+
+        .shape-details pre {
+            margin: 12px 0 0;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            line-height: 1.7;
+            color: #555;
+            background: #f5f5f8;
+            border: 1px solid #e6e6ea;
+            border-radius: 6px;
+            padding: 12px 14px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
         /* ── CSS block ───────────────────────────────────────── */
 
         .css-block {
@@ -546,6 +628,7 @@
             .logo-grid     { grid-template-columns: repeat(2, 1fr); }
             .color-grid    { grid-template-columns: repeat(2, 1fr); }
             .gradient-grid { grid-template-columns: repeat(2, 1fr); }
+            .shape-grid    { grid-template-columns: 1fr; }
             .wrap          { padding: 0 20px; }
             section        { padding: 64px 0; }
             .page-header   { padding: 56px 0 52px; }
@@ -1200,48 +1283,233 @@
         </div>
     </section>
 
-    <!-- ── CSS Variables ─────────────────────────────── -->
-    <section class="alt">
+    <!-- ── Shapes ──────────────────────────────────── -->
+    <section>
         <div class="wrap">
 
-            <h2 class="section-title">CSS</h2>
+            <h2 class="section-title">Shapes</h2>
 
-            <div class="css-block">
-                <div class="css-toolbar">
-                    <div class="css-toolbar-left">
-                        <div class="css-dots">
-                            <span style="background:#FF5F57;"></span>
-                            <span style="background:#FEBC2E;"></span>
-                            <span style="background:#28C840;"></span>
-                        </div>
-                        <span class="css-filename">brand.css</span>
+            <div class="shape-grid">
+
+                <div class="shape-card">
+                    <div class="shape-preview">
+                        <svg viewBox="0 0 680 377" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="#070540" d="M 640,337 Q 659,337 659,320 L 660,87 L 595,18 L 49,17 Q 28,17 28,34 L 29,154 L 88,215 Q 114,215 114,219 L 117,275 Q 117,295 137,315 L 179,335 Q 179,337 200,337 Z"/>
+                        </svg>
                     </div>
-                    <button class="css-copy-btn" onclick="copyCSS(this)">Copy</button>
+                    <div class="shape-info">
+                        <p class="shape-name">Corner</p>
+                        <details class="shape-details">
+                            <summary>SVG code</summary>
+                            <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 377"&gt;
+  &lt;path d="M 640,337 Q 659,337 659,320 L 660,87 L 595,18
+           L 49,17 Q 28,17 28,34 L 29,154 L 88,215
+           Q 114,215 114,219 L 117,275 Q 117,295 137,315
+           L 179,335 Q 179,337 200,337 Z"/&gt;
+&lt;/svg&gt;</pre>
+                        </details>
+                    </div>
                 </div>
-<pre class="css-code" id="css-vars"><span class="t-sel">:root</span> <span class="t-brace">{</span>
 
-  <span class="t-cmt">/* ── Colors ─────────────────────────────── */</span>
-  <span class="t-prop">--color-canvas</span><span class="t-p">:      </span><span class="t-sw" style="background:#EDF2F5;outline:1px solid rgba(255,255,255,0.2)"></span><span class="t-hex">#EDF2F5</span><span class="t-p">;</span>
-  <span class="t-prop">--color-knowledge</span><span class="t-p">:   </span><span class="t-sw" style="background:#070540;outline:1px solid rgba(255,255,255,0.2)"></span><span class="t-hex">#070540</span><span class="t-p">;</span>
-  <span class="t-prop">--color-passion</span><span class="t-p">:     </span><span class="t-sw" style="background:#FF3296"></span><span class="t-hex">#FF3296</span><span class="t-p">;</span>
-  <span class="t-prop">--color-inspiration</span><span class="t-p">: </span><span class="t-sw" style="background:#E9DEFF;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#E9DEFF</span><span class="t-p">;</span>
-  <span class="t-prop">--color-growth</span><span class="t-p">:      </span><span class="t-sw" style="background:#D2FACD;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#D2FACD</span><span class="t-p">;</span>
-  <span class="t-prop">--color-fame</span><span class="t-p">:        </span><span class="t-sw" style="background:#FF4600"></span><span class="t-hex">#FF4600</span><span class="t-p">;</span>
+                <div class="shape-card">
+                    <div class="shape-preview">
+                        <!-- viewBox expanded upward by ⌈680×tan 8°⌉ = 96 to avoid clipping the sheared top-right -->
+                        <svg viewBox="0 -96 680 473" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <g transform="skewY(-8)">
+                                <path fill="#070540" d="M 640,337 Q 659,337 659,320 L 660,87 L 595,18 L 49,17 Q 28,17 28,34 L 29,154 L 88,215 Q 114,215 114,219 L 117,275 Q 117,295 137,315 L 179,335 Q 179,337 200,337 Z"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="shape-info">
+                        <p class="shape-name">Corner −8°</p>
+                        <details class="shape-details">
+                            <summary>SVG code</summary>
+                            <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -96 680 473"&gt;
+  &lt;g transform="skewY(-8)"&gt;
+    &lt;path d="M 640,337 Q 659,337 659,320 L 660,87 L 595,18
+             L 49,17 Q 28,17 28,34 L 29,154 L 88,215
+             Q 114,215 114,219 L 117,275 Q 117,295 137,315
+             L 179,335 Q 179,337 200,337 Z"/&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;</pre>
+                        </details>
+                    </div>
+                </div>
 
-  <span class="t-cmt">/* ── Typography ─────────────────────────── */</span>
-  <span class="t-prop">--font-family</span><span class="t-p">:         </span><span class="t-str">'Hanken Grotesk'</span><span class="t-p">, </span><span class="t-kw">sans-serif</span><span class="t-p">;</span>
-  <span class="t-prop">--font-weight-black</span><span class="t-p">:   </span><span class="t-num">900</span><span class="t-p">;</span> <span class="t-cmt">/* headlines */</span>
-  <span class="t-prop">--font-weight-regular</span><span class="t-p">: </span><span class="t-num">400</span><span class="t-p">;</span> <span class="t-cmt">/* body */</span>
+                <div class="shape-card">
+                    <div class="shape-preview">
+                        <svg viewBox="0 0 562 322" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="#070540" d="M 32,13 L 486,14 L 516,56 L 515,288 Q 515,296 503,296 L 46,293 L 19,252 L 20,21 Q 20,13 32,13 Z"/>
+                        </svg>
+                    </div>
+                    <div class="shape-info">
+                        <p class="shape-name">Box</p>
+                        <details class="shape-details">
+                            <summary>SVG code</summary>
+                            <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 562 322"&gt;
+  &lt;path d="M 32,13 L 486,14 L 516,56 L 515,288
+           Q 515,296 503,296 L 46,293 L 19,252
+           L 20,21 Q 20,13 32,13 Z"/&gt;
+&lt;/svg&gt;</pre>
+                        </details>
+                    </div>
+                </div>
 
-  <span class="t-cmt">/* ── Gradients ───────────────────────────── */</span>
-  <span class="t-prop">--gradient-canvas-inspiration</span><span class="t-p">:         </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#EDF2F5;outline:1px solid rgba(255,255,255,0.2)"></span><span class="t-hex">#EDF2F5</span><span class="t-p">, </span><span class="t-sw" style="background:#E9DEFF;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#E9DEFF</span><span class="t-p">);</span>
-  <span class="t-prop">--gradient-inspiration-growth</span><span class="t-p">:         </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#E9DEFF;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#E9DEFF</span><span class="t-p">, </span><span class="t-sw" style="background:#D2FACD;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#D2FACD</span><span class="t-p">);</span>
-  <span class="t-prop">--gradient-passion-knowledge</span><span class="t-p">:          </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#FF3296"></span><span class="t-hex">#FF3296</span><span class="t-p">, </span><span class="t-sw" style="background:#070540;outline:1px solid rgba(255,255,255,0.2)"></span><span class="t-hex">#070540</span><span class="t-p">);</span>
-  <span class="t-prop">--gradient-growth-inspiration-passion</span><span class="t-p">: </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#D2FACD;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#D2FACD</span><span class="t-p">, </span><span class="t-sw" style="background:#E9DEFF;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#E9DEFF</span><span class="t-p">, </span><span class="t-sw" style="background:#FF3296"></span><span class="t-hex">#FF3296</span><span class="t-p">);</span>
-  <span class="t-prop">--gradient-fame-growth</span><span class="t-p">:                </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#FF4600"></span><span class="t-hex">#FF4600</span><span class="t-p">, </span><span class="t-sw" style="background:#D2FACD;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#D2FACD</span><span class="t-p">);</span>
-  <span class="t-prop">--gradient-growth-passion-fame</span><span class="t-p">:        </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#D2FACD;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#D2FACD</span><span class="t-p">, </span><span class="t-sw" style="background:#FF3296"></span><span class="t-hex">#FF3296</span><span class="t-p">, </span><span class="t-sw" style="background:#FF4600"></span><span class="t-hex">#FF4600</span><span class="t-p">);</span>
+                <div class="shape-card">
+                    <div class="shape-preview">
+                        <!-- viewBox expanded upward by ⌈562×tan 8°⌉ = 79 -->
+                        <svg viewBox="0 -79 562 401" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <g transform="skewY(-8)">
+                                <path fill="#070540" d="M 32,13 L 486,14 L 516,56 L 515,288 Q 515,296 503,296 L 46,293 L 19,252 L 20,21 Q 20,13 32,13 Z"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="shape-info">
+                        <p class="shape-name">Box −8°</p>
+                        <details class="shape-details">
+                            <summary>SVG code</summary>
+                            <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -79 562 401"&gt;
+  &lt;g transform="skewY(-8)"&gt;
+    &lt;path d="M 32,13 L 486,14 L 516,56 L 515,288
+             Q 515,296 503,296 L 46,293 L 19,252
+             L 20,21 Q 20,13 32,13 Z"/&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;</pre>
+                        </details>
+                    </div>
+                </div>
 
-<span class="t-brace">}</span></pre>
+                <div class="shape-card">
+                    <div class="shape-preview">
+                        <svg viewBox="0 0 548 530" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="#070540" d="M 36,20 L 465,25 L 517,83 L 510,501 Q 510,510 500,510 L 202,502 L 152,447 L 152,268 Q 152,256 140,255 L 74,252 L 18,196 L 21,30 Q 21,20 36,20 Z"/>
+                        </svg>
+                    </div>
+                    <div class="shape-info">
+                        <p class="shape-name">Long L-shape</p>
+                        <details class="shape-details">
+                            <summary>SVG code</summary>
+                            <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 548 530"&gt;
+  &lt;path d="M 36,20 L 465,25 L 517,83 L 510,501
+           Q 510,510 500,510 L 202,502 L 152,447
+           L 152,268 Q 152,256 140,255 L 74,252
+           L 18,196 L 21,30 Q 21,20 36,20 Z"/&gt;
+&lt;/svg&gt;</pre>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="shape-card">
+                    <div class="shape-preview">
+                        <!-- viewBox expanded upward by ⌈548×tan 8°⌉ = 77 -->
+                        <svg viewBox="0 -77 548 607" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <g transform="skewY(-8)">
+                                <path fill="#070540" d="M 36,20 L 465,25 L 517,83 L 510,501 Q 510,510 500,510 L 202,502 L 152,447 L 152,268 Q 152,256 140,255 L 74,252 L 18,196 L 21,30 Q 21,20 36,20 Z"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="shape-info">
+                        <p class="shape-name">Long L-shape −8°</p>
+                        <details class="shape-details">
+                            <summary>SVG code</summary>
+                            <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -77 548 607"&gt;
+  &lt;g transform="skewY(-8)"&gt;
+    &lt;path d="M 36,20 L 465,25 L 517,83 L 510,501
+             Q 510,510 500,510 L 202,502 L 152,447
+             L 152,268 Q 152,256 140,255 L 74,252
+             L 18,196 L 21,30 Q 21,20 36,20 Z"/&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;</pre>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="shape-card">
+                    <div class="shape-preview">
+                        <svg viewBox="0 0 296 270" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="#070540" d="M 31,10 L 237,10 L 276,34 L 278,250 Q 278,256 270,256 L 55,256 L 19,233 L 16,17 Q 16,10 31,10 Z"/>
+                        </svg>
+                    </div>
+                    <div class="shape-info">
+                        <p class="shape-name">Square</p>
+                        <details class="shape-details">
+                            <summary>SVG code</summary>
+                            <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 296 270"&gt;
+  &lt;path d="M 31,10 L 237,10 L 276,34 L 278,250
+           Q 278,256 270,256 L 55,256 L 19,233
+           L 16,17 Q 16,10 31,10 Z"/&gt;
+&lt;/svg&gt;</pre>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="shape-card">
+                    <div class="shape-preview">
+                        <!-- viewBox expanded upward by ⌈296×tan 8°⌉ = 42 -->
+                        <svg viewBox="0 -42 296 312" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <g transform="skewY(-8)">
+                                <path fill="#070540" d="M 31,10 L 237,10 L 276,34 L 278,250 Q 278,256 270,256 L 55,256 L 19,233 L 16,17 Q 16,10 31,10 Z"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="shape-info">
+                        <p class="shape-name">Square −8°</p>
+                        <details class="shape-details">
+                            <summary>SVG code</summary>
+                            <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -42 296 312"&gt;
+  &lt;g transform="skewY(-8)"&gt;
+    &lt;path d="M 31,10 L 237,10 L 276,34 L 278,250
+             Q 278,256 270,256 L 55,256 L 19,233
+             L 16,17 Q 16,10 31,10 Z"/&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;</pre>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="shape-card">
+                    <div class="shape-preview">
+                        <svg viewBox="0 0 592 270" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="#070540" d="M 62,10 L 474,10 L 552,34 L 556,250 Q 556,256 540,256 L 110,256 L 38,233 L 32,17 Q 32,10 62,10 Z"/>
+                        </svg>
+                    </div>
+                    <div class="shape-info">
+                        <p class="shape-name">Wide Square</p>
+                        <details class="shape-details">
+                            <summary>SVG code</summary>
+                            <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 592 270"&gt;
+  &lt;path d="M 62,10 L 474,10 L 552,34 L 556,250
+           Q 556,256 540,256 L 110,256 L 38,233
+           L 32,17 Q 32,10 62,10 Z"/&gt;
+&lt;/svg&gt;</pre>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="shape-card">
+                    <div class="shape-preview">
+                        <!-- viewBox expanded upward by ⌈592×tan 8°⌉ = 84 -->
+                        <svg viewBox="0 -84 592 354" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <g transform="skewY(-8)">
+                                <path fill="#070540" d="M 62,10 L 474,10 L 552,34 L 556,250 Q 556,256 540,256 L 110,256 L 38,233 L 32,17 Q 32,10 62,10 Z"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="shape-info">
+                        <p class="shape-name">Wide Square −8°</p>
+                        <details class="shape-details">
+                            <summary>SVG code</summary>
+                            <pre>&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -84 592 354"&gt;
+  &lt;g transform="skewY(-8)"&gt;
+    &lt;path d="M 62,10 L 474,10 L 552,34 L 556,250
+             Q 556,256 540,256 L 110,256 L 38,233
+             L 32,17 Q 32,10 62,10 Z"/&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;</pre>
+                        </details>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -1318,6 +1586,53 @@
                     <canvas id="frame-canvas" class="frame-canvas"></canvas>
                 </div>
 
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ── CSS Variables ─────────────────────────────── -->
+    <section class="alt">
+        <div class="wrap">
+
+            <h2 class="section-title">CSS</h2>
+
+            <div class="css-block">
+                <div class="css-toolbar">
+                    <div class="css-toolbar-left">
+                        <div class="css-dots">
+                            <span style="background:#FF5F57;"></span>
+                            <span style="background:#FEBC2E;"></span>
+                            <span style="background:#28C840;"></span>
+                        </div>
+                        <span class="css-filename">brand.css</span>
+                    </div>
+                    <button class="css-copy-btn" onclick="copyCSS(this)">Copy</button>
+                </div>
+<pre class="css-code" id="css-vars"><span class="t-sel">:root</span> <span class="t-brace">{</span>
+
+  <span class="t-cmt">/* ── Colors ─────────────────────────────── */</span>
+  <span class="t-prop">--color-canvas</span><span class="t-p">:      </span><span class="t-sw" style="background:#EDF2F5;outline:1px solid rgba(255,255,255,0.2)"></span><span class="t-hex">#EDF2F5</span><span class="t-p">;</span>
+  <span class="t-prop">--color-knowledge</span><span class="t-p">:   </span><span class="t-sw" style="background:#070540;outline:1px solid rgba(255,255,255,0.2)"></span><span class="t-hex">#070540</span><span class="t-p">;</span>
+  <span class="t-prop">--color-passion</span><span class="t-p">:     </span><span class="t-sw" style="background:#FF3296"></span><span class="t-hex">#FF3296</span><span class="t-p">;</span>
+  <span class="t-prop">--color-inspiration</span><span class="t-p">: </span><span class="t-sw" style="background:#E9DEFF;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#E9DEFF</span><span class="t-p">;</span>
+  <span class="t-prop">--color-growth</span><span class="t-p">:      </span><span class="t-sw" style="background:#D2FACD;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#D2FACD</span><span class="t-p">;</span>
+  <span class="t-prop">--color-fame</span><span class="t-p">:        </span><span class="t-sw" style="background:#FF4600"></span><span class="t-hex">#FF4600</span><span class="t-p">;</span>
+
+  <span class="t-cmt">/* ── Typography ─────────────────────────── */</span>
+  <span class="t-prop">--font-family</span><span class="t-p">:         </span><span class="t-str">'Hanken Grotesk'</span><span class="t-p">, </span><span class="t-kw">sans-serif</span><span class="t-p">;</span>
+  <span class="t-prop">--font-weight-black</span><span class="t-p">:   </span><span class="t-num">900</span><span class="t-p">;</span> <span class="t-cmt">/* headlines */</span>
+  <span class="t-prop">--font-weight-regular</span><span class="t-p">: </span><span class="t-num">400</span><span class="t-p">;</span> <span class="t-cmt">/* body */</span>
+
+  <span class="t-cmt">/* ── Gradients ───────────────────────────── */</span>
+  <span class="t-prop">--gradient-canvas-inspiration</span><span class="t-p">:         </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#EDF2F5;outline:1px solid rgba(255,255,255,0.2)"></span><span class="t-hex">#EDF2F5</span><span class="t-p">, </span><span class="t-sw" style="background:#E9DEFF;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#E9DEFF</span><span class="t-p">);</span>
+  <span class="t-prop">--gradient-inspiration-growth</span><span class="t-p">:         </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#E9DEFF;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#E9DEFF</span><span class="t-p">, </span><span class="t-sw" style="background:#D2FACD;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#D2FACD</span><span class="t-p">);</span>
+  <span class="t-prop">--gradient-passion-knowledge</span><span class="t-p">:          </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#FF3296"></span><span class="t-hex">#FF3296</span><span class="t-p">, </span><span class="t-sw" style="background:#070540;outline:1px solid rgba(255,255,255,0.2)"></span><span class="t-hex">#070540</span><span class="t-p">);</span>
+  <span class="t-prop">--gradient-growth-inspiration-passion</span><span class="t-p">: </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#D2FACD;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#D2FACD</span><span class="t-p">, </span><span class="t-sw" style="background:#E9DEFF;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#E9DEFF</span><span class="t-p">, </span><span class="t-sw" style="background:#FF3296"></span><span class="t-hex">#FF3296</span><span class="t-p">);</span>
+  <span class="t-prop">--gradient-fame-growth</span><span class="t-p">:                </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#FF4600"></span><span class="t-hex">#FF4600</span><span class="t-p">, </span><span class="t-sw" style="background:#D2FACD;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#D2FACD</span><span class="t-p">);</span>
+  <span class="t-prop">--gradient-growth-passion-fame</span><span class="t-p">:        </span><span class="t-fn">linear-gradient</span><span class="t-p">(</span><span class="t-kw">to bottom</span><span class="t-p">, </span><span class="t-sw" style="background:#D2FACD;outline:1px solid rgba(255,255,255,0.15)"></span><span class="t-hex">#D2FACD</span><span class="t-p">, </span><span class="t-sw" style="background:#FF3296"></span><span class="t-hex">#FF3296</span><span class="t-p">, </span><span class="t-sw" style="background:#FF4600"></span><span class="t-hex">#FF4600</span><span class="t-p">);</span>
+
+<span class="t-brace">}</span></pre>
             </div>
         </div>
     </section>
