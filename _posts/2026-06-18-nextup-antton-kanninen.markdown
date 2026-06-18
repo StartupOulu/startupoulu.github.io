@@ -4,7 +4,7 @@ title: Miten opiskelijasta voi kasvaa digimarkkinointiyrittäjä?
 description: Mitä tapahtuu, kun opiskelija päättää lähteä rakentamaan omaa yritystään? Tässä blogissa Antton Kanniainen kertoo matkastaan digimarkkinoinnin opiskelijasta yrittäjäksi ja jakaa kokemuksiaan asiakasprojekteista, verkostoitumisesta sekä niistä oivalluksista, joita yrittäjyyden ensiaskeleet ovat matkan varrella tuoneet. Julkaistu 18.6.2026.
 blog_image: assets/images/blogs/2026-06-nextup-blogi.png
 ---
-**Tässä kuusiosaisessa blogisarjassa Oamkin digimarkkinoinnin opiskelija ja yrittäjä Antton Kannila kertoo kokemuksistaan yrittäjyydestä, liiketoiminnan kehittämisestä ja asiantuntijaksi kasvamisesta opintojen aikana. Sarjassa seurataan yrittäjyyden ensiaskeleita, matkan varrella kertyneitä oppeja sekä oivalluksia, joita syntyy tekemisen, kokeilemisen ja verkostoitumisen kautta.**
+**Tässä kuusiosaisessa blogisarjassa Oamkin digimarkkinoinnin opiskelija ja yrittäjä Antton Kanniainen kertoo kokemuksistaan yrittäjyydestä, liiketoiminnan kehittämisestä ja asiantuntijaksi kasvamisesta opintojen aikana. Sarjassa seurataan yrittäjyyden ensiaskeleita, matkan varrella kertyneitä oppeja sekä oivalluksia, joita syntyy tekemisen, kokeilemisen ja verkostoitumisen kautta.**
 
 ## Miten opiskelijasta voi kasvaa digimarkkinointiyrittäjä?
 
