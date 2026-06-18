@@ -12,7 +12,7 @@ Minua on opintojeni alusta alkaen kiinnostanut se, miten digitaalista osaamista 
 
 ## Paras oppitunti on ensimmäinen oikea projekti 
 
-Matkani yrittäjäksi alkoi melkein kaksi vuotta sitten. Osallistuin silloin Startup Oulun järjestämälle Founder’s Corner -kurssille. Kurssin aikana liiketoimintaideaa pääsi viemään eteenpäin osaavien mentoreiden tuella. Kurssi antoi minulle juuri sen sysäyksen, jonka tarvitsin alkuun päästäkseni.
+Matkani yrittäjäksi alkoi melkein kaksi vuotta sitten. Osallistuin silloin StartupOulun järjestämälle Founder’s Corner -kurssille. Kurssin aikana liiketoimintaideaa pääsi viemään eteenpäin osaavien mentoreiden tuella. Kurssi antoi minulle juuri sen sysäyksen, jonka tarvitsin alkuun päästäkseni.
 
 Opinnot luovat hyvän pohjan, mutta isoin kehitys on tullut käytännön tekemisestä. Ensimmäiset asiakasprojektit, kuten verkkosivut, hakukoneoptimointi ja sisällöntuotanto, ovat opettaneet minua valtavasti. Jokaisesta projektista on jäänyt konkreettisia oppeja käteen. Olen päässyt tekemään digimarkkinointia yli kymmenelle yritykselle ja useille eri toimialoille.
 
