@@ -23,7 +23,7 @@ email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
   Everything you need to know about Oulu startup ecosystem in one place: events, services and community!
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://www.startupoulu.com" # the base hostname & protocol for your site
 default_image: "/assets/images/startupoulu-preview.png"
 twitter_username: jekyllrb
 github_username:  jekyll
@@ -69,11 +69,8 @@ exclude:
   - Gemfile.lock
   - vendor/
 
-gems:
-  - jekyll-redirect-from
-whitelist:
-  - jekyll-redirect-from
 plugins:
   - jekyll-redirect-from
   - jekyll-feed
   - jekyll-sass-converter
+  - jekyll-sitemap
