@@ -2,7 +2,7 @@
 layout: blog
 title: Founder’s Corner -ohjelma on siivittänyt jo 40 startupin matkaa
 description: Oulun ammattikorkeakoulun luotsaama startup-ohjelma Founder’s Corner aloitti ensimmäisen pilottinsa syksyllä 2024. Kyseessä on käytännönläheinen työpajasarja, joka on suunnattu erityisesti yrittäjyyden alkuvaiheessa oleville opiskelijoille ja niille, jotka vasta pohtivat oman liikeideansa kehittämistä. Kesään 2026 mennessä ohjelmassa on syntynyt jo 40 startupia, joista viisi on rekisteröity yrityksiksi. Julkaistu 21.8.2026.
-blog_image: /assets/images/blogs/founders-corner.jpg
+blog_image: /assets/images/blogs/founders-corner.png
 ---
 *Blogi on julkaistu myös [Oamk Journalissa.](https://oamkjournal.oamk.fi/2026/oamkin-founders-corner-ohjelma-on-siivittanyt-jo-40-startupin-matkaa/)*
 
