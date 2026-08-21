@@ -64,13 +64,15 @@ jobs:
             done
 
             # Check layout value
-            layout_value=$(echo "$front_matter" | grep -E '^layout:' | sed 's/^layout:[[:space:]]*//')
+            layout_value=$(echo "$front_matter" | grep -E '^layout:' | sed 's/^layout:[[:space:]]*//' | sed "s/^[\"']//;s/[\"']\$//")
             if [ -n "$layout_value" ] && [ "$layout_value" != "event" ]; then
               echo "::warning file=$file::Layout is '$layout_value' but expected 'event'. Change to 'layout: event' unless you intentionally use a custom layout."
             fi
 
             # Validate start_time format and value
-            start_time_value=$(echo "$front_matter" | grep -E '^start_time:' | sed 's/^start_time:[[:space:]]*//')
+            # Strip optional surrounding quotes: YAML writers (e.g. Psych) quote
+            # timestamp-looking strings, and hand-editors may quote them too.
+            start_time_value=$(echo "$front_matter" | grep -E '^start_time:' | sed 's/^start_time:[[:space:]]*//' | sed "s/^[\"']//;s/[\"']\$//")
             if [ -n "$start_time_value" ]; then
               if ! echo "$start_time_value" | grep -qE '^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{1,2}:[0-9]{2}:[0-9]{2}$'; then
                 echo "::error file=$file::Invalid start_time format '$start_time_value'. Expected format: YYYY-MM-DD HH:MM:SS (e.g. 2026-04-22 18:00:00)."
@@ -82,7 +84,7 @@ jobs:
             fi
 
             # Validate end_time format and value
-            end_time_value=$(echo "$front_matter" | grep -E '^end_time:' | sed 's/^end_time:[[:space:]]*//')
+            end_time_value=$(echo "$front_matter" | grep -E '^end_time:' | sed 's/^end_time:[[:space:]]*//' | sed "s/^[\"']//;s/[\"']\$//")
             if [ -n "$end_time_value" ]; then
               if ! echo "$end_time_value" | grep -qE '^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2} [0-9]{1,2}:[0-9]{2}:[0-9]{2}$'; then
                 echo "::error file=$file::Invalid end_time format '$end_time_value'. Expected format: YYYY-MM-DD HH:MM:SS (e.g. 2026-04-22 20:00:00)."
@@ -104,7 +106,7 @@ jobs:
             fi
 
             # Check cover_image exists and follows naming conventions
-            cover_image=$(echo "$front_matter" | grep -E '^cover_image:' | sed 's/^cover_image:[[:space:]]*//')
+            cover_image=$(echo "$front_matter" | grep -E '^cover_image:' | sed 's/^cover_image:[[:space:]]*//' | sed "s/^[\"']//;s/[\"']\$//")
             if [ -n "$cover_image" ]; then
               if echo "$cover_image" | grep -qE '[A-Z]'; then
                 echo "::warning file=$file::Cover image '$cover_image' has uppercase letters. Filenames must be all lowercase (e.g. '$(echo "$cover_image" | tr '[:upper:]' '[:lower:]')').  Rename the image file and update cover_image to match."
@@ -178,13 +180,13 @@ jobs:
             done
 
             # Check layout value
-            layout_value=$(echo "$front_matter" | grep -E '^layout:' | sed 's/^layout:[[:space:]]*//')
+            layout_value=$(echo "$front_matter" | grep -E '^layout:' | sed 's/^layout:[[:space:]]*//' | sed "s/^[\"']//;s/[\"']\$//")
             if [ -n "$layout_value" ] && [ "$layout_value" != "blog" ]; then
               echo "::warning file=$file::Layout is '$layout_value' but expected 'blog'. Change to 'layout: blog' unless you intentionally use a custom layout."
             fi
 
             # Check blog_image exists and follows naming conventions
-            blog_image=$(echo "$front_matter" | grep -E '^blog_image:' | sed 's/^blog_image:[[:space:]]*//')
+            blog_image=$(echo "$front_matter" | grep -E '^blog_image:' | sed 's/^blog_image:[[:space:]]*//' | sed "s/^[\"']//;s/[\"']\$//")
             if [ -n "$blog_image" ]; then
               blog_image_basename=$(basename "$blog_image")
               if echo "$blog_image_basename" | grep -qE '[A-Z]'; then
