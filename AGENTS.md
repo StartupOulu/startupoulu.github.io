@@ -119,6 +119,7 @@ location: Venue Name, Address
 cover_image: event-image.jpg        # Filename only (path added automatically)
 cta_title: Register                 # Button text (optional)
 cta_link: https://example.com       # Button URL (optional)
+special: true                       # Major event: kiosk takeover screen (optional)
 excerpt: |                          # Short description, max 60 words (optional)
   Brief event description for cards and previews.
 description: |                      # Full event description (required)
@@ -132,6 +133,7 @@ Notes:
 - `start_time` and `end_time` must use the exact format `YYYY-MM-DD HH:MM:SS` (e.g., `2026-02-15 18:00:00`). Omitting the time component or using non-zero-padded months (e.g., `2026-4-22`) causes YAML to parse the value as an array instead of a date, which breaks sorting
 - Event images go in `assets/images/events/` (recommended: 960x540px, 16:9 ratio)
 - To hide an event without deleting the file, add `published: false` to the front matter
+- `special: true` marks a major event. On the lobby kiosk it replaces the normal event slide with a full-bleed takeover screen (hype / countdown / QR call-to-action) — see [kiosk/KIOSK.md](./kiosk/KIOSK.md). It has no effect on the website itself. Omit the field for ordinary events
 
 ### Blog Posts
 

@@ -271,3 +271,650 @@ hr {
   z-index: 0;
   line-height: 1;
 }
+
+
+/* ============================================================
+   SPECIAL TAKEOVER SCREEN
+   For events flagged `special: true`. Full-bleed, brand-coloured,
+   three acts sharing one persistent frame.
+
+   Brand palette (see /brand/):
+     Knowledge  #070540   Passion  #FF3296   Fame  #FF4600
+     Canvas     #EDF2F5   Growth   #D2FACD
+   ============================================================ */
+
+#screen-special {
+  background: #070540;
+  font-family: "Hanken Grotesk", Inter, Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+
+/* ---- PERSISTENT BACKDROP ---- */
+
+/* Cover image, full bleed. object-fit is unavailable on the TV,
+   so the image rides on background-size instead of an <img>. */
+#sp-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  /* Zoomed past the poster's edges: sponsor-logo strips and printed
+     dates live at the top and bottom of these images, and even at 10%
+     opacity they stay legible enough to look like a printing error.
+     Scaling up and centring keeps only the middle of the artwork. */
+  background-position: 50% 45%;
+  background-size: 175%;
+  /* Cover images are usually posters that already carry their own
+     headline, date and sponsor logos. At anything above ~0.1 those
+     ghost through and read as a printing error, so the image is kept
+     as a faint texture only -- the gradient and shapes carry the look. */
+  opacity: 0.10;
+}
+
+/* Navy veil. Keeps type legible over any cover image and makes the
+   screen unmistakably Knowledge navy. Falls back to the flat colour
+   if the gradient is unsupported. */
+#sp-veil {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #070540;
+  /* Passion pink bleeding into Knowledge navy -- the brand's own
+     passion-knowledge gradient, angled so the screen has a direction. */
+  background: linear-gradient(
+    150deg,
+    rgba(255, 50, 150, 0.30) 0%,
+    rgba(90, 20, 110, 0.72) 28%,
+    rgba(7, 5, 64, 0.95) 62%,
+    rgba(7, 5, 64, 0.99) 100%
+  );
+}
+
+
+/* ---- BRAND SHAPES + SWEEP ---- */
+
+/* Two big angled blocks. If transforms are unsupported they simply
+   render as flat bars, which still reads fine. */
+#sp-shape-a {
+  position: absolute;
+  bottom: -14vh;
+  left: -8vw;
+  width: 46vw;
+  height: 30vh;
+  background: #FF3296;
+  background: linear-gradient(90deg, #FF3296 0%, #FF4600 100%);
+  opacity: 0.9;
+  -webkit-transform: rotate(-8deg);
+  transform: rotate(-8deg);
+}
+
+/* Sits behind the top rail. Kept high and soft so it doesn't muddy the
+   pink kicker pill sitting on top of it. */
+#sp-shape-b {
+  position: absolute;
+  top: -20vh;
+  right: -10vw;
+  width: 40vw;
+  height: 26vh;
+  background: #FF4600;
+  background: linear-gradient(90deg, #FF4600 0%, #FF3296 100%);
+  opacity: 0.38;
+  -webkit-transform: rotate(-8deg);
+  transform: rotate(-8deg);
+}
+
+/* Drifting brand-colour orbs. Sits above the veil so the colour reads,
+   below the stage so it never fights the type. Soft edges come from a
+   radial-gradient rather than filter:blur -- blurring elements this
+   large would cripple the TV's compositor. */
+.sp-orb {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Diagonal light band, walked across the screen by kiosk.js. */
+#sp-sweep {
+  position: absolute;
+  top: -60vh;
+  left: -40vw;
+  width: 26vw;
+  height: 220vh;
+  background: linear-gradient(
+    90deg,
+    rgba(237, 242, 245, 0) 0%,
+    rgba(237, 242, 245, 0.06) 50%,
+    rgba(237, 242, 245, 0) 100%
+  );
+  -webkit-transform: rotate(18deg);
+  transform: rotate(18deg);
+}
+
+
+/* ---- TOP RAIL (persistent) ---- */
+
+#sp-rail {
+  position: absolute;
+  top: 3.5vh;
+  left: 4vw;
+  right: 4vw;
+  height: 12vh;
+  z-index: 2;
+}
+
+#sp-logo {
+  width: 9vw;
+  max-width: 170px;
+  vertical-align: middle;
+}
+
+/* Live countdown, present on every act so the "when" is always on screen no
+   matter which act a passer-by catches.
+
+   Segmented into one chip per unit rather than a single run of text: at a
+   glance "7D 21H 36MIN 04S" is sixteen characters of identical weight with
+   nothing for the eye to land on. Deliberately mirrors the act-1 countdown
+   cards -- same card shape, same solid-orange seconds chip -- so the two
+   countdowns read as one system. */
+#sp-rail-count {
+  float: right;
+  margin-top: 0.2vh;
+}
+
+/* One group per unit: two digit tiles plus a label. */
+.sp-fg {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  margin-left: 1.3vw;
+}
+
+/* A split-flap tile. The hinge line across the middle is what sells it as
+   a mechanical flap rather than a box with a number in it. */
+.sp-flap {
+  display: inline-block;
+  position: relative;
+  width: 4.3vw;
+  height: 7.4vh;
+  margin: 0 0.2vw;
+  background: #0C0930;
+  border: 1px solid rgba(237, 242, 245, 0.18);
+  border-radius: 0.7vh;
+  overflow: hidden;
+}
+
+.sp-flap:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background: rgba(7, 5, 64, 0.95);
+  box-shadow: 0 1px 0 rgba(237, 242, 245, 0.10);
+}
+
+.sp-flap-num {
+  display: block;
+  /* kiosk.js squashes this vertically to fake the flap */
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  font-size: 5.4vh;
+  line-height: 7.2vh;
+  font-weight: 900;
+  color: #EDF2F5;
+  text-align: center;
+}
+
+.sp-fg-label {
+  display: block;
+  margin-top: 0.7vh;
+  font-size: 1.35vh;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #EDF2F5;
+  opacity: 0.55;
+}
+
+/* Single pill used for the LIVE and already-started states, where there is
+   no longer a countdown to segment. */
+#sp-rc-text {
+  display: none;
+  background: #D2FACD;
+  color: #070540;
+  padding: 1.6vh 2.4vw;
+  border-radius: 999px;
+  font-size: 2.8vh;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow: 0 0 0 0.5vh rgba(7, 5, 64, 0.55);
+}
+
+#sp-rail-count.is-live #sp-rc-cells,
+#sp-rail-count.is-over #sp-rc-cells {
+  display: none;
+}
+
+#sp-rail-count.is-live #sp-rc-text,
+#sp-rail-count.is-over #sp-rc-text {
+  display: inline-block;
+}
+
+#sp-rail-count.is-live #sp-rc-text {
+  animation: sp-kicker-pulse 1.4s ease-in-out infinite;
+}
+
+#sp-rail-count.is-over #sp-rc-text {
+  background: #FF3296;
+  color: #EDF2F5;
+}
+
+@keyframes sp-kicker-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.72; }
+}
+
+
+/* ---- STAGE ---- */
+
+#sp-stage {
+  position: absolute;
+  top: 19vh;
+  left: 4vw;
+  right: 4vw;
+  bottom: 13vh;
+  z-index: 2;
+}
+
+.sp-act {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Vertical centring without flexbox: a single-cell table. */
+#sp-act-hype,
+#sp-act-count {
+  table-layout: fixed;
+}
+
+.sp-vcell {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ---- ACT 0: HYPE ---- */
+
+/* position:relative so the entry animation can drive `top` */
+#sp-hype-body {
+  position: relative;
+  top: 0;
+  opacity: 1;
+}
+
+#sp-hype-title {
+  font-size: 11vh;
+  line-height: 0.98;
+  font-weight: 900;
+  /* Per-character colour is set inline by the twinkle in kiosk.js;
+     this is the colour before the first tick lands. */
+  color: #EDF2F5;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  max-height: 44vh;
+  overflow: hidden;
+  text-shadow: 0 0.6vh 3vh rgba(7, 5, 64, 0.55);
+}
+
+/* Keeps a word's character spans on one line -- without this the browser
+   may break a line between any two spans and split a word in half. */
+.sp-word {
+  white-space: nowrap;
+}
+
+#sp-hype-rule {
+  width: 100%;
+  height: 1.4vh;
+  background: #FF4600;
+  background: linear-gradient(90deg, #FF4600 0%, #FF3296 60%, #D2FACD 100%);
+  border-radius: 999px;
+  margin: 3.4vh 0;
+}
+
+#sp-hype-meta {
+  font-size: 3vh;
+  font-weight: 700;
+  line-height: 1.45;
+  color: #EDF2F5;
+  opacity: 0.95;
+}
+
+#sp-hype-location {
+  opacity: 0.75;
+}
+
+
+/* ---- ACT 1: COUNTDOWN ---- */
+
+#sp-count-label {
+  display: inline-block;
+  font-size: 2.2vh;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: #D2FACD;
+  margin-bottom: 2.4vh;
+}
+
+#sp-count-cells {
+  margin-bottom: 4vh;
+  white-space: nowrap;
+}
+
+/* inline-block, not flex: CSS 2.1 only on this hardware */
+.sp-cell {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 2vw;
+  text-align: center;
+  background: rgba(237, 242, 245, 0.07);
+  border: 1px solid rgba(237, 242, 245, 0.16);
+  border-radius: 2vh;
+  padding: 2.2vh 2.4vw 1.8vh;
+  min-width: 15vw;
+}
+
+.sp-num {
+  font-size: 14vh;
+  line-height: 1;
+  font-weight: 900;
+  color: #EDF2F5;
+  letter-spacing: -0.03em;
+}
+
+.sp-unit {
+  font-size: 1.8vh;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: #EDF2F5;
+  opacity: 0.65;
+  margin-top: 0.8vh;
+}
+
+/* The seconds cell is the one thing that visibly breathes. */
+/* The live-ticking cell is a solid orange chip -- the one element on
+   the screen that is unmistakably counting down right now. */
+.sp-cell-sec {
+  background: #FF4600;
+  border-color: #FF4600;
+  animation: sp-sec-pulse 1s ease-in-out infinite;
+}
+
+.sp-cell-sec .sp-num {
+  color: #070540;
+}
+
+.sp-cell-sec .sp-unit {
+  color: #070540;
+  opacity: 0.75;
+}
+
+@keyframes sp-sec-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.78; }
+}
+
+#sp-count-title {
+  font-size: 3.5vh;
+  font-weight: 900;
+  color: #EDF2F5;
+  line-height: 1.15;
+  max-height: 8vh;
+  overflow: hidden;
+  margin-bottom: 1.2vh;
+}
+
+#sp-count-meta {
+  font-size: 2.4vh;
+  color: #EDF2F5;
+  opacity: 0.8;
+}
+
+/* LIVE state replaces the whole countdown body */
+#sp-count-live {
+  display: none;
+  font-size: 11vh;
+  font-weight: 900;
+  line-height: 1.05;
+  color: #FF3296;
+  letter-spacing: -0.02em;
+}
+
+#sp-act-count.is-live #sp-count-live {
+  display: block;
+  animation: sp-live-pulse 1.2s ease-in-out infinite;
+}
+
+/* Opacity only. The events-screen `live-pulse` also expands a box-shadow
+   ring, which is right for a small pill but draws a stray rectangle
+   around a full-width block like this one. */
+@keyframes sp-live-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.62; }
+}
+
+#sp-act-count.is-live #sp-count-body {
+  display: none;
+}
+
+
+/* ---- ACT 2: CALL TO ACTION ---- */
+
+#sp-cta-inner {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+#sp-cta-text {
+  display: table-cell;
+  width: 55%;
+  vertical-align: middle;
+  padding-right: 3vw;
+}
+
+#sp-cta-title {
+  font-size: 8.5vh;
+  line-height: 1.03;
+  font-weight: 900;
+  color: #EDF2F5;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  margin-bottom: 3vh;
+  max-height: 26vh;
+  overflow: hidden;
+  text-shadow: 0 0.6vh 3vh rgba(7, 5, 64, 0.55);
+}
+
+#sp-cta-hint {
+  display: inline-block;
+  background: #D2FACD;
+  color: #070540;
+  padding: 1.4vh 2.2vw;
+  border-radius: 999px;
+  font-size: 2.4vh;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  margin-bottom: 3vh;
+  animation: sp-kicker-pulse 2.4s ease-in-out infinite;
+}
+
+#sp-cta-meta {
+  font-size: 2.4vh;
+  color: #EDF2F5;
+  opacity: 0.8;
+  line-height: 1.5;
+  white-space: pre-line;  /* date and location on separate lines */
+}
+
+#sp-cta-qrcell {
+  display: table-cell;
+  width: 45%;
+  vertical-align: middle;
+  text-align: center;
+}
+
+/* Big enough to scan from across the lobby. */
+/* White card on a Growth-green offset block, so the QR reads as a
+   deliberate target rather than a floating image. */
+#sp-cta-qrcell {
+  position: relative;
+}
+
+#sp-qr {
+  width: 42vh;
+  height: 42vh;
+  background: #ffffff;
+  padding: 2vh;
+  border-radius: 2vh;
+  position: relative;
+  z-index: 1;
+  box-shadow: 1.4vh 1.4vh 0 0 #D2FACD;
+}
+
+
+/* ---- ACT WIPE ---- */
+
+/* Wider than the screen and skewed, so the skewed edges still cover the
+   corners at the start of the sweep. Driven from kiosk.js. */
+#sp-wipe {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: -15%;
+  width: 130%;
+  height: 100vh;
+  z-index: 5;
+  background: #FF3296;
+  background: linear-gradient(100deg, #FF3296 0%, #FF4600 55%, #FF3296 100%);
+  -webkit-transform: skewX(-10deg);
+  transform: skewX(-10deg);
+}
+
+
+/* ---- ROCKET (rides the wipe) ---- */
+
+/* Zero-size anchor; kiosk.js drives its left/top and the children hang
+   off it. Above the wipe panel so the ship reads against the colour. */
+/* z-index 1 puts the ride *behind* the act content (the stage is 2), so a
+   crossing never obscures the headline. */
+#sp-rocket {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 1;
+}
+
+/* No rotation needed: the emoji already points up and to the right, and
+   the flight path climbs up and to the right, so the two agree. */
+/* No rotation for the rocket: the emoji already points up and to the
+   right, matching the flight path. */
+/* NOTE: kiosk.js derives the exhaust spawn point from this size via
+   SHIP_VH -- change both together or the plume detaches from the tail. */
+#sp-rocket-ship {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 30vh;
+  line-height: 1;
+}
+
+/* Whether the ride needs mirroring depends on BOTH which emoji it is and
+   which way it is travelling -- 🚀 points right by default, 🦄 points left --
+   so kiosk.js works out the combination and just sets this class. */
+#sp-rocket-ship.is-flipped {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+/* Exhaust plume, trailing back to the left of the ship. */
+/* Rainbow exhaust. Particles are a recycled pool of divs -- creating and
+   destroying elements every frame is the expensive part on this hardware,
+   so nothing is added to the DOM after the first wipe. */
+#sp-fumes {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+}
+
+.sp-fume {
+  position: absolute;
+  border-radius: 50%;
+}
+
+#sp-moon {
+  display: none;
+  position: absolute;
+  top: 15vh;
+  right: 7vw;
+  font-size: 16vh;
+  line-height: 1;
+  z-index: 1;
+}
+
+
+/* ---- BOTTOM TICKER (persistent, always moving) ---- */
+
+#sp-ticker {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 9vh;
+  overflow: hidden;
+  white-space: nowrap;
+  z-index: 3;
+  /* Brand growth-passion-fame gradient, run horizontally to suit a wide
+     band (the brand sheet defines its gradients top-to-bottom). Navy text
+     holds up across all three stops. */
+  background: #FF4600;
+  background: linear-gradient(90deg, #D2FACD 0%, #FF3296 48%, #FF4600 100%);
+  padding-top: 2.2vh;
+}
+
+/* Absolutely positioned and moved by setInterval in kiosk.js,
+   the same way the welcome-screen scroller works. */
+#sp-ticker-track {
+  position: absolute;
+  top: 2.2vh;
+  left: 0;
+  font-size: 3.4vh;
+  font-weight: 900;
+  color: #070540;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  white-space: pre;
+}
