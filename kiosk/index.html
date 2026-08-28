@@ -8,6 +8,7 @@ layout: null
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kioski</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700;900&display=swap" />
   <meta http-equiv="Refresh" content="600" /> <!-- force browser refresh every 10 minutes -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="b612b215-f6db-487c-92d6-afb99c98bfbf" data-auto-track="false"></script>
 </head>
@@ -64,6 +65,124 @@ layout: null
         alt="QR code to StartupOulu events"
         class="qr-code"
       />
+    </div>
+
+  </div>
+
+  <!-- ============================================================
+       SPECIAL TAKEOVER SCREEN
+       Shown for events flagged `special: true` in their front matter.
+       One DOM, three "acts" (hype / countdown / CTA) swapped by JS.
+       The background, top rail and bottom ticker persist across all
+       three so the acts read as one continuous statement.
+       ============================================================ -->
+  <div id="screen-special" class="screen" style="display:none">
+
+    <div id="sp-bg"></div>
+    <div id="sp-veil"></div>
+
+    <!-- Brand graphic shapes: big angled colour blocks that give the
+         screen an identity you can read from across the room. -->
+    <div id="sp-shape-a"></div>
+    <div id="sp-shape-b"></div>
+
+    <!-- Slow diagonal light sweep. Peripheral motion is what actually
+         makes someone walking past turn their head. -->
+    <div id="sp-sweep"></div>
+
+    <!-- TOP RAIL (persistent) -->
+    <div id="sp-rail">
+      <img
+        src="https://www.startupoulu.com/assets/images/logos/startupoulu-stacked.svg"
+        id="sp-logo"
+        alt="StartupOulu logo"
+      />
+      <div id="sp-rail-count">
+        <span id="sp-rc-cells">
+          <span class="sp-fg">
+            <span class="sp-flap" id="sp-f-d0"><span class="sp-flap-num">0</span></span><span class="sp-flap" id="sp-f-d1"><span class="sp-flap-num">7</span></span>
+            <span class="sp-fg-label">päivää · days</span>
+          </span>
+          <span class="sp-fg">
+            <span class="sp-flap" id="sp-f-h0"><span class="sp-flap-num">2</span></span><span class="sp-flap" id="sp-f-h1"><span class="sp-flap-num">0</span></span>
+            <span class="sp-fg-label">tuntia · hours</span>
+          </span>
+          <span class="sp-fg">
+            <span class="sp-flap" id="sp-f-m0"><span class="sp-flap-num">3</span></span><span class="sp-flap" id="sp-f-m1"><span class="sp-flap-num">8</span></span>
+            <span class="sp-fg-label">min</span>
+          </span>
+        </span>
+        <span id="sp-rc-text"></span>
+      </div>
+    </div>
+
+    <!-- STAGE: exactly one act visible at a time -->
+    <div id="sp-stage">
+
+      <!-- ACT 0 - HYPE -->
+      <div id="sp-act-hype" class="sp-act">
+       <div class="sp-vcell">
+        <div id="sp-hype-body" class="sp-anim">
+          <h1 id="sp-hype-title">Event title</h1>
+          <div id="sp-hype-rule"></div>
+          <div id="sp-hype-meta">
+            <div id="sp-hype-date"></div>
+            <div id="sp-hype-location"></div>
+          </div>
+        </div>
+       </div>
+      </div>
+
+      <!-- ACT 1 - COUNTDOWN -->
+      <div id="sp-act-count" class="sp-act">
+       <div class="sp-vcell">
+        <div id="sp-count-live">NYT MENOSSA · LIVE NOW</div>
+        <div id="sp-count-body" class="sp-anim">
+          <div id="sp-count-label">Alkaa · Starts in</div>
+          <div id="sp-count-cells">
+            <div class="sp-cell"><div class="sp-num" id="sp-d">0</div><div class="sp-unit">päivää · days</div></div>
+            <div class="sp-cell"><div class="sp-num" id="sp-h">0</div><div class="sp-unit">tuntia · hours</div></div>
+            <div class="sp-cell"><div class="sp-num" id="sp-m">0</div><div class="sp-unit">min</div></div>
+            <div class="sp-cell sp-cell-sec"><div class="sp-num" id="sp-s">0</div><div class="sp-unit">sek · sec</div></div>
+          </div>
+          <h2 id="sp-count-title">Event title</h2>
+          <div id="sp-count-meta"></div>
+        </div>
+       </div>
+      </div>
+
+      <!-- ACT 2 - CALL TO ACTION -->
+      <div id="sp-act-cta" class="sp-act">
+        <div id="sp-cta-inner" class="sp-anim">
+          <div id="sp-cta-text">
+            <h2 id="sp-cta-title">Sign up here</h2>
+            <div id="sp-cta-hint">Skannaa · Scan</div>
+            <div id="sp-cta-meta"></div>
+          </div>
+          <div id="sp-cta-qrcell">
+            <img id="sp-qr" alt="QR code to sign up" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ACT WIPE: covers the screen for a beat at the start of every act,
+         then whips away to reveal it. The onset of motion is what a
+         passer-by actually notices; ambient shimmer they tune out. -->
+    <div id="sp-wipe"></div>
+
+    <!-- Rides the leading edge of the wipe: the rocket appears to clear the
+         screen as it climbs away. The moon only shows on the CTA act. -->
+    <div id="sp-fumes"></div>
+    <div id="sp-rocket">
+      <span id="sp-rocket-ship">🚀</span>
+    </div>
+    <div id="sp-moon">🌙</div>
+
+    <!-- BOTTOM TICKER (persistent, always moving) -->
+    <div id="sp-ticker">
+      <div id="sp-ticker-track"></div>
     </div>
 
   </div>
