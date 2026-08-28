@@ -461,7 +461,7 @@ var FLIGHT_FRAMES_VAR = 26;
 var FLIGHT_GAP_MIN_MS = 3000;
 var FLIGHT_GAP_MAX_MS = 5000;
 var FLIGHT_FIRST_MS = 900;     // after the screen appears
-var SHIP_VH = 0.30;            // must match #sp-rocket-ship font-size
+var SHIP_VH = 0.30;            // must match #sp-ride-img width/height
 var FLIGHT_OFF_LEFT = -18;     // % -- fully clear of the left edge
 var FLIGHT_OFF_RIGHT = 118;    // % -- fully clear of the right edge
 

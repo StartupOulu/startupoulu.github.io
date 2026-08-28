@@ -5,6 +5,7 @@ The `kiosk/` directory contains a standalone page for Samsung SmartTVs that rota
 ## Files
 
 - `kiosk/index.html` – HTML structure (Jekyll front matter `layout: null`)
+- `kiosk/KIOSK.md` – this document
 - `kiosk/rocket.svg`, `kiosk/unicorn.svg`, `kiosk/moon.svg` – special-screen artwork (square viewBox; rocket faces right, unicorn faces left)
 - `kiosk/style.css` – Styles using `display: table` / `table-cell` layout for the event screen
 - `kiosk/kiosk.js` – Screen rotation system, event display, sine scroller animation
@@ -55,7 +56,14 @@ Each screen shows for 15 seconds (`SCREEN_DURATION_MS`). The welcome screen appe
 
 ### Current screens
 
-**Welcome screen** (`#screen-welcome`): Displays the StartupOulu logo with a demoscene-style sine-wave text scroller. The text scrolls right-to-left with each character's Y-coordinate animated via `Math.sin()`. Animation starts on activate, cleans up on deactivate.
+**Welcome screen** (`#screen-welcome`): Displays the StartupOulu logo with a
+demoscene-style sine-wave text scroller. The text scrolls right-to-left with each
+character's Y-coordinate animated via `Math.sin()`. A few 🦄 emoji drift across
+behind it. Animation starts on activate, cleans up on deactivate.
+
+These unicorns are genuine emoji and render correctly on the TV — this screen
+inherits the plain `body` font stack. Do **not** "fix" them into SVGs by analogy
+with the special screen; see the emoji note under Technical Constraints.
 
 **Events screen** (`#screen-events`): Two-pane layout showing event details (title, date, location, description, countdown) on the left and the event cover image with a QR code on the right.
 
@@ -91,12 +99,9 @@ Persistent across every act:
   `rocket.svg` points right and `unicorn.svg` points left, so exactly one of (is-unicorn, going-left)
   needs mirroring — `flightShipEl.className = (isUnicorn !== flightGoingLeft) ?
   'is-flipped' : ''`. The exhaust reverses to match (`backSign`), and the tail is
-  read off the trailing side of the glyph box (`tailFrac`). It trails a plume of rainbow
-  particles in the welcome screen's `RAINBOW` palette. A 🌙 shows in the corner
-  during crossings on the CTA act only.
-  The rocket emoji already points up-and-right so it needs no rotation; the
-  unicorn faces left and is mirrored with `scaleX(-1)` to face its direction of
-  travel.
+  read off the trailing side of the ride's box (`tailFrac`). It trails a plume of rainbow
+  particles in the welcome screen's `RAINBOW` palette. A crescent moon
+  (`moon.svg`) shows in the corner during crossings on the CTA act only.
   Particles come from a **fixed recycled pool of 46 divs** (`ensureFumePool`) —
   creating and destroying elements every frame is the expensive part on this
   hardware, so nothing is added to the DOM after the first crossing. When the
@@ -145,11 +150,16 @@ The ride flies **behind** the act content: `#sp-rocket` and `#sp-fumes` sit at
 `z-index: 1`, below the stage at `2`, so a crossing never obscures the headline.
 Raising them above `2` would put the ride in front.
 
-The emoji is 30vh. Its size is declared twice — `font-size` on
-`#sp-rocket-ship` in the stylesheet and `SHIP_VH` in `kiosk.js`, which is where
-the exhaust spawn point is derived from. **Change both together**, or the plume
+The ride is 30vh. Its size is declared twice — `width`/`height` on
+`#sp-ride-img` in the stylesheet and `SHIP_VH` in `kiosk.js`, which is where the
+exhaust spawn point is derived from. **Change both together**, or the plume
 detaches from the tail. The flight path is also tuned to that height: a 30vh
 ride on a steeper path would dip into the ticker band along the bottom.
+
+Both dimensions are always stated explicitly. The artwork is square and
+viewBox-only, and a legacy engine that cannot infer an SVG's intrinsic ratio will
+size it from its container instead — which is how a stale-CSS deploy once put a
+screen-filling logo over everything.
 
 Prefer giving the flyby more presence over adding ambient motion — ambient motion
 habituates, onset does not. Whatever is added, keep it off large gradient-filled
@@ -201,7 +211,8 @@ special: true
 ## Analytics
 
 - Uses the same Umami website ID as the main site but with `data-auto-track="false"` to avoid inflating pageview stats
-- Tracks a custom `kiosk-heartbeat` event on each page load (every 30 min auto-refresh)
+- Tracks a custom `kiosk-heartbeat` event on each page load. `index.html` carries
+  `<meta http-equiv="Refresh" content="600">`, so that is once every 10 minutes
 - Each screen is identified via URL parameter: `/kiosk/?s=lobby`
 - If `?s=` is not set, no analytics are tracked (useful for local testing)
 
@@ -209,9 +220,13 @@ special: true
 
 1. `bundle exec jekyll serve` → open `/kiosk/`
 2. Welcome screen appears first with sine-scrolling text
-3. After 15s, transitions to first event
-4. Events rotate, then back to welcome
+3. After 15s it advances. With no special event that is the first event slide;
+   with one, it is the takeover, which then takes every other slot
+4. The cycle ends on the last slot and wraps back to welcome
 5. Test at 1280×720 and 1920×1080
+
+The full rotation is long. To check one screen, pin it with `?only=` rather than
+waiting the cycle out.
 
 ### Pinning a single screen
 
