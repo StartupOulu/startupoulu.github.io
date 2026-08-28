@@ -405,11 +405,18 @@ hr {
   right: 4vw;
   height: 12vh;
   z-index: 2;
+  /* The rail paints above the acts (z-index 2), so anything that overflows
+     it covers the screen. Clip rather than trust the contents to behave. */
+  overflow: hidden;
 }
 
+/* The logo SVG is viewBox-only with no intrinsic width/height, so an engine
+   that can't infer its ratio will size it from the container. max-height
+   keeps it inside the rail even if the width rules don't take. */
 #sp-logo {
   width: 9vw;
   max-width: 170px;
+  max-height: 11vh;
   vertical-align: middle;
 }
 

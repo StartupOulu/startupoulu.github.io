@@ -7,7 +7,7 @@ layout: null
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kioski</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v={{ site.github.build_revision | default: site.time | date: '%s' }}" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700;900&display=swap" />
   <meta http-equiv="Refresh" content="600" /> <!-- force browser refresh every 10 minutes -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="b612b215-f6db-487c-92d6-afb99c98bfbf" data-auto-track="false"></script>
@@ -22,6 +22,8 @@ layout: null
         src="https://www.startupoulu.com/assets/images/logos/startupoulu-stacked.svg"
         id="startup-logo"
         alt="StartupOulu logo"
+        width="220"
+        height="159"
       />
 
       <h2 id="coming-events">Upcoming events (next 30 days)</h2>
@@ -96,6 +98,8 @@ layout: null
         src="https://www.startupoulu.com/assets/images/logos/startupoulu-stacked.svg"
         id="sp-logo"
         alt="StartupOulu logo"
+        width="170"
+        height="123"
       />
       <div id="sp-rail-count">
         <span id="sp-rc-cells">
@@ -192,6 +196,8 @@ layout: null
       src="https://www.startupoulu.com/assets/images/logos/startupoulu-stacked.svg"
       class="welcome-logo"
       alt="StartupOulu logo"
+      width="440"
+      height="318"
     />
     <div id="sine-scroller"></div>
   </div>

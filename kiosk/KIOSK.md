@@ -178,6 +178,12 @@ special: true
 - Animation is done via JS `setInterval` + `element.style` updates. CSS `@keyframes` are used only for the small state pulses (`live-pulse`, `sp-live-pulse`, `sp-sec-pulse`, `sp-kicker-pulse`). The special
   screen also uses `transform: rotate()` (prefixed) for its angled blocks; if a
   display ignores it they render as flat bars, which still reads fine
+- **Cache-bust every asset** – `index.html` appends `?v=<build revision>` to both
+  `style.css` and `kiosk.js`. The TV caches aggressively and does not reload on its
+  own; if only one of the two is versioned, a deploy lands new JS against old CSS
+  and screens render unstyled
+- Logo `<img>` tags carry explicit `width`/`height` attributes. The logo SVG is
+  viewBox-only, so without them a legacy engine sizes it from its container
 - No responsive breakpoints – layout is always landscape
 
 ## Analytics
