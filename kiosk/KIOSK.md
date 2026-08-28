@@ -81,19 +81,14 @@ Persistent across every act:
   turn the board back into ambient motion. Once there is nothing left to count
   down the board gives way to a single pill: green `NYT MENOSSA · LIVE NOW`
   while running, pink with the date once finished
-- **The act wipe** — a skewed brand-gradient panel covers the screen at the start
-  of every act, then whips away to reveal it. This is the screen's main
-  attention device: continuous motion gets tuned out within seconds, but the
-  onset of a fast change is caught in peripheral vision, and firing once per act
-  keeps it from becoming wallpaper
-- **The flyby** — a 🚀 or a 🦄 crosses the screen on its own schedule: once
+- **The flyby** — a rocket or a unicorn crosses the screen on its own schedule: once
   ~0.9s after the screen appears, then every 3–5s (randomised), so several
-  crossings per act. The ride **alternates every crossing** (`wipeCount % 2`,
+  crossings per act. The ride **alternates every crossing** (`rideCount % 2`,
   `RIDES`), flies **left-to-right or right-to-left at random**, climbs as it
   goes, and takes a slightly different path each time so repeat crossings don't
   trace the same line.
-  Orientation is worked out from the combination of ride and direction: 🚀 points
-  right by default and 🦄 points left, so exactly one of (is-unicorn, going-left)
+  Orientation is worked out from the combination of ride and direction:
+  `rocket.svg` points right and `unicorn.svg` points left, so exactly one of (is-unicorn, going-left)
   needs mirroring — `flightShipEl.className = (isUnicorn !== flightGoingLeft) ?
   'is-flipped' : ''`. The exhaust reverses to match (`backSign`), and the tail is
   read off the trailing side of the glyph box (`tailFrac`). It trails a plume of rainbow
@@ -126,20 +121,21 @@ One DOM, three acts swapped by JS, each opening with a short entry animation:
 
 Timers used: `specialCountdownTimer` (act 1), `specialRailTimer` (rail pill),
 `specialTickerTimer`, `specialBgTimer` (flyby, exhaust, flaps), `specialTwinkleTimer`
-(headline), `specialWipeTimer` (act wipe), `specialEntryTimer`. All are cleared in
-`deactivateSpecial`, which runs on every screen transition — which also force-hides
-the wipe panel, so a transition mid-wipe can never leave it stuck over the screen.
+(headline), `specialEntryTimer`. All are cleared in `deactivateSpecial`, which runs
+on every screen transition — which also force-hides the ride, moon and exhaust, so a
+transition mid-flyby can never leave them stranded on screen.
 
 ### Tuning the motion
 
-The screen is deliberately calm between wipes; earlier revisions had five
-continuous effects competing and the headline twinkle read as constant flashing.
-If it needs rebalancing, these are the knobs (all in `kiosk.js`):
+The screen is deliberately calm. Earlier revisions had five continuous effects
+competing, and everything that repainted a large area every frame — the drifting
+orbs, the gradient light sweep, the full-screen act wipe — has since been removed
+because the TV could not keep up. If it needs rebalancing, these are the knobs
+(all in `kiosk.js`):
 
 | Constant | Now | Effect |
 |---|---|---|
 | `TWINKLE_PER_TICK` / `TWINKLE_LIFE` / `TWINKLE_FPS` | 1 / 4 / 240 | How many headline letters are lit at once (~7%) |
-| `WIPE_STEPS` | 19 | Act wipe duration (~630 ms) |
 | `FLIGHT_GAP_MIN_MS` / `FLIGHT_GAP_MAX_MS` | 3000 / 5000 | Gap between flybys |
 | `FLAP_HALF` | 4 | Frames per half-flip on the countdown board (~265 ms total) |
 | `FLIGHT_FRAMES_MIN` / `FLIGHT_FRAMES_VAR` | 56 / 26 | Crossing duration (~1.8–2.7 s) |
@@ -155,8 +151,9 @@ the exhaust spawn point is derived from. **Change both together**, or the plume
 detaches from the tail. The flight path is also tuned to that height: a 30vh
 ride on a steeper path would dip into the ticker band along the bottom.
 
-Prefer adding weight to the wipe over adding more ambient motion — ambient
-motion habituates, onset does not.
+Prefer giving the flyby more presence over adding ambient motion — ambient motion
+habituates, onset does not. Whatever is added, keep it off large gradient-filled
+layers: those are what made this screen unusable on the TV.
 
 This screen uses the brand palette (Knowledge `#070540`, Passion `#FF3296`,
 Fame `#FF4600`, Canvas `#EDF2F5`) and Hanken Grotesk. The webfont is loaded

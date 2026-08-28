@@ -253,7 +253,6 @@ var specialEntryTimer = null;
 var specialRailTimer = null;
 var specialBgTimer = null;
 var specialTwinkleTimer = null;
-var specialWipeTimer = null;
 
 var TICKER_SPEED = 2;    // px per frame
 var TICKER_FPS = 33;     // ~30fps, matches the welcome scroller
@@ -315,12 +314,6 @@ function deactivateSpecial() {
     clearInterval(specialTwinkleTimer);
     specialTwinkleTimer = null;
   }
-  if (specialWipeTimer) {
-    clearInterval(specialWipeTimer);
-    specialWipeTimer = null;
-  }
-  var wipeEl = document.getElementById('sp-wipe');
-  if (wipeEl) wipeEl.style.display = 'none';
   var rocketEl = document.getElementById('sp-rocket');
   if (rocketEl) rocketEl.style.display = 'none';
   var moonEl = document.getElementById('sp-moon');
@@ -372,35 +365,15 @@ function showSpecial(e, act) {
   startSpecialBackdrop();
   startRailCountdown(e);
   currentSpecialAct = act;
-  startActWipe();
 }
 
-/*
- * The act wipe. A skewed brand-gradient panel starts covering the whole
- * screen, holds for a beat, then accelerates off to the right revealing
- * the new act.
- *
- * This is the screen's main attention device. Continuous motion gets
- * tuned out within seconds, but the onset of a fast change is caught
- * even in peripheral vision -- and because it fires once per act rather
- * than perpetually, it never becomes wallpaper.
- */
-var WIPE_STEPS = 19;   // ~630ms at TICKER_FPS -- long enough to read the rocket
-var WIPE_FROM = -15;   // % -- matches the CSS resting position
-var WIPE_TO = 135;     // % -- fully clear of the right edge
-
-// The rocket sits just behind the wipe's leading edge and climbs as it
-// crosses, so it reads as clearing the screen rather than sliding over it.
-var ROCKET_LAG = 6;    // % behind the panel edge
-var ROCKET_TOP_FROM = 62;  // vh
-var ROCKET_TOP_TO = 24;    // vh
-
-// The ride alternates every wipe. A unicorn trailing rainbows is the
+// The ride alternates every crossing. A unicorn trailing rainbows is the
 // better joke; the rocket keeps it from becoming one-note.
-// These are SVG files, not emoji: the TV's system fonts have no emoji
-// glyphs, so a text glyph renders as nothing at all.
+// These are SVG files, not emoji: #screen-special leads its font stack with
+// a webfont and the TV will not fall back to a system emoji font from there,
+// so an emoji glyph renders as nothing at all.
 var RIDES = ['rocket.svg', 'unicorn.svg'];
-var wipeCount = 0;
+var rideCount = 0;
 
 /* ---- RAINBOW EXHAUST ---- */
 
@@ -477,41 +450,11 @@ function resetFumes() {
   }
 }
 
-function startActWipe() {
-  var el = document.getElementById('sp-wipe');
-  if (!el) return;
-
-  if (specialWipeTimer) {
-    clearInterval(specialWipeTimer);
-    specialWipeTimer = null;
-  }
-
-  var step = 0;
-  el.style.left = WIPE_FROM + '%';
-  el.style.display = 'block';
-
-  specialWipeTimer = setInterval(function () {
-    step++;
-    var t = step / WIPE_STEPS;
-    if (t >= 1) {
-      el.style.display = 'none';
-      clearInterval(specialWipeTimer);
-      specialWipeTimer = null;
-      return;
-    }
-    // Ease-in: holds over the content briefly, then whips away.
-    var eased = t * t;
-    el.style.left = (WIPE_FROM + (WIPE_TO - WIPE_FROM) * eased) + '%';
-  }, TICKER_FPS);
-}
-
-
 /* ---- FLYBY ---- */
 
 /*
- * The ride crosses the screen on its own schedule rather than being tied
- * to the act wipe, so it recurs every few seconds instead of once per act.
- * Driven from specialBgTimer -- no extra interval.
+ * The ride crosses the screen on its own schedule, recurring every few
+ * seconds. Driven from specialBgTimer -- no extra interval.
  */
 var FLIGHT_FRAMES_MIN = 56;    // ~1.85s crossing at TICKER_FPS
 var FLIGHT_FRAMES_VAR = 26;
@@ -550,8 +493,8 @@ function startFlight() {
   if (!flightRocketEl || !flightShipEl) return;
 
   // Alternate the ride on every crossing, and pick a direction.
-  var isUnicorn = (wipeCount % 2) === 1;
-  wipeCount++;
+  var isUnicorn = (rideCount % 2) === 1;
+  rideCount++;
   flightGoingLeft = Math.random() < 0.5;
 
   flightFromPct = flightGoingLeft ? FLIGHT_OFF_RIGHT : FLIGHT_OFF_LEFT;

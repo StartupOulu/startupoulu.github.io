@@ -780,29 +780,10 @@ hr {
 }
 
 
-/* ---- ACT WIPE ---- */
-
-/* Wider than the screen and skewed, so the skewed edges still cover the
-   corners at the start of the sweep. Driven from kiosk.js. */
-#sp-wipe {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: -15%;
-  width: 130%;
-  height: 100vh;
-  z-index: 5;
-  background: #FF3296;
-  background: linear-gradient(100deg, #FF3296 0%, #FF4600 55%, #FF3296 100%);
-  -webkit-transform: skewX(-10deg);
-  transform: skewX(-10deg);
-}
-
-
-/* ---- ROCKET (rides the wipe) ---- */
+/* ---- ROCKET (flyby) ---- */
 
 /* Zero-size anchor; kiosk.js drives its left/top and the children hang
-   off it. Above the wipe panel so the ship reads against the colour. */
+   off it. */
 /* z-index 1 puts the ride *behind* the act content (the stage is 2), so a
    crossing never obscures the headline. */
 #sp-rocket {
@@ -848,7 +829,7 @@ hr {
 /* Exhaust plume, trailing back to the left of the ship. */
 /* Rainbow exhaust. Particles are a recycled pool of divs -- creating and
    destroying elements every frame is the expensive part on this hardware,
-   so nothing is added to the DOM after the first wipe. */
+   so nothing is added to the DOM after the first flyby. */
 #sp-fumes {
   display: none;
   position: absolute;
