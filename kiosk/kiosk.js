@@ -408,7 +408,9 @@ var ROCKET_TOP_TO = 24;    // vh
 
 // The ride alternates every wipe. A unicorn trailing rainbows is the
 // better joke; the rocket keeps it from becoming one-note.
-var RIDES = ['\uD83D\uDE80', '\uD83E\uDD84'];  // rocket, unicorn
+// These are SVG files, not emoji: the TV's system fonts have no emoji
+// glyphs, so a text glyph renders as nothing at all.
+var RIDES = ['rocket.svg', 'unicorn.svg'];
 var wipeCount = 0;
 
 /* ---- RAINBOW EXHAUST ---- */
@@ -543,6 +545,7 @@ var currentSpecialAct = 0;
 
 var flightRocketEl = null;
 var flightShipEl = null;
+var flightRideImg = null;
 var flightMoonEl = null;
 var flightFumeEl = null;
 
@@ -565,9 +568,8 @@ function startFlight() {
   flightFromPct = flightGoingLeft ? FLIGHT_OFF_RIGHT : FLIGHT_OFF_LEFT;
   flightToPct = flightGoingLeft ? FLIGHT_OFF_LEFT : FLIGHT_OFF_RIGHT;
 
-  flightShipEl.innerHTML = '';
-  flightShipEl.appendChild(document.createTextNode(RIDES[isUnicorn ? 1 : 0]));
-  // 🚀 points right by default, 🦄 points left, so exactly one of
+  if (flightRideImg) flightRideImg.src = RIDES[isUnicorn ? 1 : 0];
+  // rocket.svg points right, unicorn.svg points left, so exactly one of
   // (unicorn, going-left) needs the mirror for the ride to face its
   // direction of travel.
   flightShipEl.className = (isUnicorn !== flightGoingLeft) ? 'is-flipped' : '';
@@ -936,6 +938,7 @@ function startSpecialBackdrop() {
   // Cached once per activation -- these are read every frame by the flyby.
   flightRocketEl = document.getElementById('sp-rocket');
   flightShipEl = document.getElementById('sp-rocket-ship');
+  flightRideImg = document.getElementById('sp-ride-img');
   flightMoonEl = document.getElementById('sp-moon');
   flightFumeEl = document.getElementById('sp-fumes');
   scheduleFlight(true);
@@ -1224,10 +1227,14 @@ function spawnUnicorns(parent) {
 
   for (var i = 0; i < UNICORN_COUNT; i++) {
     var size = 6 + (Math.random() * 14); // 4vh–10vh
-    var el = document.createElement('span');
+    var el = document.createElement('img');
     el.className = 'flying-unicorn';
-    el.textContent = '\uD83E\uDD84'; // 🦄
-    el.style.fontSize = size + 'vh';
+    el.src = 'unicorn.svg';
+    el.alt = '';
+    // Square source, so both dimensions are set explicitly -- never rely on
+    // the engine inferring an SVG's intrinsic ratio.
+    el.style.width = size + 'vh';
+    el.style.height = size + 'vh';
     el.style.position = 'absolute';
     parent.appendChild(el);
 

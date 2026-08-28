@@ -265,11 +265,13 @@ hr {
   white-space: pre;
 }
 
-/* Flying unicorns */
+/* Flying unicorns. Images rather than emoji: see #sp-ride-img. kiosk.js
+   sets width/height per instance to vary their size. */
 .flying-unicorn {
   position: absolute;
   z-index: 0;
   line-height: 1;
+  display: block;
 }
 
 
@@ -851,13 +853,21 @@ hr {
   position: absolute;
   left: 0;
   top: 0;
-  font-size: 30vh;
   line-height: 1;
 }
 
-/* Whether the ride needs mirroring depends on BOTH which emoji it is and
-   which way it is travelling -- 🚀 points right by default, 🦄 points left --
-   so kiosk.js works out the combination and just sets this class. */
+/* The ride is an SVG, not an emoji: TV system fonts carry no emoji glyphs,
+   so a text glyph renders as nothing. Both dimensions are stated because the
+   source SVGs are square and must not depend on intrinsic-ratio inference. */
+#sp-ride-img {
+  display: block;
+  width: 30vh;
+  height: 30vh;
+}
+
+/* Whether the ride needs mirroring depends on BOTH which ride it is and
+   which way it is travelling -- rocket.svg points right, unicorn.svg points
+   left -- so kiosk.js works out the combination and just sets this class. */
 #sp-rocket-ship.is-flipped {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
@@ -887,9 +897,14 @@ hr {
   position: absolute;
   top: 15vh;
   right: 7vw;
-  font-size: 16vh;
   line-height: 1;
   z-index: 1;
+}
+
+#sp-moon img {
+  display: block;
+  width: 16vh;
+  height: 16vh;
 }
 
 

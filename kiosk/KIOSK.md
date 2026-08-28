@@ -5,6 +5,7 @@ The `kiosk/` directory contains a standalone page for Samsung SmartTVs that rota
 ## Files
 
 - `kiosk/index.html` – HTML structure (Jekyll front matter `layout: null`)
+- `kiosk/rocket.svg`, `kiosk/unicorn.svg`, `kiosk/moon.svg` – special-screen artwork (square viewBox; rocket faces right, unicorn faces left)
 - `kiosk/style.css` – Styles using `display: table` / `table-cell` layout for the event screen
 - `kiosk/kiosk.js` – Screen rotation system, event display, sine scroller animation
 
@@ -184,6 +185,9 @@ special: true
   and screens render unstyled
 - Logo `<img>` tags carry explicit `width`/`height` attributes. The logo SVG is
   viewBox-only, so without them a legacy engine sizes it from its container
+- **No emoji** – the TV's system fonts carry no emoji glyphs, so an emoji text
+  node renders as nothing at all. Anything pictorial ships as an SVG file
+  (`rocket.svg`, `unicorn.svg`, `moon.svg`) drawn with an `<img>`
 - No responsive breakpoints – layout is always landscape
 
 ## Analytics
