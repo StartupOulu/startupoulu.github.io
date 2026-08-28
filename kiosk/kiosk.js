@@ -893,36 +893,25 @@ function updateFlaps() {
 
 
 /*
- * Animated backdrop: a slow diagonal light sweep plus a field of drifting
- * brand-colour orbs. Both run off a single interval -- one timer moving
- * eight elements is far kinder to the TV than several competing timers.
+ * Per-frame driver for the special screen: the flyby, its exhaust and the
+ * countdown flaps, all off a single interval.
+ *
+ * This used to also walk a full-height gradient light band across the screen
+ * and drift seven large radial-gradient orbs. On the TV that meant
+ * recompositing eight oversized semi-transparent gradient layers 30x a
+ * second, which made the whole screen crawl. The backdrop is now static --
+ * the veil and the angled brand shapes carry the look on their own, and they
+ * are painted once.
  */
-var SWEEP_SPEED = 2.5;   // px per frame
-var sweepX = 0;
-
-var ORB_COUNT = 7;
-// Passion, Fame, Growth, Inspiration -- as raw rgb so alpha can vary.
-var ORB_COLORS = ['255, 50, 150', '255, 70, 0', '210, 250, 205', '233, 222, 255'];
-var orbs = [];
 
 function startSpecialBackdrop() {
   var screenEl = document.getElementById('screen-special');
-  var sweepEl = document.getElementById('sp-sweep');
   if (!screenEl) return;
 
   if (specialBgTimer) {
     clearInterval(specialBgTimer);
     specialBgTimer = null;
   }
-
-  var w = window.innerWidth || 1920;
-  var sweepStart = -w * 0.4;
-  var sweepSpan = w * 1.7;
-  sweepX = 0;
-  if (sweepEl) sweepEl.style.left = sweepStart + 'px';
-
-  clearOrbs(screenEl);
-  spawnOrbs(screenEl);
 
   // Cached once per activation -- these are read every frame by the flyby.
   flightRocketEl = document.getElementById('sp-rocket');
@@ -933,76 +922,10 @@ function startSpecialBackdrop() {
   scheduleFlight(true);
 
   specialBgTimer = setInterval(function () {
-    sweepX += SWEEP_SPEED;
-    if (sweepX > sweepSpan) sweepX = 0;
-    if (sweepEl) sweepEl.style.left = (sweepStart + sweepX) + 'px';
-    animateOrbs();
     updateFlight();
     updateFumes();
     updateFlaps();
   }, TICKER_FPS);
-}
-
-function spawnOrbs(parent) {
-  orbs = [];
-  var screenW = window.innerWidth || document.documentElement.clientWidth;
-  var screenH = window.innerHeight || document.documentElement.clientHeight;
-  var i, size, rgb, el;
-
-  for (i = 0; i < ORB_COUNT; i++) {
-    size = screenH * (0.18 + Math.random() * 0.34);
-    rgb = ORB_COLORS[i % ORB_COLORS.length];
-
-    el = document.createElement('div');
-    el.className = 'sp-orb';
-    el.style.width = size + 'px';
-    el.style.height = size + 'px';
-    // Flat colour first as a fallback: if radial-gradient is rejected the
-    // orb is simply a soft-edged-looking disc instead of a glow.
-    el.style.background = 'rgba(' + rgb + ', 0.07)';
-    el.style.background = 'radial-gradient(circle, rgba(' + rgb + ', 0.28) 0%, ' +
-      'rgba(' + rgb + ', 0.09) 45%, rgba(' + rgb + ', 0) 72%)';
-    parent.appendChild(el);
-
-    orbs.push({
-      el: el,
-      x: Math.random() * screenW,
-      y: Math.random() * screenH - size * 0.3,
-      speed: 0.12 + Math.random() * 0.34,
-      bobPhase: Math.random() * Math.PI * 2,
-      bobAmp: 12 + Math.random() * 34,
-      size: size
-    });
-  }
-}
-
-function animateOrbs() {
-  var screenW = window.innerWidth || document.documentElement.clientWidth;
-  var i, o, yOffset;
-
-  for (i = 0; i < orbs.length; i++) {
-    o = orbs[i];
-    o.x -= o.speed;
-    o.bobPhase += 0.007;
-
-    // Wrap around once fully off the left edge
-    if (o.x < -o.size) {
-      o.x = screenW + o.size * 0.5;
-    }
-
-    yOffset = Math.sin(o.bobPhase) * o.bobAmp;
-    o.el.style.left = o.x + 'px';
-    o.el.style.top = (o.y + yOffset) + 'px';
-  }
-}
-
-function clearOrbs(parent) {
-  var els = parent.getElementsByClassName('sp-orb');
-  // Live collection, so keep removing the first until it is empty
-  while (els.length > 0) {
-    els[0].parentNode.removeChild(els[0]);
-  }
-  orbs = [];
 }
 
 function showSpecialCountdown(e) {

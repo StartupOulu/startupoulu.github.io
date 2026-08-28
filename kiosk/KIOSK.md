@@ -108,10 +108,12 @@ Persistent across every act:
   pool is exhausted the extra particle is skipped rather than the pool growing.
   The plume keeps burning after the ship exits so it does not blink out mid-air.
   The flyby runs off `specialBgTimer`, not its own interval
-- A quiet animated backdrop: seven slowly drifting brand-colour orbs plus a
-  faint diagonal light sweep. Orb glow comes from a `radial-gradient`, never
-  `filter: blur()` — blurring elements this large would cripple the TV's
-  compositor. Sweep and all seven orbs share one interval (`specialBgTimer`)
+- A **static** backdrop: the navy veil plus two angled brand shapes, painted
+  once. It used to drift seven large `radial-gradient` orbs and walk a
+  full-height gradient light band across the screen; recompositing eight
+  oversized semi-transparent gradient layers 30x a second made the TV crawl,
+  so both were removed. Keep the backdrop static — it is the one part of this
+  screen that reliably costs frames
 - A solid Fame-orange ticker along the bottom carrying the title and date
 
 One DOM, three acts swapped by JS, each opening with a short entry animation:
@@ -123,7 +125,7 @@ One DOM, three acts swapped by JS, each opening with a short entry animation:
 | 2 | **CTA** – large scannable QR built from the event's own `cta_link`, with `cta_title` as the headline |
 
 Timers used: `specialCountdownTimer` (act 1), `specialRailTimer` (rail pill),
-`specialTickerTimer`, `specialBgTimer` (sweep + orbs), `specialTwinkleTimer`
+`specialTickerTimer`, `specialBgTimer` (flyby, exhaust, flaps), `specialTwinkleTimer`
 (headline), `specialWipeTimer` (act wipe), `specialEntryTimer`. All are cleared in
 `deactivateSpecial`, which runs on every screen transition — which also force-hides
 the wipe panel, so a transition mid-wipe can never leave it stuck over the screen.
@@ -152,8 +154,6 @@ The emoji is 30vh. Its size is declared twice — `font-size` on
 the exhaust spawn point is derived from. **Change both together**, or the plume
 detaches from the tail. The flight path is also tuned to that height: a 30vh
 ride on a steeper path would dip into the ticker band along the bottom.
-| `SWEEP_SPEED` | 2.5 | Light-sweep speed |
-| `ORB_COUNT`, orb `speed` | 7, 0.12–0.46 | Backdrop orb density and drift |
 
 Prefer adding weight to the wipe over adding more ambient motion — ambient
 motion habituates, onset does not.

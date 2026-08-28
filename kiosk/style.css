@@ -370,34 +370,6 @@ hr {
   transform: rotate(-8deg);
 }
 
-/* Drifting brand-colour orbs. Sits above the veil so the colour reads,
-   below the stage so it never fights the type. Soft edges come from a
-   radial-gradient rather than filter:blur -- blurring elements this
-   large would cripple the TV's compositor. */
-.sp-orb {
-  position: absolute;
-  border-radius: 50%;
-  z-index: 1;
-}
-
-/* Diagonal light band, walked across the screen by kiosk.js. */
-#sp-sweep {
-  position: absolute;
-  top: -60vh;
-  left: -40vw;
-  width: 26vw;
-  height: 220vh;
-  background: linear-gradient(
-    90deg,
-    rgba(237, 242, 245, 0) 0%,
-    rgba(237, 242, 245, 0.06) 50%,
-    rgba(237, 242, 245, 0) 100%
-  );
-  -webkit-transform: rotate(18deg);
-  transform: rotate(18deg);
-}
-
-
 /* ---- TOP RAIL (persistent) ---- */
 
 #sp-rail {
