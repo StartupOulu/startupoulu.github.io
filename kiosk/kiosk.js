@@ -1216,14 +1216,10 @@ function spawnUnicorns(parent) {
 
   for (var i = 0; i < UNICORN_COUNT; i++) {
     var size = 6 + (Math.random() * 14); // 4vh–10vh
-    var el = document.createElement('img');
+    var el = document.createElement('span');
     el.className = 'flying-unicorn';
-    el.src = 'unicorn.svg';
-    el.alt = '';
-    // Square source, so both dimensions are set explicitly -- never rely on
-    // the engine inferring an SVG's intrinsic ratio.
-    el.style.width = size + 'vh';
-    el.style.height = size + 'vh';
+    el.textContent = '\uD83E\uDD84'; // 🦄
+    el.style.fontSize = size + 'vh';
     el.style.position = 'absolute';
     parent.appendChild(el);
 

@@ -265,13 +265,13 @@ hr {
   white-space: pre;
 }
 
-/* Flying unicorns. Images rather than emoji: see #sp-ride-img. kiosk.js
-   sets width/height per instance to vary their size. */
+/* Flying unicorns. Emoji are fine here: this screen inherits the plain
+   `body` font stack, so the engine falls back to the system emoji font.
+   The special screen leads with a webfont and does not -- see #sp-ride-img. */
 .flying-unicorn {
   position: absolute;
   z-index: 0;
   line-height: 1;
-  display: block;
 }
 
 

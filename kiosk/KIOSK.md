@@ -193,9 +193,12 @@ special: true
   and screens render unstyled
 - Logo `<img>` tags carry explicit `width`/`height` attributes. The logo SVG is
   viewBox-only, so without them a legacy engine sizes it from its container
-- **No emoji** – the TV's system fonts carry no emoji glyphs, so an emoji text
-  node renders as nothing at all. Anything pictorial ships as an SVG file
-  (`rocket.svg`, `unicorn.svg`, `moon.svg`) drawn with an `<img>`
+- **No emoji on the special screen** – emoji render fine where the plain `body`
+  font stack applies (the welcome screen's flying unicorns), but `#screen-special`
+  leads its stack with the "Hanken Grotesk" webfont, and the TV does not fall back
+  to a system emoji font from there: the glyph renders as nothing. Special-screen
+  artwork therefore ships as SVG files (`rocket.svg`, `unicorn.svg`, `moon.svg`)
+  drawn with an `<img>`
 - No responsive breakpoints – layout is always landscape
 
 ## Analytics
