@@ -145,47 +145,25 @@ function buildPlaylist() {
     for (i = 0; i < regular.length; i++) {
       playlist.push({ type: 'events', eventIndex: regular[i] });
     }
-  } else if (regular.length === 0) {
-    // Nothing but special events: just run the acts.
-    pushSpecialActs(specials);
-  } else {
-    // Interleave: one special act after each regular event slide, so the
-    // takeover keeps reappearing throughout the cycle. Acts and (if there
-    // is more than one special event) the events themselves both advance.
-    var slot = 0;
-    for (i = 0; i < regular.length; i++) {
-      playlist.push({ type: 'events', eventIndex: regular[i] });
-      playlist.push({
-        type: 'special',
-        eventIndex: specials[slot % specials.length],
-        act: slot % SPECIAL_ACT_COUNT
-      });
-      slot++;
-    }
-    // If the number of regular events is a multiple of the act count, the
-    // cycle would always land on the same acts. Pad so every act gets airtime.
-    while (slot % SPECIAL_ACT_COUNT !== 0) {
-      playlist.push({
-        type: 'special',
-        eventIndex: specials[slot % specials.length],
-        act: slot % SPECIAL_ACT_COUNT
-      });
-      slot++;
-    }
+    return;
   }
-  // The playlist repeats cyclically, so after the last slot
-  // it wraps back to index 0 (welcome) automatically
-}
 
-function pushSpecialActs(specials) {
-  var slot;
-  var total = specials.length * SPECIAL_ACT_COUNT;
-  for (slot = 0; slot < total; slot++) {
-    playlist.push({
-      type: 'special',
-      eventIndex: specials[slot % specials.length],
-      act: slot % SPECIAL_ACT_COUNT
-    });
+  // A special takes every other slot:
+  //   welcome, special, event, special, event, special, ...
+  // The playlist starts on a non-special and ends on a special, so the
+  // alternation holds across the wrap back to index 0 as well.
+  //
+  // Which act each slot shows is deliberately NOT baked in here -- it is
+  // handed out at display time from a running cursor, so the acts keep
+  // advancing across playlist repeats however many slots a cycle happens
+  // to have.
+  var s = 0;
+  playlist.push({ type: 'special', eventIndex: specials[s % specials.length] });
+  s++;
+  for (i = 0; i < regular.length; i++) {
+    playlist.push({ type: 'events', eventIndex: regular[i] });
+    playlist.push({ type: 'special', eventIndex: specials[s % specials.length] });
+    s++;
   }
 }
 
@@ -257,6 +235,10 @@ function deactivateEvents() {
  */
 
 var SPECIAL_ACT_COUNT = 3;
+// Acts are handed out at display time rather than fixed in the playlist, so
+// they keep advancing across playlist repeats no matter how many special
+// slots a cycle contains.
+var specialActCursor = 0;
 var SPECIAL_ACT_IDS = ['sp-act-hype', 'sp-act-count', 'sp-act-cta'];
 // Acts 0 and 1 centre their content vertically with the CSS 2.1 table
 // trick, so they must be display:table when shown, not display:block.
@@ -295,7 +277,14 @@ function activateSpecial(slot) {
     showScreen(playlist[0]);
     return;
   }
-  var act = slot.act !== undefined ? slot.act : 0;
+  // A pinned slot (?act=N) names its act; otherwise take the next one.
+  var act;
+  if (slot.act !== undefined) {
+    act = slot.act;
+  } else {
+    act = specialActCursor % SPECIAL_ACT_COUNT;
+    specialActCursor++;
+  }
   showSpecial(e, act);
 }
 

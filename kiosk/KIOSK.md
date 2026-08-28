@@ -29,12 +29,20 @@ Welcome → Event 0 → Event 1 → … → Event N → Welcome → Event 0 → 
 ```
 
 When one or more events are flagged `special: true`, those events are pulled out
-of the normal rotation and one takeover *act* is interleaved after each remaining
-event:
+of the normal rotation and the takeover takes **every other slot** -- so it is on
+screen half the time:
 
 ```
-Welcome → Event 0 → Special(act 0) → Event 1 → Special(act 1) → Event 2 → Special(act 2) → …
+Welcome → Special → Event 0 → Special → Event 1 → Special → … → Event N → Special → (wraps)
 ```
+
+The cycle starts on a non-special and ends on a special, so the alternation holds
+across the wrap back to the welcome screen too.
+
+Which *act* a given special slot shows is not fixed in the playlist -- it is taken
+from a running cursor (`specialActCursor`) at display time. That keeps the three
+acts evenly distributed however many slots a cycle happens to contain; baking the
+act into the playlist starves one whenever the count is not a multiple of three.
 
 Each screen shows for 15 seconds (`SCREEN_DURATION_MS`). The welcome screen appears once per full cycle.
 
