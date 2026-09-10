@@ -1,0 +1,345 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StartupOulu</title>
+  <meta http-equiv="Refresh" content="600" /> <!-- force browser refresh every 10 minutes -->
+
+  <!--
+    StartupOulu stand display - single self-contained page.
+
+    Same target as /kiosk/: older Samsung Tizen TV browsers (2018+), landscape.
+    Everything (CSS + JS) is inline so there is nothing for the TV to cache
+    stale against the HTML - the cache-busting dance /kiosk/ needs for its
+    style.css and kiosk.js does not apply here.
+
+    Constraints inherited from /kiosk/ (see kiosk/KIOSK.md):
+      - ES5 only: no const/let, arrow functions, template literals, Promises
+      - CSS 2.1 + viewport units: no flexbox, no grid, no object-fit
+      - Animation via setInterval + element.style, not CSS keyframes
+      - The logo SVG is viewBox-only, so its box is always stated explicitly
+        (width/height attributes, CSS fallback, and pixel sizes from JS)
+
+    One screen, no rotation: the logo fills the height, and a sine-wave text
+    banner sits over its lower part. The banner does not scroll - the text is
+    short enough to stand still and be read from across the room. Only the
+    wave phase and the rainbow cycle animate.
+  -->
+
+  <style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    background: #050a30;
+    color: #ffffff;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  #stage {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+  }
+
+  /* Viewport probe. fitLogo() reads its box rather than window.innerWidth /
+     innerHeight so the pixel sizes it computes are in the same units as the
+     vh-based CSS fallback -- some engines report an inner size that differs
+     from the CSS viewport, and then the two disagree. */
+  #vp-probe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    visibility: hidden;
+    z-index: 0;
+  }
+
+  /* Fallback box, replaced with pixel values by fitLogo(). The artwork fills
+     only ~74% of its own viewBox height, so the box has to overshoot the
+     screen for the visible logo to clear 80% of it - the overshoot is
+     transparent padding and is clipped by `overflow: hidden` on the body.
+     113.8vh tall puts 84vh of actual logo on screen; -6.9vh centres it. */
+  #stand-logo {
+    position: absolute;
+    top: -6.9vh;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    height: 113.8vh;
+    width: 157.2vh;
+    z-index: 1;
+  }
+
+  /* The wave band overlaps the bottom of the logo. It is anchored to the
+     bottom and startSine() replaces the height with a pixel value tall enough
+     for the fitted type plus its wave, so the band grows upwards. */
+  #sine-scroller {
+    position: absolute;
+    left: 0;
+    bottom: 1.5vh;
+    width: 100%;
+    height: 20vh;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 9vh;
+    font-weight: 800;
+    z-index: 2;
+  }
+
+  /* Inline layout, used briefly to measure natural character positions. */
+  .sine-char-inline {
+    font-size: inherit;
+    font-weight: inherit;
+    color: #ffffff;
+    white-space: pre;
+  }
+
+  /* Absolute positioning, used during the wave animation. The dark halo keeps
+     the letters readable where they cross the logo. */
+  .sine-char {
+    position: absolute;
+    font-size: inherit;
+    font-weight: inherit;
+    color: #ffffff;
+    white-space: pre;
+    text-shadow: 0 0 0.12em #050a30, 0 0 0.25em #050a30, 0 0.05em 0.1em #050a30;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="stage">
+    <div id="vp-probe"></div>
+    <img
+      src="https://www.startupoulu.com/assets/images/logos/startupoulu-stacked.svg"
+      id="stand-logo"
+      alt="StartupOulu logo"
+      width="760"
+      height="550"
+    />
+    <div id="sine-scroller"></div>
+  </div>
+
+  <script>
+  /* ---- CONFIG ---- */
+
+  var SINE_TEXT = '★ Tule juttelemaan meille! ★';
+
+  // startupoulu-stacked.svg is a 760x550 viewBox, but the drawn artwork covers
+  // only 618x406 of it, inset by (71, 72). Sizing the <img> box alone would
+  // leave the visible logo well short of the screen and off its centre, so the
+  // box is derived from the ink and then backed out from under it. Fractions
+  // are of the box, measured by rendering the file at a known size and reading
+  // the painted bounds; redo that if the logo file is ever replaced.
+  var LOGO_RATIO = 760 / 550;      // viewBox aspect
+  var INK_X = 0.0934;              // ink inset / box size
+  var INK_Y = 0.1309;
+  var INK_W = 0.8132;              // ink size / box size
+  var INK_H = 0.7382;
+
+  var LOGO_HEIGHT_FRAC = 0.84;     // share of screen height the *visible* logo covers
+  var LOGO_MAX_WIDTH_FRAC = 0.94;
+
+  var SINE_FREQUENCY = 0.28;   // radians of wave per character
+  var SINE_PHASE_STEP = 0.07;  // wave travel per frame
+  var SINE_FILL = 0.92;        // share of the screen width the text spans
+  var SINE_AMP_EM = 0.30;      // wave amplitude as a share of the font size
+  var SINE_FPS = 33;           // ~30fps
+
+  var RAINBOW = [
+    '#FF0055', '#FF4600', '#FFD500', '#00FF88',
+    '#00CCFF', '#7B2FFF', '#FF3198', '#FF6600'
+  ];
+
+  var sineTimer = null;
+
+
+  /* ---- LOGO ----
+     The SVG carries no intrinsic size, so a legacy engine would otherwise
+     size it from its container. Pin it in pixels. */
+
+  function fitLogo() {
+    var logo = document.getElementById('stand-logo');
+    if (!logo) return;
+
+    var w = viewportWidth();
+    var h = viewportHeight();
+
+    var inkH = h * LOGO_HEIGHT_FRAC;
+    var boxH = inkH / INK_H;
+    var boxW = boxH * LOGO_RATIO;
+    var inkW = boxW * INK_W;
+
+    // Only bites on a screen narrower than ~4:3; a 16:9 TV never clamps.
+    if (inkW > w * LOGO_MAX_WIDTH_FRAC) {
+      var f = (w * LOGO_MAX_WIDTH_FRAC) / inkW;
+      boxW *= f;
+      boxH *= f;
+      inkW *= f;
+      inkH *= f;
+    }
+
+    // Centre the ink, not the box, then back the box out from under it.
+    logo.style.width = Math.round(boxW) + 'px';
+    logo.style.height = Math.round(boxH) + 'px';
+    logo.style.left = Math.round((w - inkW) / 2 - INK_X * boxW) + 'px';
+    logo.style.top = Math.round((h - inkH) / 2 - INK_Y * boxH) + 'px';
+    logo.style.right = 'auto';
+    logo.style.margin = '0';
+  }
+
+
+  /* ---- SINE BANNER ----
+     Same construction as the kiosk welcome screen: lay the characters out
+     inline, measure where the browser put them, then switch to absolute
+     positioning and drive `top` from a sine. Unlike the kiosk, the block
+     stays put horizontally - it is centred once and never scrolls. */
+
+  function startSine() {
+    var container = document.getElementById('sine-scroller');
+    if (!container) return;
+
+    stopSine();
+    container.innerHTML = '';
+    // Start every fit from the stylesheet's baseline, not from the last one.
+    container.style.fontSize = '';
+    container.style.height = '';
+
+    var containerW = container.offsetWidth;
+    if (!containerW || !container.offsetHeight) return;
+
+    var i, span;
+    for (i = 0; i < SINE_TEXT.length; i++) {
+      span = document.createElement('span');
+      span.className = 'sine-char-inline';
+      span.textContent = SINE_TEXT.charAt(i);
+      container.appendChild(span);
+    }
+
+    var spans = container.getElementsByTagName('span');
+    if (!spans.length) return;
+
+    // Scale the type so the whole line spans the screen without scrolling.
+    var natural = textWidth(spans);
+    if (natural > 0) {
+      var size = pxFontSize(container); // px value of the CSS font-size
+      var scaled = size * (containerW * SINE_FILL) / natural;
+      container.style.fontSize = Math.round(scaled) + 'px';
+      // Re-measure: rounding and hinting shift the fit slightly.
+      natural = textWidth(spans);
+      if (natural > containerW * SINE_FILL) {
+        container.style.fontSize =
+          Math.round(scaled * (containerW * SINE_FILL) / natural) + 'px';
+        natural = textWidth(spans);
+      }
+    }
+
+    var firstLeft = spans[0].offsetLeft;
+    var positions = [];
+    for (i = 0; i < spans.length; i++) {
+      positions.push(spans[i].offsetLeft - firstLeft);
+    }
+
+    for (i = 0; i < spans.length; i++) {
+      spans[i].className = 'sine-char';
+    }
+
+    // The wave has to be sized off the font, not off the band: once the type
+    // is scaled to span the screen its line box nearly fills a fixed-height
+    // band, and an amplitude derived from what is left over collapses to zero.
+    // So the amplitude comes from the font size and the band is then grown to
+    // fit both. It is anchored at the bottom, so it grows upwards over the logo.
+    // charH is read *after* the switch to absolute positioning -- an inline
+    // span reports a shorter box, and sizing the band from that clips the
+    // bottom of the wave.
+    var charH = spans[0].offsetHeight;
+    var amplitude = pxFontSize(container) * SINE_AMP_EM;
+    var bandH = Math.ceil(charH + 2 * amplitude);
+    container.style.height = bandH + 'px';
+
+    var top0 = (bandH - charH) / 2 - amplitude; // top of the wave's travel
+    var startX = Math.round((containerW - natural) / 2);
+
+    var time = 0;
+    sineTimer = setInterval(function () {
+      var j, y;
+      for (j = 0; j < spans.length; j++) {
+        y = Math.sin(j * SINE_FREQUENCY + time) * amplitude;
+        spans[j].style.left = (startX + positions[j]) + 'px';
+        spans[j].style.top = Math.round(top0 + amplitude + y) + 'px';
+        spans[j].style.color = RAINBOW[Math.floor((j + time * 3) % RAINBOW.length)];
+      }
+      time += SINE_PHASE_STEP;
+    }, SINE_FPS);
+  }
+
+  function stopSine() {
+    if (sineTimer) {
+      clearInterval(sineTimer);
+      sineTimer = null;
+    }
+  }
+
+  function textWidth(spans) {
+    var last = spans.length - 1;
+    return (spans[last].offsetLeft - spans[0].offsetLeft) + spans[last].offsetWidth;
+  }
+
+  function pxFontSize(el) {
+    var v = 0;
+    if (window.getComputedStyle) {
+      v = parseFloat(window.getComputedStyle(el, null).fontSize);
+    } else if (el.currentStyle) {
+      v = parseFloat(el.currentStyle.fontSize);
+    }
+    if (!v || isNaN(v)) v = viewportHeight() * 0.09; // matches the CSS 9vh
+    return v;
+  }
+
+  function viewportWidth() {
+    var probe = document.getElementById('vp-probe');
+    if (probe && probe.offsetWidth) return probe.offsetWidth;
+    return window.innerWidth || document.documentElement.clientWidth || 1920;
+  }
+
+  function viewportHeight() {
+    var probe = document.getElementById('vp-probe');
+    if (probe && probe.offsetHeight) return probe.offsetHeight;
+    return window.innerHeight || document.documentElement.clientHeight || 1080;
+  }
+
+
+  /* ---- BOOT ---- */
+
+  function boot() {
+    fitLogo();
+    startSine();
+  }
+
+  var resizeTimer = null;
+  window.onresize = function () {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(boot, 250);
+  };
+
+  if (window.addEventListener) {
+    window.addEventListener('load', boot, false);
+  } else {
+    window.attachEvent('onload', boot);
+  }
+  </script>
+</body>
+</html>
