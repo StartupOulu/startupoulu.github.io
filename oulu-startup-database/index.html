@@ -3,8 +3,103 @@ title: Oulu Startup Database - StartupOulu
 layout: plain
 ---
 
+<!--
+  The embednotion.com embed below is currently broken on their side.
+  To restore the database, delete the .database_notice block and
+  uncomment the .iframe block.
 
 <div class="iframe">
   <iframe src="https://v2-embednotion.com/cdaa805c1d7144d18c7729a48ce24bf1" scroll="yes">
   </iframe>
 </div>
+-->
+
+<style type="text/css" media="screen">
+  .database_notice {
+    flex: 1;
+    padding: 80px 30px 100px;
+  }
+  .database_notice .notice_card {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 48px;
+    border-radius: 24px;
+    background: transparent linear-gradient(129deg, #D4FBCD 0%, #E9DEFF 100%) 0% 0% no-repeat padding-box;
+    color: #070540;
+    text-align: center;
+  }
+  .database_notice .top_title {
+    margin: 0 0 16px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #FF4600;
+  }
+  .database_notice h1 {
+    margin: 0 0 24px;
+    font-size: 40px;
+    line-height: 1.15;
+    font-weight: 900;
+  }
+  .database_notice p {
+    margin: 0 0 16px;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  .database_notice p:last-child {
+    margin-bottom: 0;
+  }
+  .database_notice .notice_actions {
+    margin-top: 32px;
+  }
+  .database_notice .notice_actions a {
+    display: inline-block;
+    margin: 8px 8px 0;
+    padding: 14px 28px;
+    border-radius: 999px;
+    background: #070540;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .database_notice .notice_actions a.secondary {
+    background: transparent;
+    color: #070540;
+    border: 2px solid #070540;
+  }
+  @media (max-width: 800px) {
+    .database_notice {
+      padding: 48px 20px 64px;
+    }
+    .database_notice .notice_card {
+      padding: 40px 24px;
+    }
+    .database_notice h1 {
+      font-size: 30px;
+    }
+    .database_notice p {
+      font-size: 16px;
+    }
+  }
+</style>
+
+<section class="database_notice">
+  <div class="notice_card">
+    <p class="top_title">Oulu Startup Database</p>
+    <h1>Sorry for the inconvenience — we&rsquo;re working on this</h1>
+    <p>
+      The startup database is temporarily unavailable. The service we use to
+      embed it is having trouble on their end, and we&rsquo;re waiting for it to
+      come back up.
+    </p>
+    <p>
+      The data itself is safe — nothing has been lost. Please check back a
+      little later.
+    </p>
+    <div class="notice_actions">
+      <a href="{{ site.baseurl }}/events.html">Browse events</a>
+      <a class="secondary" href="{{ site.baseurl }}/contact.html">Contact us</a>
+    </div>
+  </div>
+</section>
