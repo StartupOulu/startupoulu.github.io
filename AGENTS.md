@@ -349,7 +349,7 @@ Before finalizing changes:
 ## Key Considerations
 
 - The homepage shows only future events (filtered by `start_time`)
-- Events display a "Today" badge when `start_time` matches the current date
+- Events display a "Today" badge when `start_time` matches the current date (set `hide_today_badge: true` in front matter to suppress it)
 - The `excerpt` field on events is truncated at 60 words on cards
 - Blog post dates come from the filename, not front matter
 - Services are filtered by stage on dedicated pages under `/services/`
