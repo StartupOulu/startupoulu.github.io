@@ -135,6 +135,7 @@ Notes:
 - Event images go in `assets/images/events/` (recommended: 960x540px, 16:9 ratio)
 - To hide an event without deleting the file, add `published: false` to the front matter
 - `pinned: true` shows the event first on the events page (`events.html`) and the homepage event list (`_includes/upcoming_events.html`) and keeps it listed until its `end_time` has passed, even if `start_time` is already in the past. Useful for application periods such as volunteer calls. Omit the field for ordinary events
+- `pinned: first` works like `pinned: true` but puts the event above all other pinned events (pinned events are otherwise ordered by `start_time`)
 - `special: true` marks a major event. On the lobby kiosk it replaces the normal event slide with a full-bleed takeover screen (hype / countdown / QR call-to-action) that then takes every other slot in the rotation — see [kiosk/KIOSK.md](./kiosk/KIOSK.md). It has no effect on the website itself. Omit the field for ordinary events
 
 ### Blog Posts

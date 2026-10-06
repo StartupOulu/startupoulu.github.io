@@ -14,6 +14,9 @@
 
 
 {% assign sorted_pinned_events = pinned_events | sort: 'start_time' %}
+{% assign pinned_first = sorted_pinned_events | where: 'pinned', 'first' %}
+{% assign pinned_rest = sorted_pinned_events | where_exp: 'event', "event.pinned != 'first'" %}
+{% assign sorted_pinned_events = pinned_first | concat: pinned_rest %}
 {% assign sorted_events = future_events | sort: 'start_time' %}
 {% assign sorted_events = sorted_pinned_events | concat: sorted_events %}
 
