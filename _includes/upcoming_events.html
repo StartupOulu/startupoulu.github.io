@@ -1,15 +1,21 @@
 {% assign now = 'now' | date: '%s' | plus: 0 %}
 {% assign future_events = '' | split: '' %}
+{% assign pinned_events = '' | split: '' %}
 
 {% for event in site.events %}
   {% assign event_time = event.start_time | date: '%s' | plus: 0 %}
-  {% if event_time >= now %}
+  {% assign event_end_time = event.end_time | default: event.start_time | date: '%s' | plus: 0 %}
+  {% if event.pinned and event_end_time >= now %}
+    {% assign pinned_events = pinned_events | push: event %}
+  {% elsif event_time >= now %}
     {% assign future_events = future_events | push: event %}
   {% endif %}
 {% endfor %}
 
 
+{% assign sorted_pinned_events = pinned_events | sort: 'start_time' %}
 {% assign sorted_events = future_events | sort: 'start_time' %}
+{% assign sorted_events = sorted_pinned_events | concat: sorted_events %}
 
 <!-- start _includes/upcoming_events.html -->
 <section class="event_section">

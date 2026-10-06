@@ -134,7 +134,7 @@ Notes:
 - `start_time` and `end_time` must use the exact format `YYYY-MM-DD HH:MM:SS` (e.g., `2026-02-15 18:00:00`). Omitting the time component or using non-zero-padded months (e.g., `2026-4-22`) causes YAML to parse the value as an array instead of a date, which breaks sorting
 - Event images go in `assets/images/events/` (recommended: 960x540px, 16:9 ratio)
 - To hide an event without deleting the file, add `published: false` to the front matter
-- `pinned: true` shows the event first on the events page (`events.html`) and keeps it listed until its `end_time` has passed, even if `start_time` is already in the past. Useful for application periods such as volunteer calls. Omit the field for ordinary events
+- `pinned: true` shows the event first on the events page (`events.html`) and the homepage event list (`_includes/upcoming_events.html`) and keeps it listed until its `end_time` has passed, even if `start_time` is already in the past. Useful for application periods such as volunteer calls. Omit the field for ordinary events
 - `special: true` marks a major event. On the lobby kiosk it replaces the normal event slide with a full-bleed takeover screen (hype / countdown / QR call-to-action) that then takes every other slot in the rotation — see [kiosk/KIOSK.md](./kiosk/KIOSK.md). It has no effect on the website itself. Omit the field for ordinary events
 
 ### Blog Posts
@@ -348,7 +348,7 @@ Before finalizing changes:
 
 ## Key Considerations
 
-- The homepage shows only future events (filtered by `start_time`)
+- The homepage shows only future events (filtered by `start_time`), plus `pinned` events until their `end_time`
 - Events display a "Today" badge when `start_time` matches the current date (set `hide_today_badge: true` in front matter to suppress it)
 - The `excerpt` field on events is truncated at 60 words on cards
 - Blog post dates come from the filename, not front matter
