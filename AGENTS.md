@@ -56,6 +56,8 @@ incubator/               # Incubator program pages
 mentoring/               # Mentoring program pages
 oulu-startup-database/   # Startup database section
 kiosk/                   # Kiosk display for Samsung SmartTV
+stand/                   # Stand/booth display for the same TVs
+  index.html             # Single-file page — logo + static sine-wave banner, CSS and JS inline
 brand/                   # Self-contained brand/media page (logos, colors, gradients, typeface, CSS vars)
   index.html             # Single-file page — all CSS inline, no Jekyll layout dependency
   assets/
@@ -359,6 +361,8 @@ Before finalizing changes:
 ## Kiosk Display
 
 See [kiosk/KIOSK.md](./kiosk/KIOSK.md) for kiosk documentation (screens, technical constraints, how to add new screens).
+
+`stand/index.html` targets the same TVs but is a single static screen: the logo at 84% of the screen height with a non-scrolling sine-wave banner over its lower part. It is self-contained (CSS and JS inline, no shared stylesheet to fall out of sync) and shares the kiosk's ES5 / CSS 2.1 constraints — the file's own header comment carries the details. Its banner text is the `SINE_TEXT` constant at the top of the script.
 
 ## Questions?
 
