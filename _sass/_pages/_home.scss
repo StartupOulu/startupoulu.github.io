@@ -831,3 +831,77 @@
     
 }
 
+
+// hero CTA links (four visitor paths) =========
+
+.hero .banner_bottom_section .r2a_container .bg-color-blue.hero_ctas,
+.hero .mobile_banner_bottom .r2a_container .bg-color-blue.hero_ctas {
+    flex-direction: column;
+    align-items: flex-start;
+    a {
+        letter-spacing: 1px;
+        .common_arrow {
+            width: 50px;
+            flex-shrink: 0;
+        }
+        &:hover {
+            .common_arrow {
+                width: 100px;
+            }
+        }
+    }
+}
+.hero .banner_bottom_section .r2a_container .bg-color-blue.hero_ctas {
+    gap: 28px;
+}
+.hero .mobile_banner_bottom .r2a_container .bg-color-blue.hero_ctas {
+    align-items: stretch;
+    margin-right: -50px; // run to the screen edge, over the container's right padding
+    padding: 10px 0;
+    a {
+        padding: 12px 20px;
+        font-size: 16px;
+        letter-spacing: 0.5px;
+        gap: 12px;
+        .common_arrow {
+            width: 30px;
+        }
+    }
+}
+
+// phone-only CTA bar: hidden above 768px, shown below (replaces the .d_none
+// class, whose later rule in main.scss always won and hid the bar on phones)
+.hero .mobile_banner_bottom {
+    display: none;
+}
+@media screen and (max-width: 768px) {
+    .hero .mobile_banner_bottom {
+        display: block;
+    }
+}
+
+// hero fills exactly one screen so the CTA bar sits above the fold:
+// header + banner (takes the leftover space) + CTA bar. svh keeps it
+// inside the visible area on phones whose browser bars come and go.
+.hero {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+    .banner {
+        height: auto;
+        flex: 1 0 auto;
+        display: flex;
+    }
+}
+.hero .banner_bottom_section .r2a_container .bg-color-blue.hero_ctas {
+    padding: 40px 82px !important;
+}
+@media (max-width: 1199.98px) {
+    .hero .banner_bottom_section .r2a_container .bg-color-blue.hero_ctas {
+        padding: 32px 50px !important;
+    }
+}
+.hero .banner .r2a_container .main-banner-center .main-banner-h1-text {
+    margin-top: 2rem; // was 8rem; smaller so header + headline + CTA bar fit one screen
+}
