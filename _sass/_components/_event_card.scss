@@ -119,3 +119,46 @@
         }
     }
   }
+
+// front page card (events/frontpage_card.html): the whole card is one link and
+// ends in a "See event" arrow, pinned to the bottom so cards in a row line up
+.frontpage_card {
+  display: flex;
+  flex-direction: column;
+  color: $brand-color;
+  .card_img {
+    display: block;
+  }
+  .card_content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .common_pera {
+      padding-bottom: 24px;
+    }
+  }
+  .card_cta {
+    margin-top: auto;
+    padding: 0 40px 40px;
+    color: $brand-color;
+    font-size: $font-size-18;
+    letter-spacing: 3.6px;
+    font-weight: 900;
+    .common_arrow {
+      background-color: $brand-color;
+      width: 60px;
+      &::after {
+        border-right: 1px solid $brand-color;
+        border-bottom: 1px solid $brand-color;
+      }
+    }
+  }
+  &:hover .card_cta .common_arrow {
+    width: 100px;
+  }
+  // touch screens have no hover: show the hover shadow while the card is pressed
+  &:active {
+    box-shadow: 8px 8px 1px 0px $brand-color;
+  }
+}
