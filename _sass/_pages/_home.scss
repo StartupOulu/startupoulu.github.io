@@ -321,11 +321,30 @@
 
 // copyright section css =========
 
+// partner logos: all 10 in one row, or 5 per row when the footer is narrow.
+// The switch and the logo height follow the footer's own width (container
+// query + cqi), so no logo can push the row past the screen edge.
 .copyright{
     padding: 1rem 2rem;
-    .flex{
+    container-type: inline-size;
+    .partner_grid{
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        gap: clamp(8px, 2cqi, 20px);
+        align-items: center;
+        justify-items: center;
         img{
-            
+            max-width: 100%;
+            max-height: min(70px, 3.4cqi); // 70px = the PNGs' own height; widest logo (~2.3:1) still fits its cell
+            height: auto;
+        }
+    }
+}
+@container (max-width: 900px){
+    .copyright .partner_grid{
+        grid-template-columns: repeat(5, 1fr);
+        img{
+            max-height: min(70px, 7.5cqi);
         }
     }
 }
@@ -534,18 +553,6 @@
         }
         
     }
-    
-    // copyright section responsive css--------
-    .copyright{
-        .flex{
-            flex-wrap: wrap !important;
-            justify-content: center !important;
-            img{
-                width: 15% !important;
-            }
-
-        }
-    }
 }
 @media (max-width: 575.98px){
     .service{
@@ -729,15 +736,6 @@
     .blank{
         display: none;
     }
-    .copyright{
-        .flex{
-            flex-wrap: wrap !important;
-            justify-content: center !important;
-            img{
-                width: 15% !important;
-            }
-        }
-    }
 }
 
 @media (min-width: 992px) and (max-width: 1199.98px){
@@ -820,15 +818,6 @@
             }
         }
     }
-    .copyright{
-        .flex{
-            flex-wrap: wrap !important;
-            justify-content: left !important;
-            
-        }
-    }
-    
-    
 }
 
 
