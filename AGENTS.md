@@ -186,6 +186,7 @@ A service can belong to one or more stages.
 - **Use `|` pipe syntax for multi-line text** — `description` and `excerpt` fields must use `|` followed by indented text on the next lines
 - **`start_time` must include the time** — `2026-04-22 09:00:00` works, but `2026-4-22` gets parsed as a YAML array `[2026, 4, 22]` and breaks the site
 - **Use `cover_image`, not `image_url`** — older events may use `image_url` but the current layouts expect `cover_image`
+- **Quotes and `<br>` in `description` are fine** — templates must escape them (see Liquid Templates). If such text shows up as stray text at the top of a page, fix the template, not the content
 
 ## Content Guidelines
 
@@ -215,7 +216,7 @@ Filenames must be lowercase with dashes (no spaces). Example: `2026-02-startup-p
 
 | Layout | Purpose |
 |---|---|
-| `default.html` | Minimal wrapper (header only) |
+| `default.html` | Bare page: `<html>`, `header.html` and `{{ content }}`, nothing else |
 | `frontpage.html` | Homepage with hero, nav, footer |
 | `event.html` | Single event detail page |
 | `events.html` | Events listing page |
@@ -227,6 +228,8 @@ Filenames must be lowercase with dashes (no spaces). Example: `2026-02-startup-p
 | `plain.html` | Minimal layout for standalone pages |
 | `post.html` | Simple post wrapper |
 | `about.html` | About page |
+
+Every layout is a standalone page: it writes its own `<!DOCTYPE html>`, `<html>` and `{% include header.html %}`. Do not give a layout a parent (`layout:` in its front matter), or the page gets a second `<html>`/`<head>` with duplicate meta tags.
 
 ## Technology Stack
 
@@ -325,19 +328,20 @@ ruby _scripts/events.rb     # Convert events CSV to HTML format
 - Follow existing patterns in `_layouts/` and `_includes/`
 - Event components are in `_includes/events/` (card, datetime, image, badge)
 - Service components are in `_includes/services/` (card, filtered-list)
+- **Escape front matter inside HTML attributes** — `description`, `excerpt` and `title` may contain quotes (`"startup idea"`) and HTML (`<br>`). Output into an attribute (`content="..."`, `alt="..."`, `title="..."`) must go through `| strip_html | normalize_whitespace | escape` (titles: `| escape`). Unescaped, a quote ends the attribute early and the rest of the text leaks onto the page as visible text. See `_includes/meta_tags.html`
 
 ## Commit Messages
 
-Use short, descriptive commit messages without conventional commit prefixes:
+Write one descriptive sentence in the imperative mood, starting with a capital letter, with no trailing period and no conventional commit prefixes (`feat:`, `fix:`). Say what changed and, where it helps, why:
 
 ```
-add new startup pitch event
-update services page layout
-fix mobile navigation toggle
-remove outdated event
+Add Cofounder Corner event on 28.10.2026
+Fix Cofounder Corner front matter so the event is published
+Add visitor CTAs to home page hero, above the fold
+Track hero CTA clicks with Umami events
 ```
 
-Match the existing commit style in the repository history.
+Commits like "Update 2026-11-fund-day.html" or "Add files via upload" come from GitHub's web editor. Don't copy them as examples.
 
 ## Testing Checklist
 
