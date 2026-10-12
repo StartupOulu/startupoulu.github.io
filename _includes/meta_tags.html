@@ -1,5 +1,5 @@
 {% assign meta_title = page.title | default: site.title %}
-{% assign meta_description = page.description | default: page.excerpt | default: site.description %}
+{% assign meta_description = page.description | default: page.excerpt | default: site.description | strip_html | normalize_whitespace | strip | escape %}
 {%- comment -%}
 1. page.blog_image (blogs) 
 2. page.cover_image (events)
@@ -18,17 +18,17 @@ _events/*.html -> cover_image:image_path does not include the full path
 {% endif %}
 {% assign meta_url = page.url | absolute_url %}
 
-<meta name="description" content="{{ meta_description | strip_newlines | strip}}">
+<meta name="description" content="{{ meta_description }}">
 
 <meta property="og:url" content="{{ meta_url }}">
 <meta property="og:type" content="website">
-<meta property="og:title" content="{{ meta_title}}">
-<meta property="og:description" content="{{ meta_description | strip_newlines | strip}}">
+<meta property="og:title" content="{{ meta_title | escape }}">
+<meta property="og:description" content="{{ meta_description }}">
 <meta property="og:image" content="{{ meta_image | absolute_url }}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta property="twitter:domain" content="startupoulu.com">
 <meta property="twitter:url" content="{{ meta_url }}">
-<meta name="twitter:title" content="{{ meta_title }}">
-<meta name="twitter:description" content="{{ meta_description | strip_newlines | strip }}">
+<meta name="twitter:title" content="{{ meta_title | escape }}">
+<meta name="twitter:description" content="{{ meta_description }}">
 <meta name="twitter:image" content="{{ meta_image | absolute_url }}">

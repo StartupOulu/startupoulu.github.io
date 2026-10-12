@@ -12,11 +12,11 @@
   {% endfor %}
   
   {% if file_exists %}
-    <img data-info="bla" src="{{ image_path }}" alt="{{ include.title }}" class="event-image">
+    <img data-info="bla" src="{{ image_path }}" alt="{{ include.title | escape }}" class="event-image">
   {% else %}
-    <img data-info="no exist"src="{{ default_image }}" alt="{{ include.title }}" class="event-image">
+    <img data-info="no exist"src="{{ default_image }}" alt="{{ include.title | escape }}" class="event-image">
   {% endif %}
 {% else %}
-  <img src="{{ default_image }}" alt="{{ include.title }}" class="event-image">
+  <img src="{{ default_image }}" alt="{{ include.title | escape }}" class="event-image">
 {% endif %}
 
